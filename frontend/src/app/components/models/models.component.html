@@ -1,0 +1,19 @@
+<div id="models">
+  <div id="models_header">
+    <span id="models_title">Models</span>
+  </div>
+  <div id="models_content">
+    <div class="model" *ngFor="let model of models">
+      <div class="model-title">
+        {{ model.name == 'rgb' ? 'RGB | HEX' : model.name | uppercase }} Model
+      </div>
+      <div class="model-content">
+        <div class="model-text">
+          <span>{{ model.text }}</span>
+        </div>
+        <div class="model-space"></div>
+        <app-image src="assets/{{ model.name }}_model.png" alt="{{ model.name }} model" [style]="{width: '20vw'}" widthSmall="80vw"></app-image>
+      </div>
+    </div>
+  </div>
+<div>

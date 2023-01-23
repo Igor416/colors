@@ -1,0 +1,224 @@
+#decades {
+  margin: 2.5vh 2.5vw;
+  padding: 2.5vh 0 2.5vh 2.5vw;
+  min-height: 74vh;
+  background-color: whitesmoke;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#decades_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 85vw;
+  height: auto;
+  font-size: 28px;
+}
+
+#years_link {
+  font-size: 24px;
+}
+
+#years_link span {
+  transition: 0.5s;
+}
+
+#years_link span:hover {
+  cursor: pointer;
+  color: var(--bs-primary);
+}
+
+#decades_links {
+  width: 12vw;
+  background-color: whitesmoke;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid black;
+  font-size: 24px;
+  padding-bottom: 0.5vh;
+  transition: 0.5s;
+}
+
+.decades_link {
+  font-size: 20px;
+  background-color: whitesmoke;
+  color: black;
+}
+
+#decades_content {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  width: 85vw;
+  margin-top: 5vh;
+  font-size: 24px;
+}
+
+#decade_content {
+  display: flex;
+  flex-direction: column;
+  justify-self: flex-start;
+  text-align: left;
+  justify-content: space-between;
+  width: 50vw;
+}
+
+#decade_content span {
+  white-space: pre-line;
+}
+
+#decade_colors {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50vw;
+}
+
+#decade_color_container {
+  display: flex;
+  align-self: flex-end;
+  flex-direction: row;
+  text-align: center;
+  width: 50vw;
+  transition: 0.7s;
+}
+
+.colors-showen {
+  height: 50vh;
+}
+
+.colors-hidden {
+  height: 0vh;
+}
+
+#arrow {
+  border: solid var(--bs-primary);
+  border-width: 0 0.5vw 0.5vw 0;
+  display: inline-block;
+  padding: 0.5vw;
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+  transition: 0.7s;
+}
+
+#arrow:hover {
+  border: solid #0a58ca;
+  border-width: 0 0.5vw 0.5vw 0;
+  cursor: pointer;
+}
+
+.color {
+  width: calc(50vw / 6);
+  height: inherit;
+}
+
+.color-value {
+  position: absolute;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 5vh 0;
+  text-align: center;
+  width: inherit;
+  height: inherit;
+  font-size: 20px;
+}
+
+.color-value span {
+  transition: 0.5s;
+}
+
+.text-showen {
+  opacity: 1;
+}
+
+.text-hidden {
+  opacity: 0;
+}
+
+.color-shade {
+  z-index: 1;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.1);
+  width: inherit;
+  transition: 0.7s;
+}
+
+.shade-showen {
+  height: 0vh;
+}
+
+.shade-hidden {
+  height: 50vh;
+}
+
+@media screen and (max-width: 600px) {
+  #decades {
+    margin: 0;
+  }
+
+  #decades_header {
+    flex-direction: column;
+    width: 90vw;
+    font-size: 24px;
+  }
+
+  #decades_title {
+    width: 90vw;
+  }
+
+  #years_link {
+    margin: 2vh 0;
+    font-size: 22px;
+  }
+
+  #years_link span {
+    color: var(--bs-primary);
+    font-size: 22px;
+  }
+
+  #decades_links {
+    width: 90vw;
+    font-size: 20px;
+    padding-bottom: 0.5vh;
+  }
+
+  #decades_content {
+    flex-direction: column;
+    align-items: center;
+    width: 90vw;
+    margin-top: 3vh;
+    font-size: 20px;
+  }
+
+  #decade_content {
+    text-align: justify;
+    width: 90vw;
+  }
+
+  #decade_description a {
+    color: var(--bs-primary);
+    text-decoration: none;
+  }
+
+  #decade_colors {
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 90vw;
+    margin: 5vh 0;
+    gap: 2.5vh;
+  }
+
+  .color {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    word-wrap: break-word;
+    width: 40vw;
+    height: 40vw;
+    padding: 5vw;
+    border-radius: 5%;
+  }
+}

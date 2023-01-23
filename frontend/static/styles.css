@@ -1,0 +1,128 @@
+body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  background: linear-gradient(-45deg, #ff91bb, #ff8fd4, #68bbb8, #68b3bb);
+  background-size: 400% 400%;
+  -webkit-animation: gradient 20s ease infinite;
+          animation: gradient 20s ease infinite;
+}
+
+@-webkit-keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.bg {
+  -webkit-animation: slide 8s ease-in-out infinite alternate;
+          animation: slide 8s ease-in-out infinite alternate;
+  background-image: linear-gradient(-60deg, #e616e9 33%, #e96316 33%, #e96316 66%, #16e9e6 66%);
+  bottom: 0;
+  left: -50%;
+  opacity: 0.2;
+  position: fixed;
+  right: -50%;
+  top: 0;
+  z-index: -1;
+}
+
+.bg1 {
+  animation-direction: alternate-reverse;
+  -webkit-animation-duration: 9s;
+          animation-duration: 9s;
+}
+
+.bg2 {
+  -webkit-animation-duration: 10s;
+          animation-duration: 10s;
+}
+
+.bg3 {
+  animation-direction:alternate-reverse;
+  -webkit-animation-duration: 11s;
+          animation-duration: 11s;
+}
+
+@-webkit-keyframes slide {
+  0% { transform:translateX(-25%); }
+  100% { transform:translateX(25%); }
+}
+
+@keyframes slide {
+  0% { transform:translateX(-25%); }
+  100% { transform:translateX(25%); }
+}
+
+.bg-circle {
+  z-index: -1;
+  position: absolute;
+  border-radius: 50%;
+  width: 10vw;
+  height: 10vw;
+  border-radius: 50%;
+  position: absolute;
+  -webkit-animation: ripple 5s infinite;
+          animation: ripple 5s infinite;
+}
+
+.bg-circle1 {
+  background-color: #ff41f1;
+  width: 13vw;
+  height: 13vw;
+  left: 2%;
+  bottom: 13%;
+  -webkit-animation-duration: 5s;
+          animation-duration: 5s;
+}
+
+.bg-circle2 {
+  background-color: #40efff;
+  width: 17vw;
+  height: 17vw;
+  right: 32%;
+  bottom: 10%;
+  -webkit-animation-duration: 4s;
+          animation-duration: 4s;
+}
+
+.bg-circle3 {
+  background-color: #ecff41;
+  width: 23vw;
+  height: 23vw;
+  right: 12%;
+  top: 7%;
+  -webkit-animation-duration: 3s;
+          animation-duration: 3s;
+}
+
+.bg-circle4 {
+  background-color: #b758ff;
+  width: 30vw;
+  height: 30vw;
+  left: 22%;
+  top: 13%;
+  -webkit-animation-duration: 3.5s;
+          animation-duration: 3.5s;
+}
+
+@-webkit-keyframes ripple {
+  0% { opacity: 0; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.5); }
+}
+
+@keyframes ripple {
+  0% { opacity: 0; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.5); }
+}
+
+
+/*# sourceMappingURL=styles.css.map*/

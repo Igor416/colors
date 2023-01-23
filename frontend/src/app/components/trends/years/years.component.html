@@ -1,0 +1,45 @@
+<div id="years">
+  <div id="years_header">
+    <span id="years_title">Trends through the years</span>
+    <span id="decades_link">
+      See also: <span routerLink="/trends/decades/2010">Trends through decades</span>
+    </span>
+  </div>
+  <div id="years_body">
+    <div id="years_content">
+      <span>
+      Since 2000, Pantone’s color experts at the Pantone Color Institute comb the world looking for new color influences. The selection process requires thoughtful consideration and trend analysis. including the entertainment industry and films in production, traveling art collections and new artists, fashion, all areas of design, popular travel destinations, as well as new lifestyles, playstyles, and socio-economic conditions. Influences may also stem from new technologies, materials, textures, and effects that impact color, relevant social media platforms and even upcoming sporting events that capture worldwide attention.
+      </span>
+      <div id="years_colors">
+        <div class="color-container" *ngFor="let year_color of colors">
+          <div
+            class="color"
+            (mouseover)="choosed_color = year_color"
+            [ngStyle]="{ 'background-color': year_color.color.hex.toString() }">
+            <div
+              class="color-info"
+              *ngIf="isMobile"
+              [ngStyle]="{ 'color': year_color.color.getShade() }">
+              <span>{{ year_color.name }}</span><br>
+              <span>{{ year_color.year }}</span><br>
+              <span>Code: {{ year_color.pantone }}</span>
+            </div>
+            <div
+              class="color-info"
+              *ngIf="!isMobile"
+              [ngStyle]="{ 'color': year_color.color.getShade() }">
+              <span>{{ year_color.name }}</span><br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="choosed_color" *ngIf="!isMobile">
+      <span>Name: {{ choosed_color.name }}</span>
+      <span>Hex: {{ choosed_color.color.hex.toString() }}</span>
+      <span>HSL: hsl({{ choosed_color.color.hsl.toString() }})</span>
+      <span>Pantone: <i>{{ choosed_color.pantone }}</i></span>
+      <span>Year: {{ choosed_color.year }}</span>
+    </div>
+  </div>
+</div>
