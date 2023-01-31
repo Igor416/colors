@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Color } from '../../Color';
-import { Model, RGB } from '../../Model';
+import { Model } from '../../Model';
 import { PrimitiveType } from '../../PrimitiveType';
 import { ColorsService } from '../../services/colors/colors.service';
 
@@ -18,7 +18,7 @@ export class PickerComponent implements OnInit {
 
   ngOnInit(): void {
     this.picked_color = this.colors.loadColor('picked_color');
-    this.picked_model = this.picked_color.hsl;
+    this.picked_model = this.picked_color.rgb;
     this.models = this.picked_color.models.filter(el => el.name !== 'hex');
   }
 
