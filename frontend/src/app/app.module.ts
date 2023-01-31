@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { CookieModule } from 'ngx-cookie';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { RestoreComponent } from './components/auth/restore/restore.component';
 import { ImageComponent } from './components/image/image.component';
+import { RememberMeComponent } from './components/auth/remember-me/remember-me.component';
+import { FieldComponent } from './components/auth/field/field.component';
 
 @NgModule({
   declarations: [
@@ -35,12 +38,15 @@ import { ImageComponent } from './components/image/image.component';
     MenuComponent,
     RestoreComponent,
     ImageComponent,
+    RememberMeComponent,
+    FieldComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CookieModule.withOptions()
   ],
   providers: [],
   bootstrap: [AppComponent]

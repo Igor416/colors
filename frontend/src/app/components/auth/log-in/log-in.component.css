@@ -1,9 +1,4 @@
 #log_in {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
   margin: 2.5vh 25vw;
   padding: 5vh 5vw;
   min-height: 74vh;
@@ -17,37 +12,14 @@
 }
 
 #inputs {
-  display: flex;
-  flex-direction: column;
   gap: 2.5vh;
   margin-bottom: 10vh;
 }
 
 #inputs div {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
   gap: 0.5vh;
   font-size: 20px;
   width: 15vw;
-}
-
-.valid::after {
-  position: absolute;
-  content: "\2713";
-  margin-left: calc(15vw - 24px);
-  position: absolute;
-  font-size: 24px;
-  color: var(--bs-green);
-}
-
-.invalid::after {
-  position: absolute;
-  content: "\2715";
-  margin-left: calc(15vw - 24px);
-  position: absolute;
-  font-size: 24px;
-  color: var(--bs-red);
 }
 
 label {
@@ -62,22 +34,6 @@ label {
 
 .redirect:hover {
   cursor: pointer;
-}
-
-#remember_me {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row !important;
-  width: 15vw !important;
-}
-
-#remember_me input {
-  transform: scale(1.5);
-}
-
-#remember_me label {
-  color: black;
 }
 
 #submit {
@@ -111,26 +67,9 @@ label {
     width: 80vw;
   }
 
-  .valid::after {
+  .valid::after, .invalid::after {
     margin-left: calc(80vw - 24px);
     font-size: 20px;
-  }
-
-  .invalid::after {
-    margin-left: calc(80vw - 24px);
-    font-size: 20px;
-  }
-
-  #remember_me {
-    width: 80vw !important;
-  }
-
-  #remember_me input {
-    transform: scale(1.5);
-  }
-
-  #remember_me label {
-    color: black;
   }
 
   #submit {

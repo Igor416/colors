@@ -30,24 +30,6 @@
   width: 15vw;
 }
 
-.valid::after {
-  position: absolute;
-  content: "\2713";
-  margin-left: calc(15vw - 24px);
-  position: absolute;
-  font-size: 24px;
-  color: var(--bs-green);
-}
-
-.invalid::after {
-  position: absolute;
-  content: "\2715";
-  margin-left: calc(15vw - 24px);
-  position: absolute;
-  font-size: 24px;
-  color: var(--bs-red);
-}
-
 label {
   color: var(--bs-danger);
   font-size: 18px;
@@ -60,22 +42,6 @@ label {
 
 .redirect:hover {
   cursor: pointer;
-}
-
-#remember_me {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row !important;
-  width: 15vw !important;
-}
-
-#remember_me input {
-  transform: scale(1.5);
-}
-
-#remember_me label {
-  color: black;
 }
 
 #submit {
@@ -107,28 +73,6 @@ label {
   #inputs div {
     font-size: 20px;
     width: 80vw;
-  }
-
-  .valid::after {
-    margin-left: calc(80vw - 24px);
-    font-size: 20px;
-  }
-
-  .invalid::after {
-    margin-left: calc(80vw - 24px);
-    font-size: 20px;
-  }
-
-  #remember_me {
-    width: 80vw !important;
-  }
-
-  #remember_me input {
-    transform: scale(1.5);
-  }
-
-  #remember_me label {
-    color: black;
   }
 
   #submit {

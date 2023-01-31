@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Field, AuthService } from '../../../services/auth/auth.service';
+import { AuthService } from '../../../services/auth/auth.service';
+import { Field } from '../Field';
 
 @Component({
   selector: 'app-restore',
@@ -8,23 +9,26 @@ import { Field, AuthService } from '../../../services/auth/auth.service';
   styleUrls: ['./restore.component.css']
 })
 export class RestoreComponent implements OnInit {
-  step: number;
-  email: Field;
-  code: Field;
-  password: Field;
-  password2: Field;
-  remember_me: boolean;
+  step: number = 1;
+  email: string | undefined = undefined;
+  code: string | undefined = undefined;
+  password: string | undefined = undefined;
+  password2: string | undefined = undefined;
+  remember_me: boolean = true;
 
-  constructor(private auth: AuthService) {
-    this.step = 1;
+  constructor(private auth: AuthService) { }
 
-    this.email = new Field(undefined); //user hasn't introduced anything yet, so it's undefined
-    this.code = new Field(undefined);
-    this.password = new Field(undefined, true);
-    this.password2 = new Field(this.password.value, true, this.password); //value, isPassword, original (to compare with)
-    this.password.original = this.password2; //(to compare with)
+  check() {
+    this.remember_me = !this.remember_me;
+  }
 
-    this.remember_me = true;
+  setField(el: Field): void {
+    switch (el.field) {
+      case 'email': this.email = el.value; break;
+      case 'code': this.code = el.value; break;
+      case 'password': this.password = el.value; break;
+      case 'password2': this.password2 = el.value; break;
+    }
   }
 
   ngOnInit(): void {
@@ -47,10 +51,10 @@ export class RestoreComponent implements OnInit {
   sendForm() {
     if (this.step == 1) {
       let data = {
-        'email': this.email.value
+        'email': this.email
       };
 
-      if (this.email.isValid()) {
+      if (this.email) {
         this.auth.restore(data).subscribe((resp: any) => {
           this.step = Number(resp.step);
         },
@@ -61,10 +65,10 @@ export class RestoreComponent implements OnInit {
     }
     if (this.step == 2) {
       let data = {
-        'code': this.code.value
+        'code': this.code
       };
 
-      if (this.code.isValid()) {
+      if (this.code) {
         this.auth.restore(data).subscribe((resp: any) => {
           this.step = Number(resp.step);
         },
@@ -75,14 +79,14 @@ export class RestoreComponent implements OnInit {
     }
     if (this.step == 3) {
       let data = {
-        'password': this.password.value,
+        'password': this.password,
         'remember_me': this.remember_me
       };
 
-      if (this.password.isValid() && this.password2.isValid()) {
+      if (this.password && this.password2) {
         this.auth.restore(data).subscribe((resp: any) => {
           this.auth.setAuth(true, this.remember_me);
-          window.location.href = (`https://colorsapiwebsite.pythonanywhere.com/profile`);
+          window.location.href = (`/profile`);
         },
         err => {
           this.auth.displayErrors(err.error);

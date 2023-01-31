@@ -1,0 +1,4 @@
+<div id="remember_me" class="d-flex justify-content-between align-items-center text-start">
+  <label for="remember_me">{{ value ? 'Remember me for 3 days' : 'Expire in 1 hour' }}</label>
+  <input type="checkbox" name="remember_me" [(ngModel)]="value" (click)="check()">
+</div>

@@ -1,44 +1,44 @@
-<form id="restore" (submit)="sendForm()">
-  <div class="fields" id="email" *ngIf="step == 1">
+<form id="restore" class="d-flex flex-column justify-content-between align-items-center text-center" (submit)="sendForm()">
+  <div class="d-flex flex-column justify-content-center align-items-center" id="email" *ngIf="step == 1">
     <span id="title">Email</span><br>
     <span id="text">Type in a valid email adress, so we can send you varification code to continue. Consider introducing a valid email adress, which you can access.</span>
-    <div class="field">
-      <label for="email">{{ email.getError() }}</label>
-      <div class="input {{ email.error == '' ? 'valid' : 'invalid' }}">
-        <input type="email" name="email" placeholder="Your email" class="form-control" autocomplete="username" [(ngModel)]="email.value">
-      </div>
-    </div>
+    <app-field
+      name="email"
+      placeholder="Your email"
+      autocomplete="username"
+      [value]="email"
+      (onChanged)="setField($event)">
+    </app-field>
   </div>
-  <div class="fields" id="code" *ngIf="step == 2">
+  <div class="d-flex flex-column justify-content-center align-items-center" id="code" *ngIf="step == 2">
     <span id="title">Code</span><br>
-    <span id="text">Type in the code, that you have received in your email address, so we can verify that nobody is trying to hack your account. Hint: the code is 6 digit</span>
-    <div class="field">
-      <label for="password">{{ code.getError() }}</label>
-      <div class="input">
-        <input type="text" name="code" placeholder="Code" class="form-control" [(ngModel)]="code.value">
-        <input id="resend" (click)="resendCode()" value="Resend Code" class="form-control">
-      </div>
-    </div>
+    <span id="text">Type in the code, that you have received in your email address, so we can verify that nobody is trying to hack your account</span>
+    <app-field
+      name="code"
+      placeholder="######"
+      [value]="code"
+      (onChanged)="setField($event)">
+    </app-field>
+    <input id="resend" (click)="resendCode()" value="Resend Code" class="form-control">
   </div>
-  <div class="fields" id="password" *ngIf="step == 3">
+  <div class="d-flex flex-column justify-content-center align-items-center" id="password" *ngIf="step == 3">
     <span id="title">New Password</span><br>
-    <span id="text">Type in the code, that you have received in your email address, so we can verify that nobody is trying to hack your account. Hint: the code is 6 digit</span>
-    <div class="field">
-      <label for="password">{{ password.getError() }}</label>
-      <div class="input {{ password.error == '' ? 'valid' : 'invalid' }}">
-        <input type="password" name="password" placeholder="Your password" class="form-control" autocomplete="new-password" [(ngModel)]="password.value">
-      </div>
-    </div>
-    <div class="field" id="password">
-      <label for="password2">{{ password2.getError() }}</label>
-      <div class="input {{ password2.error == '' ? 'valid' : 'invalid' }}">
-        <input type="password" name="password2" placeholder="New password" class="form-control" autocomplete="new-password" [(ngModel)]="password2.value">
-      </div>
-    </div>
-    <div class="field" id="remember_me">
-      <label for="remember_me">{{ remember_me ? 'Remember me for 3 days' : 'Expire in 1 hour' }}</label>
-      <input type="checkbox" name="remember_me" [(ngModel)]="remember_me">
-    </div>
+    <span id="text">Make up a new password for your profile</span>
+    <app-field
+      name="password"
+      placeholder="Make up a password"
+      autocomplete="new-password"
+      [value]="password"
+      (onChanged)="setField($event)">
+    </app-field>
+    <app-field
+      name="password2"
+      placeholder="Type in your password"
+      autocomplete="new-password"
+      [value]="password2"
+      (onChanged)="setField($event)">
+    </app-field>
+    <app-remember-me [value]="remember_me" (onValueChanged)="check()"></app-remember-me>
   </div>
   <input id="submit" type="submit" value="Submit" class="form-control">
 </form>

@@ -1,0 +1,17 @@
+#remember_me {
+  width: 15vw !important;
+}
+
+#remember_me input {
+  transform: scale(1.5);
+}
+
+#remember_me label {
+  color: black;
+}
+
+@media screen and (max-width: 600px) {
+  #remember_me {
+    width: 80vw !important;
+  }
+}

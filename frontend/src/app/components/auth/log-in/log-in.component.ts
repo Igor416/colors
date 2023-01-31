@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Field, AuthService } from '../../../services/auth/auth.service';
+import { AuthService } from '../../../services/auth/auth.service';
+import { Field } from '../Field';
 
 @Component({
   selector: 'app-log-in',
@@ -8,34 +9,43 @@ import { Field, AuthService } from '../../../services/auth/auth.service';
   styleUrls: ['./log-in.component.css']
 })
 export class LogInComponent implements OnInit {
-  email: Field;
-  password: Field;
-  remember_me: boolean;
+  email: string | undefined = undefined;
+  password: string | undefined = undefined;
+  remember_me: boolean = true;
 
   constructor(private auth: AuthService) {
     if (this.auth.isAuth()) {
       window.history.back()
     }
-    this.email = new Field(undefined); //user hasn't introduced anything yet, so it's undefined
-    this.password = new Field(undefined, true);
-    this.remember_me = true; //by default
+  }
+
+  check() {
+    this.remember_me = !this.remember_me;
+  }
+
+  setField(el: Field): void {
+    switch (el.field) {
+      case 'email': this.email = el.value; break;
+      case 'password': this.password = el.value; break;
+    }
   }
 
   ngOnInit(): void { }
 
   sendForm() {
     let data = {
-      'email': this.email.value,
-      'password': this.password.value,
+      'email': this.email,
+      'password': this.password,
       'remember_me': this.remember_me
     };
-
-    if (this.email.isValid() && this.password.isValid()) {
+    
+    if (this.email && this.password) {
       this.auth.login(data).subscribe((resp: any) => {
         this.auth.setAuth(true, this.remember_me);
-        window.location.href = (`https://colorsapiwebsite.pythonanywhere.com/profile`);
+        window.location.href = (`/profile`);
       },
       err => {
+        console.log(err.error)
         this.auth.displayErrors(err.error);
       });
     }
