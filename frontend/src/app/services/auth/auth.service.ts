@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-import { CookiesService } from '../cookies/cookies.service'
+import { CookieService, CookieOptions } from 'ngx-cookie';
 
 @Injectable({
   providedIn: 'root'
@@ -11,17 +10,22 @@ export class AuthService {
   api = ''
   headers = {
     withCredentials: true,
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
+    headers: new HttpHeaders()
   }
 
-  constructor(private http: HttpClient, private cookies: CookiesService) {
+  constructor(private http: HttpClient, private cookies: CookieService) {
     this.api += '/colors_api/';
+    this.headers.headers = new HttpHeaders({
+      'X-CSRFToken': this.cookies.get('csrftoken') as string,
+      'Content-Type': 'application/json'
+    })
+    console.log(this.headers.headers)
   }
 
   setAuth(value: boolean, remember_me?: boolean): void {
-    this.cookies.set('auth', value.toString(), remember_me ? 3 : 1 / 24)
+    const expires = new Date()
+    remember_me ? expires.setDate(expires.getDate() + 3) : expires.setHours(expires.getHours() + 1)
+    this.cookies.put('auth', value.toString(), {'expires': expires})
   }
 
   isAuth(): boolean {
@@ -72,54 +76,5 @@ export class AuthService {
     var index = (x: string) => input.indexOf(x);
     var translate = (x: string) => index(x) > -1 ? output[index(x)] : x;
     return str.split('').map(translate).join('');
-  }
-}
-
-export class Field {
-  value: string | undefined;
-  password: boolean;
-  error: string;
-  original!: Field | undefined;
-
-  constructor(value: string | undefined = undefined, password = false, original?: Field) {
-    this.value = value;
-    this.password = password;
-    this.error = '';
-    this.original = original;
-  }
-
-  validate(): void {
-    const passwordMinLen = 6;
-
-    if (this.value != undefined) {
-      if (this.value == '') {
-        this.error = 'Empty field.';
-        return;
-      }
-      if (this.value.includes(' ')) {
-        this.error = `Invalid symbol occured (space).`;
-        return;
-      }
-      if (this.password && this.value.length < passwordMinLen) {
-        this.error = `Min. length is ${passwordMinLen}.`;
-        return;
-      }
-      if (this.original != undefined) {
-        if (this.value != this.original.value) {
-          this.error = `Passwords don't match.`;
-          return;
-        }
-      }
-    }
-    this.error = '';
-  }
-
-  isValid(): boolean {
-    return this.value != undefined && this.error == '';
-  }
-
-  getError(): string {
-    this.validate();
-    return this.error
   }
 }

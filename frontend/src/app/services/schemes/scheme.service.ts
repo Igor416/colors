@@ -3,14 +3,14 @@ import { Scheme, Monochromatic, Complementary, Analogous, Compound, Triadic, Rec
 import { Cursor } from '../../Cursor';
 import { Color } from '../../Color';
 import { Sign } from 'src/app/Equation';
-import { CookiesService } from '../cookies/cookies.service';
+import { CookieService } from 'ngx-cookie';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SchemeService {
 
-  constructor(private cookies: CookiesService) { }
+  constructor(private cookies: CookieService) { }
 
   get(name: string, x: number, y: number, size: number): Scheme | null {
     let scheme = null;
@@ -72,11 +72,11 @@ export class SchemeService {
   }
 
   loadCoords(key: string): number[] {
-    let coords = this.cookies.get(key);
+    let coords = this.cookies.get(key) as string;
     return coords.split(',').map(c => Number(c));
   }
 
-  saveCoords(key: string, cursor: Cursor, days?: number): void {
+  saveCoords(key: string, cursor: Cursor): void {
     let x, y;
 
     /*
@@ -94,7 +94,7 @@ export class SchemeService {
     } else {
       y = cursor.canvasSize / 2 - cursor.y;
     }
-    this.cookies.set(key, x + ',' + y, days);
+    this.cookies.put(key, x + ',' + y);
   }
 }
 

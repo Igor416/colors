@@ -42,7 +42,7 @@ export class SchemesComponent implements OnInit {
     }
 
     if (scheme == null) {
-      window.location.replace('https://colorsapiwebsite.pythonanywhere.com/');
+      window.location.replace('/');
     } else {
       this.scheme = scheme;
       this.picked_scheme = scheme.name;

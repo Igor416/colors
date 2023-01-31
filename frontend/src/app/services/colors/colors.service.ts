@@ -2,32 +2,32 @@ import { Injectable } from '@angular/core';
 import { Color } from '../../Color';
 import { Equation } from '../../Equation';
 import { Sign } from '../../Equation';
-import { CookiesService } from '../cookies/cookies.service';
+import { CookieService } from 'ngx-cookie';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ColorsService {
 
-  constructor(private cookies: CookiesService) { }
+  constructor(private cookies: CookieService) { }
 
   loadColor(key: string): Color {
-    let color = this.cookies.get(key);
+    let color = this.cookies.get(key) as string;
     if (color != '' && !color.includes("NaN")) {
       return Color.toColor(color);
     }
     return Color.toColor('#ffffff');
   }
 
-  saveColor(key: string, color: Color, days?: number): void {
-    this.cookies.set(key, color.hex.toString(), days);
+  saveColor(key: string, color: Color): void {
+    this.cookies.put(key, color.hex.toString());
   }
 
   loadEquation(key: string): Equation {
     return new Equation(this.cookies.get(key));
   }
 
-  saveEquation(key: string, equation: Equation, days?: number): void {
+  saveEquation(key: string, equation: Equation): void {
     /*
     E.g. hexs = ['#ff0080', '#507090', '#000000']
          signs = ['+', '&']
@@ -44,6 +44,6 @@ export class ColorsService {
     }
     row += '=';
     row += equation.result;
-    this.cookies.set(key, row, days);
+    this.cookies.put(key, row);
   }
 }
