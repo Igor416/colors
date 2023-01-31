@@ -62,13 +62,12 @@ export abstract class Model {
 }
 
 export class RGB extends Model {
-  name: string = 'rgb';
-  fullName: string = 'Red Green Blue';
-  fields: Field[] = [];
+  override name: string = 'rgb';
+  override fullName: string = 'Red Green Blue';
 
-  a: Integer;
-  b: Integer;
-  c: Integer;
+  override a: Integer;
+  override b: Integer;
+  override c: Integer;
 
   constructor(red: number, green: number, blue: number) {
     super();
@@ -271,13 +270,12 @@ export class RGB extends Model {
 }
 
 export class HEX extends Model {
-  name: string = 'hex';
-  fullName: string = 'Hexademical';
-  fields: Field[] = [];
+  override name: string = 'hex';
+  override fullName: string = 'Hexademical';
 
-  a: String;
-  b: String;
-  c: String;
+  override a: String;
+  override b: String;
+  override c: String;
 
   constructor(red: string, green: string, blue: string) {
     super();
@@ -387,13 +385,12 @@ export class HEX extends Model {
 }
 
 export class HSL extends Model {
-  name: string = 'hsl';
-  fullName: string = 'Hue Saturation Lightness';
-  fields: Field[] = [];
+  override name: string = 'hsl';
+  override fullName: string = 'Hue Saturation Lightness';
 
-  a: Integer;
-  b: Integer;
-  c: Integer;
+  override a: Integer;
+  override b: Integer;
+  override c: Integer;
 
   constructor(hue: number, saturation: number, lightness: number) {
     super();
@@ -492,13 +489,12 @@ export class HSL extends Model {
 }
 
 export class HWB extends Model {
-  name: string = 'hwb';
-  fullName: string = 'Hue Whiteness Blackness';
-  fields: Field[] = [];
+  override name: string = 'hwb';
+  override fullName: string = 'Hue Whiteness Blackness';
 
-  a: Integer;
-  b: Integer;
-  c: Integer;
+  override a: Integer;
+  override b: Integer;
+  override c: Integer;
 
   constructor(hue: number, whiteness: number, blackness: number) {
     super();
@@ -641,14 +637,13 @@ export class HWB extends Model {
 }
 
 export class CMYK extends Model {
-  name: string = 'cmyk';
-  fullName: string = 'Cyan Magenta Yellow blacK';
-  fields: Field[] = [];
+  override name: string = 'cmyk';
+  override fullName: string = 'Cyan Magenta Yellow blacK';
 
-  a: Integer;
-  b: Integer;
-  c: Integer;
-  d: Integer;
+  override a: Integer;
+  override b: Integer;
+  override c: Integer;
+  override d: Integer;
 
   constructor(cyan: number, magenta: number, yellow: number, black: number) {
     super();

@@ -11,9 +11,7 @@ export abstract class PrimitiveType {
 }
 
 export class Integer extends PrimitiveType {
-  max: number;
-  min: number;
-  value: number;
+  override value: number;
 
   constructor(value: number, max: number, min = 0) {
     super()
@@ -77,9 +75,7 @@ export class Integer extends PrimitiveType {
 }
 
 export class String extends PrimitiveType {
-  max: number;
-  min: number;
-  value: string;
+  override value: string;
 
   constructor(value: string, max = 255, min = 0) {
     super()

@@ -26,10 +26,7 @@ export abstract class Scheme {
 }
 
 export class Monochromatic extends Scheme {
-  name: string = 'monochromatic';
-  cursors: Cursor[] = [];
-  description!: string;
-  lastActive: number = 0;
+  override name: string = 'monochromatic';
 
   constructor(x: number, y: number, size: number) {
     super();
@@ -40,10 +37,7 @@ export class Monochromatic extends Scheme {
 }
 
 export class Complementary extends Scheme {
-  name: string = 'complementary';
-  cursors: Cursor[] = [];
-  description!: string;
-  lastActive: number = 0;
+  override name: string = 'complementary';
 
   constructor(x: number, y: number, size: number) {
     super();
@@ -57,10 +51,10 @@ export class Complementary extends Scheme {
 }
 
 export class Analogous extends Scheme {
-  name: string = 'analogous';
-  cursors: Cursor[] = [];
-  description!: string;
-  lastActive: number = 0;
+  override name: string = 'analogous';
+  override cursors: Cursor[] = [];
+  override description!: string;
+  override lastActive: number = 0;
 
   constructor(x: number, y: number, size: number) {
     super();
@@ -100,10 +94,7 @@ export class Analogous extends Scheme {
 }
 
 export class Compound extends Scheme {
-  name: string = 'compound';
-  cursors: Cursor[] = [];
-  description!: string;
-  lastActive: number = 0;
+  override name: string = 'compound';
 
   constructor(x: number, y: number, size: number) {
     super();
@@ -144,10 +135,7 @@ export class Compound extends Scheme {
 }
 
 export class Triadic extends Scheme {
-  name: string = 'triadic';
-  cursors: Cursor[] = [];
-  description!: string;
-  lastActive: number = 0;
+  override name: string = 'triadic';
 
   constructor(x: number, y: number, size: number) {
     super();
@@ -180,10 +168,7 @@ export class Triadic extends Scheme {
 }
 
 export class Rectangle extends Scheme {
-  name: string = 'rectangle';
-  cursors: Cursor[] = [];
-  description!: string;
-  lastActive: number = 0;
+  override name: string = 'rectangle';
 
   constructor(x: number, y: number, size: number) {
     super();
@@ -223,10 +208,7 @@ export class Rectangle extends Scheme {
 }
 
 export class Square extends Scheme {
-  name: string = 'square'
-  cursors: Cursor[] = [];
-  description!: string;
-  lastActive: number = 0;
+  override name: string = 'square'
 
   constructor(x: number, y: number, size: number) {
     super();
