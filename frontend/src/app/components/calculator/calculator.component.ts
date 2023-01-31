@@ -13,11 +13,10 @@ export class CalculatorComponent implements OnInit {
   pickedSignId: number;
   minColors: number;
   maxColors: number;
+  isMobile: boolean;
 
   constructor(private colors: ColorsService) {
-    if (window.matchMedia("(max-width: 1080px)").matches) {
-      window.location.replace('https://colorsapiwebsite.pythonanywhere.com/');
-    }
+    this.isMobile = window.matchMedia("(max-width: 1080px)").matches;
     this.pickedSignId = 0
     this.minColors = 2;
     this.maxColors = 26;

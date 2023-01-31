@@ -25,17 +25,12 @@ export class MenuComponent implements OnInit {
     let names = ['picker', 'calculator', 'trends', 'schemes', 'models']
     let links = ['picker', 'calculator', 'trends/years', 'schemes/analogous', 'models']
 
-    for (let i = 0; i < names.length; i++) {
-      if (this.isMobile) {
-        if (names[i] == 'calculator') {
-          continue;
-        }
-      }
+    names.forEach((_, i: number) => {
       this.hrefs.push({
         name: names[i],
         link: links[i]
       })
-    }
+    });
 
   }
 
@@ -51,7 +46,7 @@ export class MenuComponent implements OnInit {
   exit(): void {
     this.auth.logout().subscribe((resp: any) => {
       this.auth.setAuth(false)
-      window.location.href = `https://colorsapiwebsite.pythonanywhere.com/`;
+      window.location.href = `/`;
     },
     err => {
       console.log(err)
