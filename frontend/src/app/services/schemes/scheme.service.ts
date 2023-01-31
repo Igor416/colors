@@ -3,7 +3,7 @@ import { Scheme, Monochromatic, Complementary, Analogous, Compound, Triadic, Rec
 import { Cursor } from '../../Cursor';
 import { Color } from '../../Color';
 import { Sign } from 'src/app/Equation';
-import { CookieService } from 'ngx-cookie';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -94,7 +94,7 @@ export class SchemeService {
     } else {
       y = cursor.canvasSize / 2 - cursor.y;
     }
-    this.cookies.put(key, x + ',' + y);
+    this.cookies.set(key, x + ',' + y);
   }
 }
 

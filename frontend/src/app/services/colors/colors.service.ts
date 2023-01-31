@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Color } from '../../Color';
 import { Equation } from '../../Equation';
 import { Sign } from '../../Equation';
-import { CookieService } from 'ngx-cookie';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class ColorsService {
   }
 
   saveColor(key: string, color: Color): void {
-    this.cookies.put(key, color.hex.toString());
+    this.cookies.set(key, color.hex.toString());
   }
 
   loadEquation(key: string): Equation {
@@ -44,6 +44,6 @@ export class ColorsService {
     }
     row += '=';
     row += equation.result;
-    this.cookies.put(key, row);
+    this.cookies.set(key, row);
   }
 }

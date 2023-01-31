@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { CookieModule } from 'ngx-cookie';
+import { CookieService } from 'ngx-cookie-service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -45,10 +45,9 @@ import { FieldComponent } from './components/auth/field/field.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule,
-    CookieModule.withOptions()
+    HttpClientModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

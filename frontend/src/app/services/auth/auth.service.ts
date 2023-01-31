@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CookieService, CookieOptions } from 'ngx-cookie';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,7 @@ export class AuthService {
   setAuth(value: boolean, remember_me?: boolean): void {
     const expires = new Date()
     remember_me ? expires.setDate(expires.getDate() + 3) : expires.setHours(expires.getHours() + 1)
-    this.cookies.put('auth', value.toString(), {'expires': expires})
+    this.cookies.set('auth', value.toString(), {'expires': expires})
   }
 
   isAuth(): boolean {
