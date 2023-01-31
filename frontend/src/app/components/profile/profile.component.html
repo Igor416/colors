@@ -15,8 +15,8 @@
       <div id="profile_data">
         <div *ngIf="editing; then Edit else Data"></div>
         <ng-template #Data>
-          <span>Welcome, {{ login.value }}</span>
-          <span>Your email: {{ email.value }}</span>
+          <span>Welcome, {{ name }}</span>
+          <span>Your email: {{ email }}</span>
           <div *ngIf="active[2]; then ColorEdit else None"></div>
           <ng-template #ColorEdit>
             <br>
@@ -29,18 +29,19 @@
           </ng-template>
         </ng-template>
         <ng-template #Edit>
-          <div id="login">
-            <label for="login">{{ login.getError() }}</label>
-            <div class="input {{ login.error == '' ? 'valid' : 'invalid' }}">
-              <input type="text" name="login" placeholder="Your login" class="form-control" [(ngModel)]="login.value">
-            </div>
-          </div>
-          <div id="email">
-            <label for="email">{{ email.getError() }}</label>
-            <div class="input {{ email.error == '' ? 'valid' : 'invalid' }}">
-              <input type="text" name="email" placeholder="Your login" class="form-control" [(ngModel)]="email.value">
-            </div>
-          </div>
+          <app-field
+            name="name"
+            placeholder="Your login"
+            value="name">
+          </app-field>
+          <app-field
+            name="email"
+            placeholder="Your email"
+            autocomplete="username"
+            value="email"
+            redirect="log_in"
+            redirectText="Already have an account?">
+          </app-field>
         </ng-template>
       </div>
     </div>

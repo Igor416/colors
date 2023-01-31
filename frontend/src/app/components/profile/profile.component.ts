@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Color } from '../../Color';
-import { HEX } from '../../Model';
-import { Field, AuthService } from '../../services/auth/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,10 +10,10 @@ import { Field, AuthService } from '../../services/auth/auth.service';
 })
 export class ProfileComponent implements OnInit {
   editing: boolean;
-  loginText!: string;
-  login!: Field;
-  emailText!: string;
-  email!: Field;
+  nameText: string;
+  name: string = 'name';
+  emailText: string;
+  email: string = 'email';
   categories: Array<{
     name: string;
     colors: Color[];
@@ -26,26 +25,24 @@ export class ProfileComponent implements OnInit {
     /*
     You will see lots of comments about active field,
     because i didn't want to make variables: 'edit mode' and 'isColor'
-    because the all are fields of class Active,
+    because they all are fields of class Active,
     though creating new class or type isn't necessary here :/
     */
     //deafulat values if the server returned an error
-    this.login = new Field('login');
-    this.loginText = 'login';
-    this.email = new Field('email');
+    this.nameText = 'name';
     this.emailText = 'email';
 
     if (!this.auth.isAuth()) {
-      window.location.href = (`https://colorsapiwebsite.pythonanywhere.com/`);
+      window.location.href = (`/`);
     }
     this.editing = false;
   }
 
   ngOnInit(): void {
     this.auth.get().subscribe((resp: any) => {
-      this.login = new Field(resp.name);
-      this.loginText = resp.name;
-      this.email = new Field(resp.email);
+      this.name = resp.name;
+      this.nameText = resp.name;
+      this.email = resp.email;
       this.emailText = resp.email;
 
       if (resp.colors.length == 0) {
@@ -61,25 +58,25 @@ export class ProfileComponent implements OnInit {
 
   discard(): void {
     if (this.editing) {
-      this.login.value = this.loginText;
-      this.email.value = this.emailText;
+      this.name = this.nameText;
+      this.email = this.emailText;
       this.editing = false;
     }
   }
 
   save(): void {
     if (this.editing) {
-      this.loginText = this.login.value as string;
-      this.emailText = this.email.value as string;
+      this.nameText = this.name as string;
+      this.emailText = this.email as string;
 
       let data = {
         'data': 'info',
-        'name': this.login.value,
-        'email': this.email.value
+        'name': this.name,
+        'email': this.email
       };
 
       this.auth.edit(data).subscribe((resp: any) => {
-        this.loginText = resp.name;
+        this.nameText = resp.name;
         this.emailText = resp.email;
       },
       err => {
@@ -89,7 +86,7 @@ export class ProfileComponent implements OnInit {
     this.editing = !this.editing;
   }
 
-  isActive(type: string, i: number, j?: number) {
+  isActive(type: string, i: number, j?: number): boolean {
     if (type == 'category') {
       return this.active[0] /*category id*/ == i && !this.active[3]; // isColor
     }
@@ -116,7 +113,7 @@ export class ProfileComponent implements OnInit {
       this.categories[this.active[0]].colors.splice(this.active[1], 1); //category id, colors id
     }
     this.current = '';
-    this.active = [-1, -1, false, true];
+    this.active = [-1, -1, false, true]; //category id, colors id, edit mode, isColor
 
     let data = {
       'data': 'colors',
@@ -157,21 +154,21 @@ export class ProfileComponent implements OnInit {
       this.categories.push(category);
 
       this.current = category.name;
-      this.active = [this.categories.length - 1, -1, true, false];
+      this.active = [this.categories.length - 1, -1, true, false]; //category id, colors id, edit mode, isColor
     }
   }
 
   addColor(): void {
-    let colors = this.categories[this.active[0]].colors;
+    let colors = this.categories[this.active[0]].colors; //category id
 
     if (colors.length < 11) {
       let color = Color.toColor('#000000');
       colors.push(color);
 
-      this.categories[this.active[0]].colors = colors;
+      this.categories[this.active[0]].colors = colors; //category id
 
       this.current = color.hex.toString();
-      this.active = [this.active[0], colors.length - 1, true, true];
+      this.active = [this.active[0], colors.length - 1, true, true]; //category id, colors id, edit mode, isColor
     }
   }
 

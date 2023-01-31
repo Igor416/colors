@@ -56,22 +56,6 @@
   flex-direction: column;
 }
 
-.valid::after {
-  position: absolute;
-  content: "\2713";
-  margin-left: calc(15vw - 24px);
-  font-size: 24px;
-  color: var(--bs-green);
-}
-
-.invalid::after {
-  position: absolute;
-  content: "\2715";
-  margin-left: calc(15vw - 24px);
-  font-size: 24px;
-  color: var(--bs-red);
-}
-
 label {
   color: var(--bs-danger);
   font-size: 18px;
@@ -194,14 +178,6 @@ input {
   #edit_buttons {
     margin-top: 3vh;
     width: 90vw;
-  }
-
-  .valid::after {
-    margin-left: calc(90vw - 24px);
-  }
-
-  .invalid::after {
-    margin-left: calc(90vw - 24px);
   }
 
   input {
