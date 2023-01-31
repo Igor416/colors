@@ -886,11 +886,7 @@ class Integer extends PrimitiveType {
         return new Integer(value, this.max);
     }
     eq(int) {
-        int = int;
-        if (this.value == int.value) {
-            return true;
-        }
-        return false;
+        return this.value == int.value;
     }
 }
 class String extends PrimitiveType {
@@ -923,10 +919,7 @@ class String extends PrimitiveType {
         }
     }
     eq(str) {
-        if (parseInt(this.value, 16) == parseInt(str.value, 16)) {
-            return true;
-        }
-        return false;
+        return parseInt(this.value, 16) == parseInt(str.value, 16);
     }
 }
 

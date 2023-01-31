@@ -66,11 +66,7 @@ export class Integer extends PrimitiveType {
   }
 
   eq(int: Integer): boolean {
-    int = int as Integer;
-    if (this.value == int.value) {
-      return true;
-    }
-    return false;
+    return this.value == (int as Integer).value;
   }
 }
 
@@ -104,9 +100,6 @@ export class String extends PrimitiveType {
   }
 
   eq(str: String): boolean {
-    if (parseInt(this.value, 16) == parseInt(str.value, 16)) {
-      return true;
-    }
-    return false;
+    return parseInt(this.value, 16) == parseInt(str.value, 16);
   }
 }
