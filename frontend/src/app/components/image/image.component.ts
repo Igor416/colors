@@ -20,7 +20,7 @@ export class ImageComponent implements OnInit {
   ngOnInit(): void {
     this.src = 'static/' + this.src;
     if (this.isMobile) {
-      this.style.width = this.widthSmall;
+      this.style['width'] = this.widthSmall;
     }
   }
 }
