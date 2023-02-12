@@ -44,7 +44,7 @@ class RegisterView(APIView):
             'iat': datetime.datetime.utcnow()
         }
 
-        token = jwt.encode(payload, 'secret', algorithm='HS256')
+        token = jwt.encode(payload, 'secret', algorithm='HS256').decode('utf-8')
 
         response = Response()
 
@@ -81,7 +81,7 @@ class LoginView(APIView):
             'iat': datetime.datetime.utcnow()
         }
 
-        token = jwt.encode(payload, 'secret', algorithm='HS256')
+        token = jwt.encode(payload, 'secret', algorithm='HS256').decode('utf-8')
 
         response = Response()
 
@@ -177,7 +177,7 @@ class RestoreView(APIView):
                 'iat': datetime.datetime.utcnow()
             }
 
-            token = jwt.encode(payload, 'secret', algorithm='HS256')
+            token = jwt.encode(payload, 'secret', algorithm='HS256').decode('utf-8')
 
             response = Response()
 
@@ -212,7 +212,7 @@ class UserView(APIView):
 
     def put(self, request):
         token = request.COOKIES.get('jwt')
-
+        
         if not token:
             raise AuthenticationFailed('Unauthenticated!')
 
