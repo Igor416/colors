@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { fromEvent } from 'rxjs';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 import { TrendsService, DecadePallette } from '../../../services/trends/trends.service';
 
@@ -14,9 +14,9 @@ export class DecadesComponent implements OnInit {
   decade: DecadePallette;
   isMobile: boolean;
   decades: string[] = [];
-  colorsShowed: boolean = false;
+  colorsShowed!: boolean;
 
-  constructor(private router: Router, private route: ActivatedRoute, private trends: TrendsService) {
+  constructor(private router: Router, private route: ActivatedRoute, private trends: TrendsService, private cookies: CookieService) {
     let decade = this.route.snapshot.paramMap.get('decade') as string;
     this.decade = this.trends.getDecadePallete(decade) as DecadePallette;
 
@@ -29,6 +29,7 @@ export class DecadesComponent implements OnInit {
   ngOnInit(): void {
     let colors = document.getElementsByClassName('color')
     this.colors = colors as HTMLCollectionOf<HTMLDivElement>;
+    this.colorsShowed = this.cookies.get('showen') == 'true'
   }
 
   navigateTo(value: any): boolean {
@@ -48,7 +49,13 @@ export class DecadesComponent implements OnInit {
     this.colorsShowed = false
   }
 
-  show(index: number): void {
+  show(index?: number): void {
+    if (!index) {
+      this.colorsShowed = true;
+      this.cookies.set('showen', 'true')
+      return
+    }
+    index = index as number;
     let barInfo = this.colors[index].children[0].children
     for (let i = 0; i < barInfo.length; i++) {
       let text = barInfo[i];
@@ -61,7 +68,13 @@ export class DecadesComponent implements OnInit {
     bar.classList.add('shade-showen');
   }
 
-  hide(index: number): void {
+  hide(index?: number): void {
+    if (!index) {
+      this.colorsShowed = false;
+      this.cookies.set('showen', 'false')
+      return
+    }
+    index = index as number;
     let barInfo = this.colors[index].children[0].children
     for (let i = 0; i < barInfo.length; i++) {
       let text = barInfo[i];

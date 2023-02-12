@@ -8,9 +8,6 @@ import { Component, OnInit } from '@angular/core';
 export class CalculatorHelpComponent implements OnInit {
 
   constructor() {
-    if (window.matchMedia("(max-width: 1080px)").matches) {
-      window.location.replace('/');
-    }
   }
 
   ngOnInit(): void {

@@ -24,7 +24,7 @@ export class AppComponent {
   ngOnInit(): void {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.route = event.url.substr(1);
+        this.route = event.url.slice(1);
         this.setTitle(this.route);
       }
     });

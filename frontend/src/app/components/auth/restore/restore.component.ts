@@ -40,11 +40,13 @@ export class RestoreComponent implements OnInit {
       'resend': true
     };
 
-    this.auth.restore(data).subscribe((resp: any) => {
-      this.step = Number(resp.step);
-    },
-    err => {
-      this.auth.displayErrors(err.error);
+    this.auth.restore(data).subscribe({
+      next: (resp) => {
+        this.step = Number(resp.step);
+      },
+      error: (e) => {
+        this.auth.displayErrors(e.error);
+      }
     });
   }
 
@@ -55,11 +57,13 @@ export class RestoreComponent implements OnInit {
       };
 
       if (this.email) {
-        this.auth.restore(data).subscribe((resp: any) => {
-          this.step = Number(resp.step);
-        },
-        err => {
-          this.auth.displayErrors(err.error);
+        this.auth.restore(data).subscribe({
+          next: (resp) => {
+            this.step = Number(resp.step);
+          },
+          error: (e) => {
+            this.auth.displayErrors(e.error);
+          }
         });
       }
     }
@@ -69,11 +73,13 @@ export class RestoreComponent implements OnInit {
       };
 
       if (this.code) {
-        this.auth.restore(data).subscribe((resp: any) => {
-          this.step = Number(resp.step);
-        },
-        err => {
-          this.auth.displayErrors(err.error);
+        this.auth.restore(data).subscribe({
+          next: (resp) => {
+            this.step = Number(resp.step);
+          },
+          error: (e) => {
+            this.auth.displayErrors(e.error);
+          }
         });
       }
     }
@@ -84,12 +90,14 @@ export class RestoreComponent implements OnInit {
       };
 
       if (this.password && this.password2) {
-        this.auth.restore(data).subscribe((resp: any) => {
-          this.auth.setAuth(true, this.remember_me);
+        this.auth.restore(data).subscribe({
+          next: (resp) => {
+            this.auth.setAuth(true, this.remember_me);
           window.location.href = (`/profile`);
-        },
-        err => {
-          this.auth.displayErrors(err.error);
+          },
+          error: (e) => {
+            this.auth.displayErrors(e.error);
+          }
         });
       }
     }

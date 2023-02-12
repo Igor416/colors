@@ -1,57 +1,57 @@
-<div id="menu" *ngIf="!isMobile">
+<div id="menu" class="d-flex justify-content-between" *ngIf="!isMobile">
   <div id="hrefs">
     <div
       id="{{ href.name }}_link"
-      class="href {{ route?.startsWith(href.name) ? 'active': ''}}"
+      class="transition href {{ route?.startsWith(href.name) ? 'active': ''}}"
       routerLink="/{{ href.link }}"
       *ngFor="let href of hrefs">
-      <span>{{ href.name }}</span>
+      <span class="transition">{{ href.name }}</span>
     </div>
   </div>
   <div id="links">
     <div
       id="home"
-      class="href {{ route == '' ? 'active': ''}}"
+      class="transition href {{ route == '' ? 'active': ''}}"
       routerLink="/">
-      <span>home&nbsp;<i class="fa fa-home"></i></span>
+      <span class="transition">home&nbsp;<i class="fa fa-home"></i></span>
     </div>
     <div *ngIf="signedIn then Home else Log_In"></div>
     <ng-template #Home>
       <div
         id="profile"
-        class="href {{ route == 'profile' ? 'active': ''}}"
+        class="transition href {{ route == 'profile' ? 'active': ''}}"
         routerLink="/profile">
-        <span>profile&nbsp;<i class="fa fa-user"></i></span>
+        <span class="transition">profile&nbsp;<i class="fa fa-user"></i></span>
       </div>
       <div
         id="exit"
-        class="href"
+        class="transition href"
         (click)="exit()">
-        <span>exit&nbsp;<i class="fas fa-sign-out-alt"></i></span>
+        <span class="transition">exit&nbsp;<i class="fas fa-sign-out-alt"></i></span>
       </div>
     </ng-template>
     <ng-template #Log_In>
       <div
         id="log_in"
-        class="href {{ route == 'log_in' ? 'active': ''}}"
+        class="transition href {{ route == 'log_in' ? 'active': ''}}"
         routerLink="/log_in">
-        <span>log in&nbsp;<i class="fas fa-sign-in-alt"></i></span>
+        <span class="transition">log in&nbsp;<i class="fas fa-sign-in-alt"></i></span>
       </div>
       <div
         id="sign_in"
-        class="href {{ route == 'sign_up' ? 'active': ''}}"
+        class="transition href {{ route == 'sign_up' ? 'active': ''}}"
         routerLink="/sign_up">
-        <span>sign up&nbsp;<i class="fas fa-sign-in-alt"></i></span>
+        <span class="transition">sign up&nbsp;<i class="fas fa-sign-in-alt"></i></span>
       </div>
     </ng-template>
   </div>
 </div>
-<div id="menu_mobile" style="display: {{ isMobile ? 'block' : 'none'}}">
-  <div id="row" style="justify-content: {{ opened ? 'flex-end' : 'space-between' }}">
+<div id="menu_mobile" [ngStyle]="{'display':  isMobile ? 'block' : 'none'}">
+  <div id="row" [ngStyle]="{'justify-content': opened ? 'flex-end' : 'space-between'}">
     <div id="link_icons">
       <div
         id="home"
-        class="row_href {{ route == '' ? 'active': ''}}"
+        class="transition row_href {{ route == '' ? 'active': ''}}"
         routerLink="/">
         <span><i class="fa fa-home"></i></span>
       </div>
@@ -59,13 +59,13 @@
       <ng-template #Row_Home>
         <div
           id="profile"
-          class="row_href {{ route == 'profile' ? 'active': ''}}"
+          class="transition row_href {{ route == 'profile' ? 'active': ''}}"
           routerLink="/profile">
           <span><i class="fa fa-user"></i></span>
         </div>
         <div
           id="exit"
-          class="row_href"
+          class="transition row_href"
           (click)="exit()">
           <span><i class="fas fa-sign-out-alt"></i></span>
         </div>
@@ -73,22 +73,23 @@
       <ng-template #Row_Log_In>
         <div
           id="log_in"
-          class="row_href {{ route == 'log_in' ? 'active': ''}}"
+          class="transition row_href {{ route == 'log_in' ? 'active': ''}}"
           routerLink="/log_in">
           <span><i class="fas fa-sign-in-alt"></i></span>
         </div>
       </ng-template>
     </div>
-    <div id="times">
-      <span (click)="toogleMenu()"><i class="fas {{ opened ? 'fa-times' : 'fa-bars' }}"></i></span>
+    <div class="transition" id="times">
+      <span (click)="toggleMenu()"><i class="fas {{ opened ? 'fa-times' : 'fa-bars' }}"></i></span>
     </div>
   </div>
-  <div id="column">
+  <div class="transition" id="column">
     <div id="column_hrefs">
       <div
         id="{{ href.name }}_link"
-        class="column_href {{ route?.startsWith(href.name) ? 'active': ''}}"
+        class="transition column_href {{ route?.startsWith(href.name) ? 'active': ''}}"
         routerLink="/{{ href.link }}"
+        (click)="toggleMenu()"
         *ngFor="let href of hrefs">
         <span>{{ href.name }}</span>
       </div>
@@ -96,7 +97,8 @@
     <div id="column_links">
       <div
         id="home"
-        class="column_href {{ route == '' ? 'active': ''}}"
+        class="transition column_href {{ route == '' ? 'active': ''}}"
+        (click)="toggleMenu()"
         routerLink="/">
         <span>home&nbsp;<i class="fa fa-home"></i></span>
       </div>
@@ -104,13 +106,14 @@
       <ng-template #Column_Home>
         <div
           id="profile"
-          class="column_href {{ route == 'profile' ? 'active': ''}}"
+          class="transition column_href {{ route == 'profile' ? 'active': ''}}"
+          (click)="toggleMenu()"
           routerLink="/profile">
           <span>profile&nbsp;<i class="fa fa-user"></i></span>
         </div>
         <div
           id="exit"
-          class="column_href"
+          class="transition column_href"
           (click)="exit()">
           <span>exit&nbsp;<i class="fas fa-sign-out-alt"></i></span>
         </div>
@@ -118,13 +121,15 @@
       <ng-template #Column_Log_In>
         <div
           id="log_in"
-          class="column_href {{ route == 'log_in' ? 'active': ''}}"
+          class="transition column_href {{ route == 'log_in' ? 'active': ''}}"
+          (click)="toggleMenu()"
           routerLink="/log_in">
           <span>log in&nbsp;<i class="fas fa-sign-in-alt"></i></span>
         </div>
         <div
           id="sign_in"
-          class="column_href {{ route == 'sign_up' ? 'active': ''}}"
+          class="transition column_href {{ route == 'sign_up' ? 'active': ''}}"
+          (click)="toggleMenu()"
           routerLink="/sign_up">
           <span>sign up&nbsp;<i class="fas fa-sign-in-alt"></i></span>
         </div>

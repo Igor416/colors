@@ -2,7 +2,6 @@
   margin: 2.5vh 25vw;
   padding: 5vh 5vw;
   min-height: 74vh;
-  background-color: whitesmoke;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -16,30 +15,9 @@
   margin-bottom: 10vh;
 }
 
-#inputs div {
-  gap: 0.5vh;
-  font-size: 20px;
-  width: 15vw;
-}
-
-label {
-  color: var(--bs-danger);
-  font-size: 18px;
-}
-
-.redirect span {
-  color: var(--bs-primary);
-  font-size: 16px;
-}
-
-.redirect:hover {
-  cursor: pointer;
-}
-
 #submit {
   font-size: 28px;
   width: 10vw;
-  transition: 0.5s;
 }
 
 #submit:hover {
@@ -65,11 +43,6 @@ label {
   #inputs div {
     font-size: 20px;
     width: 80vw;
-  }
-
-  .valid::after, .invalid::after {
-    margin-left: calc(80vw - 24px);
-    font-size: 20px;
   }
 
   #submit {

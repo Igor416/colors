@@ -96,3 +96,28 @@ body {
   50% { opacity: 0.4; transform: scale(1); }
   100% { opacity: 0; transform: scale(1.5); }
 }
+
+.box {
+  margin: 2.5vh 2.5vw;
+  padding: 2.5vh 0 2.5vh 2.5vw;
+  min-height: 74vh;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.whitesmoke {
+  background-color: whitesmoke;
+}
+
+input {
+  background-color: whitesmoke;
+}
+
+.underlined {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid black;
+}
+
+.transition {
+  transition: 0.5s;
+}

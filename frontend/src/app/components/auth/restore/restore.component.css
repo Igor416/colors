@@ -2,7 +2,6 @@
   margin: 2.5vh 25vw;
   padding: 5vh 5vw;
   min-height: 74vh;
-  background-color: whitesmoke;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -22,15 +21,9 @@
   width: 15vw;
 }
 
-label {
-  color: var(--bs-danger);
-  font-size: 18px;
-}
-
 #resend, #submit {
   font-size: 28px;
   width: 10vw;
-  transition: 0.5s;
 }
 
 #resend {

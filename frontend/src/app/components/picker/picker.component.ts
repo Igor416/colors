@@ -30,6 +30,7 @@ export class PickerComponent implements OnInit {
 
   invertColor(): void {
     this.picked_color = this.picked_color.invert();
+    this.picked_model = this.picked_color[this.picked_model.name as keyof Color] as Model
   }
 
   getInvertedColor(): string {

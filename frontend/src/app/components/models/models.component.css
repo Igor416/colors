@@ -1,14 +1,4 @@
-#models {
-  margin: 2.5vh 2.5vw;
-  padding: 2.5vh 0 2.5vh 2.5vw;
-  min-height: 74vh;
-  background-color: whitesmoke;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
 #models_header {
-  display: flex;
-  justify-content: space-between;
   width: 85vw;
   height: auto;
 }
@@ -18,14 +8,10 @@
 }
 
 #models_content {
-  display: flex;
-  flex-direction: column;
   width: 85vw;
 }
 
 .model {
-  display: flex;
-  flex-direction: column;
   width: 85vw;
   font-size: 28px;
   margin-top: 5vh;
@@ -38,8 +24,6 @@
 
 .model-content {
   margin-top: 2vh;
-  display: flex;
-  flex-direction: row;
   width: 85vw;
   font-size: 24px;
 }

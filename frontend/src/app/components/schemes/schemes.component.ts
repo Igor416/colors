@@ -79,13 +79,13 @@ export class SchemesComponent implements OnInit {
 
     //cursor can only be moved when the mouse is down, so we need to track mouse state
     if (this.isMobile) {
-      fromEvent(this.canvas, 'touchstart') .subscribe(e => { this.onMouseDown(e); });
-      fromEvent(this.canvas, 'touchend') .subscribe(e => { this.onMouseUp(e); });
-      fromEvent(this.canvas, 'touchmove') .subscribe(e => { this.onCursorDrag(e); });
+      fromEvent(this.canvas, 'touchstart').subscribe(e => { this.onMouseDown(e); });
+      fromEvent(this.canvas, 'touchend').subscribe(e => { this.onMouseUp(e); });
+      fromEvent(this.canvas, 'touchmove').subscribe(e => { this.onCursorDrag(e); });
     } else {
-      fromEvent(this.canvas, 'mousedown') .subscribe(e => { this.onMouseDown(e); });
-      fromEvent(this.canvas, 'mouseup') .subscribe(e => { this.onMouseUp(e); });
-      fromEvent(this.canvas, 'mousemove') .subscribe(e => { this.onCursorDrag(e); });
+      fromEvent(this.canvas, 'mousedown').subscribe(e => { this.onMouseDown(e); });
+      fromEvent(this.canvas, 'mouseup').subscribe(e => { this.onMouseUp(e); });
+      fromEvent(this.canvas, 'mousemove').subscribe(e => { this.onCursorDrag(e); });
     }
   }
 

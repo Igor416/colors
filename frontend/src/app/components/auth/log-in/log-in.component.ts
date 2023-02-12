@@ -40,13 +40,14 @@ export class LogInComponent implements OnInit {
     };
     
     if (this.email && this.password) {
-      this.auth.login(data).subscribe((resp: any) => {
-        this.auth.setAuth(true, this.remember_me);
-        window.location.href = (`/profile`);
-      },
-      err => {
-        console.log(err.error)
-        this.auth.displayErrors(err.error);
+      this.auth.login(data).subscribe({
+        next: (resp) => {
+          this.auth.setAuth(true, this.remember_me);
+          window.location.href = (`/profile`);
+        },
+        error: (e) => {
+          this.auth.displayErrors(e.error);
+        }
       });
     }
   }

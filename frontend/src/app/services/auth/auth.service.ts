@@ -7,19 +7,17 @@ import { CookieService } from 'ngx-cookie-service';
   providedIn: 'root'
 })
 export class AuthService {
-  api = ''
+  api = '/colors_api/'
   headers = {
     withCredentials: true,
     headers: new HttpHeaders()
   }
 
   constructor(private http: HttpClient, private cookies: CookieService) {
-    this.api += '/colors_api/';
     this.headers.headers = new HttpHeaders({
       'X-CSRFToken': this.cookies.get('csrftoken') as string,
       'Content-Type': 'application/json'
     })
-    console.log(this.headers.headers)
   }
 
   setAuth(value: boolean, remember_me?: boolean): void {
@@ -33,33 +31,32 @@ export class AuthService {
   }
 
   displayErrors(errors: Array<any>): void {
-    for (let err of errors) {
-      console.log(`Error: ${err}`)
-    }
+    console.log(`Error: ${errors}`)
   }
 
   login(data: any): Observable<any> {
-    return this.http.post<any>(this.api + 'login', this.encrypt(data), this.headers)
+    return this.http.post<any>(this.api + 'login/', this.encrypt(data), this.headers)
   }
 
   signup(data: any): Observable<any> {
-    return this.http.post<any>(this.api + 'register', this.encrypt(data), this.headers)
+    return this.http.post<any>(this.api + 'register/', this.encrypt(data), this.headers)
   }
 
   restore(data: any) {
-    return this.http.post<any>(this.api + 'restore', this.encrypt(data), this.headers)
+    return this.http.post<any>(this.api + 'restore/', this.encrypt(data), this.headers)
   }
 
   get(): Observable<any> {
-    return this.http.get<any>(this.api + 'user', this.headers)
+    return this.http.get<any>(this.api + 'user/', this.headers)
   }
 
   edit(data: any): Observable<any> {
-    return this.http.put<any>(this.api + 'user', data, this.headers)
+    return this.http.put<any>(this.api + 'user/', data, this.headers)
   }
 
   logout(): Observable<any> {
-    return this.http.post<any>(this.api + 'logout', this.headers)
+    this.setAuth(false)
+    return this.http.post<any>(this.api + 'logout/', this.headers)
   }
 
   encrypt(data: any): any {

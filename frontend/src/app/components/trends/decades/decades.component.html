@@ -1,15 +1,15 @@
-<div id="decades">
-  <div id="decades_header">
+<div class="box whitesmoke">
+  <div id="decades_header" class="d-flex justify-content-between align-items-center">
     <div id="decades_title">
       <span>Trends through the decades</span>
       <br>
       <span id="years_link">
-        See also: <span routerLink="/trends/years">Trends through years</span>
+        See also: <span class="transition" routerLink="/trends/years">Trends through years</span>
       </span>
     </div>
-    <select id="decades_links" (change)="navigateTo($event);" [(ngModel)]="decade.decade">
+    <select id="decades_links" class="whitesmoke transition" (change)="navigateTo($event);" [(ngModel)]="decade.decade">
       <option
-        class="decades_link"
+        class="whitesmoke underlined decades_link"
         [ngValue]="decade"
         *ngFor="let decade of decades">
         {{ decade }}
@@ -20,7 +20,7 @@
     <div id="decade_content" *ngIf="!isMobile">
       <div id="decade_description">
         <div *ngIf="colorsShowed">
-          <span>{{ decade.shortDesc }}... <i (click)="this.colorsShowed = false">Read More</i></span><br><br>
+          <span>{{ decade.shortDesc }}... <i (click)="hide()">Read More</i></span><br><br>
           <span>Photos took from
             <a href="https://juiceboxinteractive.com/blog/color/" target="_blank">here</a>.
           </span>
@@ -33,18 +33,16 @@
         </div>
       </div>
       <div id="decade_colors">
-        <div
-          id="arrow"
-          [class]="colorsShowed ? 'text-hidden' : 'text-showen'" (click)="this.colorsShowed = true">
+        <div id="arrow" class="transition {{colorsShowed ? 'text-hidden' : 'text-showen'}}" (click)="show()">
         </div>
-        <div id="decade_color_container" [class]="colorsShowed ? 'colors-showen' : 'colors-hidden'">
+        <div id="decade_color_container" class="transition {{colorsShowed ? 'colors-showen' : 'colors-hidden'}}">
           <div
             class="color"
             (mouseover)="show(i)"
             (mouseout)="hide(i)"
             *ngFor="let color of decade.colors; let i = index">
             <div
-              class="color-value"
+              class="transition color-value"
               [ngStyle]="{
                 'color': color.getShade(),
                 'background-color': color.hex.toString(),
@@ -57,7 +55,7 @@
               [ngStyle]="{
                 'display': colorsShowed ? 'block' : 'none'
               }"
-              class="color-shade shade-hidden">
+              class="transition color-shade shade-hidden">
             </div>
           </div>
         </div>

@@ -1,13 +1,13 @@
-<div id="models">
-  <div id="models_header">
+<div class="box whitesmoke">
+  <div id="models_header" class="d-flex justify-content-between">
     <span id="models_title">Models</span>
   </div>
-  <div id="models_content">
-    <div class="model" *ngFor="let model of models">
+  <div id="models_content" class="d-flex flex-column">
+    <div class="d-flex flex-column model" *ngFor="let model of models">
       <div class="model-title">
         {{ model.name == 'rgb' ? 'RGB | HEX' : model.name | uppercase }} Model
       </div>
-      <div class="model-content">
+      <div class="d-flex model-content">
         <div class="model-text">
           <span>{{ model.text }}</span>
         </div>

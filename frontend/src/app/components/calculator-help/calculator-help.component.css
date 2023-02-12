@@ -1,33 +1,27 @@
-#calculator-help {
-  margin: 2.5vh 2.5vw;
-  padding: 2.5vh 0 2.5vh 2.5vw;
-  min-height: 74vh;
-  font-size: 22px;
-  background-color: whitesmoke;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
 #heading {
   font-size: 42px;
 }
 
+p {
+  font-size: 20px;
+}
+
 .operation-name {
   font-size: 26px;
-  font-size: bold;
 }
 
 #operation-guides {
   font-size: 28px;
+  list-style-type: none;
+  padding: 0;
 }
 
 .operation-guide {
   font-size: 20px;
-  font-size: bold;
 }
 
 .operation-guide span {
   font-size: 32px;
-  font-size: bold;
 }
 
 .equation-example {
@@ -58,7 +52,6 @@
 
 .operation-example input {
   font-size: 24px;
-  background-color: whitesmoke;
   outline: none;
   border: none;
   width: 12vh;
@@ -102,11 +95,21 @@
   position: fixed;
   padding: 0.5vw;
   border-radius: 50%;
-  transition: 0.5s;
   right: 5.5vw;
   bottom: 5.5vh;
 }
 
 #back:hover {
   color: var(--bs-primary);
+}
+
+@media screen and (max-width: 600px) {
+  #calculator-help {
+    margin: 0;
+  }
+
+  .equation-example {
+    flex-flow: row nowrap;
+    overflow-x: scroll;
+  }
 }

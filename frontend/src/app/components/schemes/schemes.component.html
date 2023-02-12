@@ -1,24 +1,24 @@
-<div id="schemes">
-  <div id="schemes_header">
+<div class="box whitesmoke">
+  <div id="schemes_header" class="d-flex justify-content-between">
     <span id="schemes_title">{{ scheme.constructor.name }} Scheme</span>
-    <select id="schemes_options" (change)="navigateTo($event);" [(ngModel)]="picked_scheme">
+    <select id="schemes_options" class="whitesmoke transition underlined" (change)="navigateTo($event);" [(ngModel)]="picked_scheme">
       <option
-        class="schemes_option"
+        class="whitesmoke schemes_option"
         [ngValue]="scheme"
         *ngFor="let scheme of schemes">
         {{ scheme }}
       </option>
     </select>
   </div>
-  <div id="scheme">
+  <div id="scheme" class="d-flex justify-content-end align-items-center">
     <div id="canvas_container"></div>
-    <div id="scheme_info">
+    <div id="scheme_info" class="d-flex flex-column justify-content-between">
       <div id="description">
         {{ scheme.description }}
       </div>
       <div id="cursor_values">
         <div
-          class="cursor-value"
+          class="d-flex justify-content-center align-items-center cursor-value"
           (click)="colors_shown = !colors_shown"
           [ngStyle]="{ 'background-color': info.color.hex.toString() }"
           *ngFor="let info of getCursorsInfo()">

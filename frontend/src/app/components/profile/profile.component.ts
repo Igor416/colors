@@ -39,20 +39,22 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.auth.get().subscribe((resp: any) => {
-      this.name = resp.name;
-      this.nameText = resp.name;
-      this.email = resp.email;
-      this.emailText = resp.email;
+    this.auth.get().subscribe({
+      next: (resp) => {
+        this.name = resp.name;
+        this.nameText = resp.name;
+        this.email = resp.email;
+        this.emailText = resp.email;
 
-      if (resp.colors.length == 0) {
-        this.categories = []
-      } else {
-        this.categories = this.decodeColors(resp.colors.split(';'));
+        if (resp.colors.length == 0) {
+          this.categories = []
+        } else {
+          this.categories = this.decodeColors(resp.colors.split(';'));
+        }
+      },
+      error: (e) => {
+        this.auth.displayErrors(e.error);
       }
-    },
-    err => {
-      this.auth.displayErrors(err.error);
     });
   }
 
@@ -74,13 +76,15 @@ export class ProfileComponent implements OnInit {
         'name': this.name,
         'email': this.email
       };
-
-      this.auth.edit(data).subscribe((resp: any) => {
-        this.nameText = resp.name;
-        this.emailText = resp.email;
-      },
-      err => {
-        this.auth.displayErrors(err.error);
+      
+      this.auth.edit(data).subscribe({
+        next: (resp) => {
+          this.nameText = resp.name;
+          this.emailText = resp.email;
+        },
+        error: (e) => {
+          this.auth.displayErrors(e.error);
+        }
       });
     }
     this.editing = !this.editing;
@@ -119,12 +123,13 @@ export class ProfileComponent implements OnInit {
       'data': 'colors',
       'colors': this.encodeColors()
     }
-
-    this.auth.edit(data).subscribe((resp: any) => {
-      this.categories = this.decodeColors(resp.colors.split(';'));
-    },
-    err => {
-      this.auth.displayErrors(err.error);
+    this.auth.edit(data).subscribe({
+      next: (resp) => {
+        this.categories = this.decodeColors(resp.colors.split(';'));
+      },
+      error: (e) => {
+        this.auth.displayErrors(e.error);
+      }
     });
   }
 
@@ -134,13 +139,13 @@ export class ProfileComponent implements OnInit {
         'data': 'colors',
         'colors': this.encodeColors()
       }
-
-      this.auth.edit(data).subscribe((resp: any) => {
-        this.categories = this.decodeColors(resp.colors.split(';'));
-      },
-      err => {
-        console.log(err);
-        this.auth.displayErrors(err.error);
+      this.auth.edit(data).subscribe({
+        next: (resp) => {
+          this.categories = this.decodeColors(resp.colors.split(';'));
+        },
+        error: (e) => {
+          this.auth.displayErrors(e.error);
+        }
       });
     }
   }

@@ -1,18 +1,5 @@
-#calculator {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 2.5vh 2.5vw;
-  padding: 2.5vh 0 2.5vh 2.5vw;
-  min-height: 74vh;
-  background-color: whitesmoke;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
 #equation {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: left;
+  flex-wrap: wrap;
   width: 65vw;
   border-right: 0.5vw solid black;
   animation: border 9s infinite linear;
@@ -49,12 +36,6 @@
 .invert_picked_color {
   font-size: 24px;
   background-color: rgba(0, 0, 0, 0);
-  border: none;
-}
-
-.invert_picked_color:focus {
-  outline: none;
-  border: none;
 }
 
 .sign {
@@ -91,11 +72,7 @@
 
 .hex_color input, .result input {
   font-size: 20px;
-  background-color: whitesmoke;
-  outline: none;
-  border: none;
   width: 12vh;
-  border-bottom: 1px solid black;
 }
 
 .result input {
@@ -103,32 +80,26 @@
 }
 
 #buttons {
-  right: 6.5vw;
   position: fixed;
-  display: flex;
-  flex-direction: column;
   justify-content: flex-end;
-  align-items: center;
-  background-color: whitesmoke;
+  right: 6.5vw;
   padding: 5vh 2.5vw;
   width: 20vw;
 }
 
 #choosen_sign {
-  display: flex;
-  flex-direction: row;
   justify-content: center;
-  align-items: center;
   margin-bottom: 5vh;
 }
 
 #change-sign_buttons {
-  display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  align-items: center;
   font-size: 7vh;
   margin-bottom: 15vh;
+}
+
+#change-sign_buttons span {
+  font-size: 28px;
 }
 
 #change-sign_buttons .sign {
@@ -139,11 +110,6 @@
 }
 
 #global_buttons {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  padding: 0;
   width: 15vw;
 }
 
@@ -156,14 +122,8 @@
   font-size: 28px;
   width: 6vh;
   height: 6vh;
-  transition: 0.5s;
   cursor: pointer;
   white-space: nowrap;
-}
-
-#global_buttons button:focus {
-  outline: none;
-  border: none;
 }
 
 #global_buttons button span {
@@ -179,15 +139,73 @@
 }
 
 #help {
-  position: absolute;
   z-index: 1;
   right: 5.5vw;
   top: 22vh;
   padding: 0.5vw;
   border-radius: 50%;
-  transition: 0.5s;
 }
 
 #help:hover {
   background-color: #ccc;
+}
+
+@media screen and (max-width: 600px) {
+  #calculator {
+    margin: 0;
+    justify-content: flex-start !important;
+    flex-direction: column;
+  }
+
+  #equation {
+    margin-top: 5vh;
+    width: 90vw;
+    flex-wrap: nowrap;
+    overflow: scroll;
+    border: 0;
+  }
+
+  #buttons {
+    font-size: 24px;
+    justify-content: space-around;
+    position: relative;
+    right: auto;
+    padding: 0;
+    width: 90vw;
+  }
+
+  #sign_buttons {
+    width: 90vw;
+  }
+
+  #choosen_sign {
+    justify-content: space-between;
+    margin-bottom: 0;
+  }
+
+  #choosen_sign div {
+    width: auto;
+    line-height: 11vh;
+  }
+
+  #change-sign_buttons {
+    justify-content: space-between;
+    font-size: 24px;
+    margin-bottom: 2vh;
+  }
+
+  #global_buttons {
+    flex-direction: column;
+    width: 90vw;
+  }
+
+  #global_buttons div {
+    justify-content: space-between;
+    width: 90vw;
+  }
+
+  #global_buttons div button {
+    background-color: whitesmoke;
+    color: black;
+  }
 }

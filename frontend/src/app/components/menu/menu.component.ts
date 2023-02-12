@@ -31,7 +31,6 @@ export class MenuComponent implements OnInit {
         link: links[i]
       })
     });
-
   }
 
   ngOnInit(): void {
@@ -44,21 +43,20 @@ export class MenuComponent implements OnInit {
   }
 
   exit(): void {
-    this.auth.logout().subscribe((resp: any) => {
-      this.auth.setAuth(false)
-      window.location.href = `/`;
-    },
-    err => {
-      console.log(err)
+    this.toggleMenu()
+    this.auth.logout().subscribe({
+      next: (resp) => {
+        this.auth.setAuth(false)
+        window.location.href = `/`;
+      },
+      error: (e) => {
+        this.auth.displayErrors(e.error);
+      }
     });
   }
 
-  toogleMenu() {
-    if (this.opened) {
-      this.closeMenu();
-    } else {
-      this.openMenu()
-    }
+  toggleMenu() {
+    this.opened ? this.closeMenu() : this.openMenu()
     this.opened = !this.opened
   }
 
@@ -75,8 +73,8 @@ export class MenuComponent implements OnInit {
   }
 
   closeMenu() {
-    this.row.style.display = "flex";
     this.column.style.height = "0%";
+    this.row.style.display = "flex";
     this.column.style.padding = "0";
 
     let el;

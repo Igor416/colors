@@ -3,12 +3,6 @@
   z-index: -1;
   font-size: 30px;
   letter-spacing: 0.5em;
-  position: absolute;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 
 .text span {
@@ -26,7 +20,6 @@
 #header span {
   right: 2vw;
   top: 2vh;
-  position: absolute;
   transform: rotate(180deg);
 }
 

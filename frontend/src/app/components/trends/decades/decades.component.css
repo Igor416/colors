@@ -1,15 +1,4 @@
-#decades {
-  margin: 2.5vh 2.5vw;
-  padding: 2.5vh 0 2.5vh 2.5vw;
-  min-height: 74vh;
-  background-color: whitesmoke;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
 #decades_header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   width: 85vw;
   height: auto;
   font-size: 28px;
@@ -19,10 +8,6 @@
   font-size: 24px;
 }
 
-#years_link span {
-  transition: 0.5s;
-}
-
 #years_link span:hover {
   cursor: pointer;
   color: var(--bs-primary);
@@ -30,18 +15,12 @@
 
 #decades_links {
   width: 12vw;
-  background-color: whitesmoke;
-  border: none;
-  outline: none;
-  border-bottom: 1px solid black;
   font-size: 24px;
   padding-bottom: 0.5vh;
-  transition: 0.5s;
 }
 
 .decades_link {
   font-size: 20px;
-  background-color: whitesmoke;
   color: black;
 }
 
@@ -81,7 +60,6 @@
   flex-direction: row;
   text-align: center;
   width: 50vw;
-  transition: 0.7s;
 }
 
 .colors-showen {
@@ -99,7 +77,6 @@
   padding: 0.5vw;
   transform: rotate(-135deg);
   -webkit-transform: rotate(-135deg);
-  transition: 0.7s;
 }
 
 #arrow:hover {
@@ -124,10 +101,6 @@
   font-size: 20px;
 }
 
-.color-value span {
-  transition: 0.5s;
-}
-
 .text-showen {
   opacity: 1;
 }
@@ -141,7 +114,6 @@
   position: absolute;
   background-color: rgba(255, 255, 255, 0.1);
   width: inherit;
-  transition: 0.7s;
 }
 
 .shade-showen {

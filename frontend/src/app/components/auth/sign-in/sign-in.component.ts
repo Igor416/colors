@@ -45,12 +45,14 @@ export class SignInComponent implements OnInit {
     };
 
     if (this.name && this.email && this.password && this.password2) {
-      this.auth.signup(data).subscribe((resp: any) => {
-        this.auth.setAuth(true, this.remember_me);
+      this.auth.signup(data).subscribe({
+        next: (resp) => {
+          this.auth.setAuth(true, this.remember_me);
         window.location.href = (`/profile`);
-      },
-      err => {
-        this.auth.displayErrors(err.error);
+        },
+        error: (e) => {
+          this.auth.displayErrors(e.error);
+        }
       });
     }
   }

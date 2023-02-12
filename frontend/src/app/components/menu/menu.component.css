@@ -2,12 +2,9 @@
   background-color: black;
   width: 100vw;
   height: 6vh;
-  display: flex;
-  flex-direction: row;
   border-top: 0.5vh solid black;
   border-bottom: 0.5vh solid black;
   padding: 0 0.05vw;
-  justify-content: space-between;
 }
 
 #hrefs, #links {
@@ -29,13 +26,11 @@
   align-items: center;
   border-left: 0.05vw solid white;
   justify-content: space-between;
-  transition: 0.5s;
 }
 
 .href span {
   text-transform: capitalize;
   font-size: 20px;
-  transition: 0.5s;
 }
 
 .href:first-child {
@@ -76,7 +71,6 @@
   align-items: center;
   border-left: 0.05vw solid white;
   justify-content: space-between;
-  transition: 0.5s;
 }
 
 .row_href span {
@@ -97,7 +91,6 @@
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  transition: 0.5s;
 }
 
 #column_hrefs, #column_links {

@@ -1,13 +1,7 @@
 #sign_in {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
   margin: 2.5vh 25vw;
   padding: 5vh 5vw;
   min-height: 74vh;
-  background-color: whitesmoke;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -16,38 +10,12 @@
 }
 
 #inputs {
-  display: flex;
-  flex-direction: column;
   gap: 2.5vh;
-}
-
-#inputs div {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  gap: 0.5vh;
-  font-size: 20px;
-  width: 15vw;
-}
-
-label {
-  color: var(--bs-danger);
-  font-size: 18px;
-}
-
-.redirect span {
-  color: var(--bs-primary);
-  font-size: 16px;
-}
-
-.redirect:hover {
-  cursor: pointer;
 }
 
 #submit {
   font-size: 28px;
   width: 10vw;
-  transition: 0.5s;
 }
 
 #submit:hover {

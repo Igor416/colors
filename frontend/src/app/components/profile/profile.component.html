@@ -1,7 +1,7 @@
-<div id="profile">
-  <div id="profile_info">
+<div class="box whitesmoke d-flex justify-content-between">
+  <div id="profile_info" class="d-flex flex-column align-items-center justify-content-between">
     <div>
-      <div id="profile_logo">
+      <div id="profile_logo" class="d-flex align-items-center justify-content-center">
         <app-image
           src="assets/avatar.png"
           alt="avatar"
@@ -12,7 +12,7 @@
           widthSmall="80vw">
           </app-image>
       </div>
-      <div id="profile_data">
+      <div id="profile_data" class="d-flex flex-column text-end">
         <div *ngIf="editing; then Edit else Data"></div>
         <ng-template #Data>
           <span>Welcome, {{ name }}</span>
@@ -45,15 +45,15 @@
         </ng-template>
       </div>
     </div>
-    <div id="edit_buttons" class="{{ editing ? 'editing' : '' }}">
-      <input [ngStyle]="{ 'display': editing ? 'block' : 'none' }" (click)="discard()" class="form-control sumbit" type="submit" value="{{ editing ? 'Discard' : '' }}">
-      <input (click)="save()" class="form-control sumbit" type="submit" value="{{ editing ? 'Save' : 'Edit' }}">
+    <div id="edit_buttons" class="d-flex {{ editing ? 'editing' : '' }}">
+      <input [ngStyle]="{ 'display': editing ? 'block' : 'none' }" (click)="discard()" class="form-control transition submit" type="submit" value="{{ editing ? 'Discard' : '' }}">
+      <input (click)="save()" class="form-control submit" type="submit" value="{{ editing ? 'Save' : 'Edit' }}">
     </div>
   </div>
-  <div id="profile_content">
+  <div id="profile_content" class="d-flex flex-column justify-content-start">
     <span>Your color pallettes. You can add colors from through all the site.</span>
-    <div id="profile_colors">
-      <div class="category" *ngFor="let category of categories; let i = index">
+    <div id="profile_colors" class="d-flex flex-column justify-content-start">
+      <div class="d-flex flex-column justify-content-start category" *ngFor="let category of categories; let i = index">
         <div class="category-info">
           <span
             class="category-name"
@@ -63,7 +63,7 @@
             {{ category.name }}: &nbsp;&nbsp;&nbsp;
           </span>
           <span
-            class="category-icons"
+            class="transition category-icons"
             [ngStyle]="{ 'opacity': isActive('category', i) ? '1' : '0' }">
             <span (click)="addColor();active[3]=true;active[3]=true">
               <i class="fa fa-plus"></i>
@@ -78,12 +78,12 @@
             </span>
           </span>
         </div>
-        <div class="colors">
+        <div class="d-flex flex-wrap colors">
           <div
             (click)="
               active = [i, j, active[2], true];
               current = color.hex.toString()"
-            class="color"
+            class="d-flex flex-column justify-content-center align-items-center text-center transition color"
             [ngStyle]="{
               'padding-bottom': isActive('color', i, j) ? '2vh' : '0vh',
               'background-color': color.hex.toString(),
@@ -91,7 +91,7 @@
             }"
             *ngFor="let color of category.colors; let j = index">
             <span>{{ color.hex.toString() }}</span>
-            <div [ngStyle]="{ 'opacity': isActive('color', i, j) ? '1' : '0' }">
+            <div class="d-flex align-items-center justify-content-center transition" [ngStyle]="{ 'opacity': isActive('color', i, j) ? '1' : '0' }">
               <span (click)="deleteColorOrCategory('color')">
                 <i class="fa fa-trash"></i>
               </span>
@@ -102,7 +102,7 @@
           </div>
         </div>
       </div>
-      <div id="add_category">
+      <div id="add_category" class="d-flex justify-content-end transition">
         <div (click)="addCategory()">
           <i class="fa fa-plus"></i>
         </div>
