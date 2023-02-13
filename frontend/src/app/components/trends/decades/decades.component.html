@@ -7,7 +7,7 @@
         See also: <span class="transition" routerLink="/trends/years">Trends through years</span>
       </span>
     </div>
-    <select id="decades_links" class="whitesmoke transition" (change)="navigateTo($event);" [(ngModel)]="decade.decade">
+    <select id="decades_links" class="underlined whitesmoke transition" (change)="navigateTo($event);" [(ngModel)]="decade.decade">
       <option
         class="whitesmoke underlined decades_link"
         [ngValue]="decade"
