@@ -86,12 +86,6 @@ input {
 }
 
 @media screen and (max-width: 600px) {
-  #profile {
-    margin: 0;
-    flex-direction: column;
-    align-items: center;
-  }
-
   #profile_info {
     width: 90vw;
     padding: 0;

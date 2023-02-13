@@ -86,10 +86,6 @@
 }
 
 @media screen and (max-width: 600px) {
-  #picker {
-    margin: 0;
-  }
-
   #picker_header {
     flex-direction: column;
   }

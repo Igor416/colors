@@ -104,10 +104,6 @@ p {
 }
 
 @media screen and (max-width: 600px) {
-  #calculator-help {
-    margin: 0;
-  }
-
   .equation-example {
     flex-flow: row nowrap;
     overflow-x: scroll;

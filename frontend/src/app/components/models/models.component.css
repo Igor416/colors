@@ -34,10 +34,6 @@
 }
 
 @media screen and (max-width: 600px) {
-  #models {
-    margin: 0;
-  }
-
   #models_header {
     width: 90vw;
   }
