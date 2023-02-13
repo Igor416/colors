@@ -106,19 +106,26 @@ export class SchemesComponent implements OnInit {
     /*
     if user clicked on any cursor, update the lastActive with cursor's index, else don't update the lastActive field
     */
-    let evt = event as MouseEvent;
+    let evt, mouseX, mouseY;
+    if (this.isMobile) {
+      evt = event as TouchEvent;
+      mouseX = evt.targetTouches[0].clientX;
+      mouseY = evt.targetTouches[0].clientY;
+    } else {
+      evt = event as MouseEvent;
+      mouseX = evt.clientX;
+      mouseY = evt.clientY;
+    }
 
-    let mouseX = evt.clientX - this.canvas.offsetLeft;
-    let mouseY = evt.clientY - this.canvas.offsetTop;
     let size = this.canvas.width;
-    mouseX -= size / 2;
-    mouseY = size / 2 - mouseY;
+    mouseX -= this.canvas.offsetLeft + size / 2;
+    mouseY = size / 2 - mouseY + this.canvas.offsetTop;
 
+    let inRange = (center: number, radius: number, point: number) => center - radius < point && point < center + radius;
+    
     for (let i = 0; i < this.scheme.cursors.length; i++) {
       let cursor = this.scheme.cursors[i];
-      let rad = cursor.radius;
-
-      if (inRange(cursor.x, rad, mouseX) && inRange(cursor.y, rad, mouseY)) {
+      if (inRange(cursor.x, cursor.radius, mouseX) && inRange(cursor.y, cursor.radius, mouseY)) {
         this.scheme.lastActive = i;
         break;
       }
@@ -135,23 +142,29 @@ export class SchemesComponent implements OnInit {
     if (!this.mouseIsDown) {
       return;
     }
-    let evt = event as MouseEvent;
+    let evt, mouseX, mouseY;
+    if (this.isMobile) {
+      evt = event as TouchEvent;
+      mouseX = evt.targetTouches[0].clientX;
+      mouseY = evt.targetTouches[0].clientY;
+    } else {
+      evt = event as MouseEvent;
+      mouseX = evt.clientX;
+      mouseY = evt.clientY;
+    }
 
-    let mouseX = evt.clientX - this.canvas.offsetLeft;
-    let mouseY = evt.clientY - this.canvas.offsetTop;
     let size = this.canvas.width;
+    mouseX -= this.canvas.offsetLeft + size / 2;
+    mouseY = size / 2 - mouseY + this.canvas.offsetTop;
 
     let ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
 
     let cursor = this.scheme.cursors[this.scheme.lastActive]
 
-    let x = mouseX - size / 2;
-    let y = size / 2 - mouseY;
-
     //cursor can't go beyond the wheel, we handling it using Pythagoras's theorem
-    if (Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)) <= size / 2) {
-      cursor.x = x;
-      cursor.y = y;
+    if (Math.sqrt(Math.pow(mouseX, 2) + Math.pow(mouseY, 2)) <= size / 2) {
+      cursor.x = mouseX;
+      cursor.y = mouseY;
 
       this.scheme.update();
       //as the cursors aren't independent we need to redraw every one. The dependencies are in the scheme.ts file
@@ -204,32 +217,20 @@ export class SchemesComponent implements OnInit {
       }
       info.push(new CursorInfo('2', cursors[1]));
 
-    } else if (cursors.length == 3) {
-      //rectangle
-      info.push(new CursorInfo('1 & 2', cursors[0], cursors[1]))
-      info.push(new CursorInfo('2', cursors[1]))
-      info.push(new CursorInfo('2 & 3', cursors[2], cursors[1]))
-      info.push(new CursorInfo('1', cursors[0]))
-      info.push(new CursorInfo('1 & 3', cursors[0], cursors[2]))
-      info.push(new CursorInfo('3', cursors[2]))
-
-    } else if (cursors.length == 4) {
-      //square
-      info.push(new CursorInfo('1', cursors[0]))
-      info.push(new CursorInfo('1 & 2', cursors[0], cursors[1]))
-      info.push(new CursorInfo('2', cursors[1]))
-      info.push(new CursorInfo('1 & 3', cursors[0], cursors[2]))
-      info.push(new CursorInfo('1 & 4', cursors[0], cursors[3]))
-      info.push(new CursorInfo('2 & 4', cursors[1], cursors[3]))
-      info.push(new CursorInfo('3', cursors[2]))
-      info.push(new CursorInfo('3 & 4', cursors[2], cursors[3]))
-      info.push(new CursorInfo('4', cursors[3]))
+    } else {
+      //triangle and rectangle
+      let matrix = cursors.length == 3 ? [12, 2, 23, 1, 13, 3] : [1, 12, 2, 13, 14, 24, 3, 34, 4]
+      for (let el of matrix) {
+        if (el > 10) {
+          let scnd = el % 10;
+          let frst = (el - scnd) / 10
+          info.push(new CursorInfo(`${frst} & ${scnd}`, cursors[frst - 1], cursors[scnd - 1]))
+        } else {
+          info.push(new CursorInfo(`${el}`, cursors[el - 1]))
+        }
+      }
     }
     
     return info;
   }
-}
-
-function inRange(center: number, radius: number, point: number) {
-  return center - radius < point && point < center + radius;
 }

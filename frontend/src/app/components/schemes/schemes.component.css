@@ -69,8 +69,13 @@
     width: 90vw;
   }
 
+  #canvas_container {
+    touch-action: none;
+  }
+
   #scheme_info {
     flex-direction: column-reverse;
+    align-items: center;
     margin-left: 0;
     width: 90vw;
   }
