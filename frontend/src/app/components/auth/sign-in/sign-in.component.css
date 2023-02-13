@@ -1,8 +1,6 @@
 #sign_in {
   margin: 2.5vh 25vw;
   padding: 5vh 5vw;
-  min-height: 74vh;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #title {
@@ -24,10 +22,6 @@
 }
 
 @media screen and (max-width: 600px) {
-  #sign_in {
-    margin: 0;
-  }
-
   #title {
     font-size: 32px;
     margin-bottom: 5vh;
