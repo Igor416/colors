@@ -51,7 +51,7 @@ export class SchemeService {
     } else {
       y = cursor.canvasSize / 2 - cursor.y;
     }
-    this.cookies.set(key, Math.round(x * 100) / 100 + ',' + Math.round(y * 100) / 100);
+    this.cookies.set(key, Math.round(x * 100) / 100 + ',' + Math.round(y * 100) / 100, {path: '/'});
   }
 }
 

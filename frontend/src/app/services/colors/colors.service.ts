@@ -20,7 +20,7 @@ export class ColorsService {
   }
 
   saveColor(key: string, color: Color): void {
-    this.cookies.set(key, color.hex.toString());
+    this.cookies.set(key, color.hex.toString(), {path: '/'});
   }
 
   loadEquation(key: string): Equation {
@@ -44,6 +44,6 @@ export class ColorsService {
     }
     row += '=';
     row += equation.result;
-    this.cookies.set(key, row);
+    this.cookies.set(key, row, {path: '/'});
   }
 }

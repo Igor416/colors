@@ -52,7 +52,7 @@ export class DecadesComponent implements OnInit {
   show(index?: number): void {
     if (index == undefined) {
       this.colorsShowed = true;
-      this.cookies.set('showen', 'true')
+      this.cookies.set('showen', 'true', {path: '/'})
       return
     }
     index = index as number;
@@ -71,7 +71,7 @@ export class DecadesComponent implements OnInit {
   hide(index?: number): void {
     if (index == undefined) {
       this.colorsShowed = false;
-      this.cookies.set('showen', 'false')
+      this.cookies.set('showen', 'false', {path: '/'})
       return
     }
     index = index as number;

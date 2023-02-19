@@ -23,7 +23,7 @@ export class AuthService {
   setAuth(value: boolean, remember_me?: boolean): void {
     const expires = new Date()
     remember_me ? expires.setDate(expires.getDate() + 3) : expires.setHours(expires.getHours() + 1)
-    this.cookies.set('auth', value.toString(), {'expires': expires})
+    this.cookies.set('auth', value.toString(), {'expires': expires, path: '/'})
   }
 
   isAuth(): boolean {
