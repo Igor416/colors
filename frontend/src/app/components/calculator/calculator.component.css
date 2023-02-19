@@ -152,24 +152,20 @@
 
 @media screen and (max-width: 600px) {
   #equation {
+    width: 100%;
     margin-top: 5vh;
-    width: 90vw;
     flex-wrap: nowrap;
     overflow: scroll;
     border: 0;
   }
 
   #buttons {
+    width: 100%;
     font-size: 24px;
     justify-content: space-around;
     position: relative;
     right: auto;
     padding: 0;
-    width: 90vw;
-  }
-
-  #sign_buttons {
-    width: 90vw;
   }
 
   #choosen_sign {
@@ -189,13 +185,13 @@
   }
 
   #global_buttons {
+    width: 100%;
     flex-direction: column;
-    width: 90vw;
   }
 
   #global_buttons div {
+    width: 100%;
     justify-content: space-between;
-    width: 90vw;
   }
 
   #global_buttons div button {

@@ -1,5 +1,4 @@
 #decades_header {
-  width: 85vw;
   height: auto;
   font-size: 28px;
 }
@@ -28,7 +27,6 @@
   display: flex;
   justify-content: space-between;
   flex-direction: row-reverse;
-  width: 85vw;
   margin-top: 5vh;
   font-size: 24px;
 }
@@ -132,12 +130,7 @@
 
   #decades_header {
     flex-direction: column;
-    width: 90vw;
     font-size: 24px;
-  }
-
-  #decades_title {
-    width: 90vw;
   }
 
   #years_link {
@@ -150,8 +143,12 @@
     font-size: 22px;
   }
 
+  #decades_title {
+    width: 100%;
+  }
+
   #decades_links {
-    width: 90vw;
+    width: 100%;
     font-size: 20px;
     padding-bottom: 0.5vh;
   }
@@ -159,14 +156,13 @@
   #decades_content {
     flex-direction: column;
     align-items: center;
-    width: 90vw;
     margin-top: 3vh;
     font-size: 20px;
   }
 
   #decade_content {
+    width: 100%;
     text-align: justify;
-    width: 90vw;
   }
 
   #decade_description a {
@@ -175,9 +171,9 @@
   }
 
   #decade_colors {
+    width: 100%;
     flex-flow: row wrap;
     justify-content: center;
-    width: 90vw;
     margin: 5vh 0;
     gap: 2.5vh;
   }

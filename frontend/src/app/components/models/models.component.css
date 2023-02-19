@@ -1,5 +1,4 @@
 #models_header {
-  width: 85vw;
   height: auto;
 }
 
@@ -7,13 +6,8 @@
   font-size: 36px;
 }
 
-#models_content {
-  width: 85vw;
-}
-
 .model {
   margin-top: 2vh;
-  width: 85vw;
   font-size: 24px;
 }
 
@@ -27,16 +21,8 @@
 }
 
 @media screen and (max-width: 600px) {
-  #models_header {
-    width: 90vw;
-  }
-
   #models_title {
     font-size: 28px;
-  }
-
-  #models_content {
-    width: 90vw;
   }
 
   .model-title {
@@ -44,7 +30,6 @@
   }
 
   .model {
-    width: 90vw;
     font-size: 20px;
     margin-top: 3vh;
   }

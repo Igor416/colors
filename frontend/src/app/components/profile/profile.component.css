@@ -87,12 +87,11 @@ input {
 
 @media screen and (max-width: 600px) {
   #profile_info {
-    width: 90vw;
     padding: 0;
   }
 
   #profile_logo {
-    width: 90vw;
+    width: 100%;
     padding: 0 2.5vw;
   }
 
@@ -101,13 +100,12 @@ input {
     font-size: 24px;
   }
 
-  #edit_buttons {
-    margin-top: 3vh;
-    width: 90vw;
+  #profile_data input {
+    width: 100%;
   }
 
-  input {
-    width: 90vw;
+  #edit_buttons {
+    margin-top: 3vh;
   }
 
   .submit {
@@ -119,22 +117,17 @@ input {
   }
 
   #profile_content {
+    width: 100%;
     text-align: justify;
-    width: 90vw;
     font-size: 24px;
   }
 
   #profile_colors {
-    width: 90vw;
+    width: 100%;
     font-size: 20px;
   }
 
-  .category {
-    width: 90vw;
-  }
-
   .colors {
-    width: 90vw;
     gap: 5vw;
   }
 
