@@ -29,9 +29,6 @@
 }
 
 #invert_picked_color {
-  margin-top: -2vh;
-  width: 5vw;
-  height: 4vh;
   font-size: 36px;
   background-color: rgba(0, 0, 0, 0);
 }
