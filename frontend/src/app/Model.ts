@@ -81,14 +81,14 @@ export class RGB extends Model {
   }
 
   getGradient(value: string): string {
-    let pre = 'linear-gradient(to right, '
+    let pre = 'linear-gradient(to right, black, '
     switch (value) {
       case 'a':
-        return pre + 'black, red)';
+        return pre + 'red)';
       case 'b':
-        return pre + 'black, lime)';
+        return pre + 'lime)';
       case 'c':
-        return pre + 'black, blue)';
+        return pre + 'blue)';
     }
     return '';
   }
@@ -659,16 +659,16 @@ export class CMYK extends Model {
   }
 
   getGradient(value: string): string {
-    let pre = 'linear-gradient(to right,'
+    let pre = 'linear-gradient(to right, white, '
     switch (value) {
       case 'a':
-        return pre + ` white, cyan)`;
+        return pre + `cyan)`;
       case 'b':
-        return pre + ` white, magenta)`;
+        return pre + `magenta)`;
       case 'c':
-        return pre + ` white, yellow)`;
+        return pre + `yellow)`;
       case 'd':
-        return pre + ` white, black)`;
+        return pre + `black)`;
     }
     return '';
   }
