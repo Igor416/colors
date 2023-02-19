@@ -10,14 +10,16 @@ export abstract class Scheme {
     for (let i = 0; i < count; i++) {
       this.cursors.push(new Cursor(x, y, size))
     }
+    this.description += ' Try clicking on colors.'
     this.update();
   }
 
   getInitials(): [number, number, number] {
     let active = this.cursors[this.lastActive];
     let c = Math.sqrt(Math.pow(active.x, 2) + Math.pow(active.y, 2));
-    let angle = getAngle(active),
-        offset = getOffset(active);
+    let offset = active.y > 0 ? 90 : 270;
+    let angle = active.x == 0 ? 0 : (active.y == 0 ? Math.sign(active.x) * -90 : Math.atan(active.x / active.y) / Math.PI * 180);
+    //parentheses for better reading
 
     return [c, angle, offset]
   }
@@ -27,6 +29,7 @@ export abstract class Scheme {
 
 export class Monochromatic extends Scheme {
   override name: string = 'monochromatic';
+  override description: string = 'Pick any color and see it\'s shadow\'s. The percentage displays the color\'s lightness, by HSL model.';
 
   constructor(x: number, y: number, size: number) {
     super();
@@ -38,6 +41,7 @@ export class Monochromatic extends Scheme {
 
 export class Complementary extends Scheme {
   override name: string = 'complementary';
+  override description: string = 'This scheme offers two opposite colors (you can check it in our color picker!). Two colors around the middle one are the picked colors mixed in ratio 2:1 and 1:2.';
 
   constructor(x: number, y: number, size: number) {
     super();
@@ -45,16 +49,13 @@ export class Complementary extends Scheme {
   }
 
   update(): void {
-    let active = this.cursors[this.lastActive];
-    this.cursors[this.lastActive ^ 1].updateCoords(-active.x, -active.y);
+    this.cursors[this.lastActive ^ 1].invertCoords(this.cursors[this.lastActive]);
   }
 }
 
 export class Analogous extends Scheme {
   override name: string = 'analogous';
-  override cursors: Cursor[] = [];
-  override description!: string;
-  override lastActive: number = 0;
+  override description: string = 'The Analogous scheme provides various similar colors, that diversifies the choice from one color to six with a little different hue.';
 
   constructor(x: number, y: number, size: number) {
     super();
@@ -95,6 +96,7 @@ export class Analogous extends Scheme {
 
 export class Compound extends Scheme {
   override name: string = 'compound';
+  override description: string = 'This scheme is similar to the analagous one, the only difference is that the center color was inverted, scheme is also known as "Split-Complementary".';
 
   constructor(x: number, y: number, size: number) {
     super();
@@ -104,7 +106,6 @@ export class Compound extends Scheme {
   update(): void {
     let [c, angle1, offset] = this.getInitials()
 
-    let x, y;
     switch (this.lastActive) {
       case 0: {
         let angle2 = offset - 150 - angle1;
@@ -136,6 +137,7 @@ export class Compound extends Scheme {
 
 export class Triadic extends Scheme {
   override name: string = 'triadic';
+  override description: string = 'The Triadic scheme gives 3 opposite colors. It provides visual contrast, while keeping color harmony and balance.';
 
   constructor(x: number, y: number, size: number) {
     super();
@@ -169,6 +171,7 @@ export class Triadic extends Scheme {
 
 export class Rectangle extends Scheme {
   override name: string = 'rectangle';
+  override description: string = 'This scheme is similar to the compound one, expcept for the center color, that is splited in 2. You can look at it as two pairs of opposite colors.';
 
   constructor(x: number, y: number, size: number) {
     super();
@@ -176,7 +179,6 @@ export class Rectangle extends Scheme {
   }
 
   update(): void {
-    let active = this.cursors[this.lastActive];
     let [c, angle1, offset] = this.getInitials()
 
     let angle2 = offset - 120 - angle1;
@@ -203,12 +205,13 @@ export class Rectangle extends Scheme {
         break;
       }
     }
-    this.cursors[3 - this.lastActive].updateCoords(-active.x, -active.y);
+    this.cursors[3 - this.lastActive].invertCoords(this.cursors[this.lastActive]);
   }
 }
 
 export class Square extends Scheme {
   override name: string = 'square'
+  override description: string = 'The Square scheme is similar to the triadic, though there are 4 colors instead of 3. There are stil two pairs of colors, so the scheme is quite balanced.';
 
   constructor(x: number, y: number, size: number) {
     super();
@@ -216,53 +219,31 @@ export class Square extends Scheme {
   }
 
   update(): void {
-    let active = this.cursors[this.lastActive];
-    let c = Math.sqrt(Math.pow(active.x, 2) + Math.pow(active.y, 2));
-    let angle1 = getAngle(active),
-        offset = getOffset(active);
+    let [c, angle1, offset] = this.getInitials();
 
-    let x, y;
     let angle2 = offset - 90 - angle1;
-    x = c * Math.cos(angle2 * Math.PI / 180);
-    y = c * Math.sin(angle2 * Math.PI / 180);
     switch (this.lastActive) {
       case 0: {
-        this.cursors[1].updateCoords(x, y);
-        this.cursors[2].updateCoords(-x, -y);
+        this.cursors[1].setCoords(c, angle2);
+        this.cursors[2].setCoords(c, angle2 + 180);
         break;
       }
       case 1: {
-        this.cursors[0].updateCoords(-x, -y);
-        this.cursors[3].updateCoords(x, y);
+        this.cursors[0].setCoords(c, angle2 + 180);
+        this.cursors[3].setCoords(c, angle2);
         break;
       }
       case 2: {
-        this.cursors[0].updateCoords(x, y);
-        this.cursors[3].updateCoords(-x, -y);
+        this.cursors[0].setCoords(c, angle2);
+        this.cursors[3].setCoords(c, angle2 + 180);
         break;
       }
       case 3: {
-        this.cursors[1].updateCoords(-x, -y);
-        this.cursors[2].updateCoords(x, y);
+        this.cursors[1].setCoords(c, angle2 + 180);
+        this.cursors[2].setCoords(c, angle2);
         break;
       }
     }
-    this.cursors[3 - this.lastActive].updateCoords(-active.x, -active.y);
+    this.cursors[3 - this.lastActive].invertCoords(this.cursors[this.lastActive]);
   }
-}
-
-function getOffset(cursor: Cursor): number {
-  if (cursor.y > 0) {
-    return 90;
-  }
-  return 270;
-}
-
-function getAngle(cursor: Cursor) {
-  if (cursor.x == 0) {
-    return 0
-  } else if (cursor.y == 0) {
-    return Math.sign(cursor.x) * -90;
-  }
-  return Math.atan(cursor.x / cursor.y) / Math.PI * 180;
 }

@@ -5,6 +5,10 @@ import { Color } from '../../Color';
 import { Sign } from 'src/app/Equation';
 import { CookieService } from 'ngx-cookie-service';
 
+const SchemeType: any = {
+  Monochromatic, Complementary, Analogous, Compound, Triadic, Rectangle, Square
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,10 +16,7 @@ export class SchemeService {
 
   constructor(private cookies: CookieService) { }
 
-  get(name: string, x: number, y: number, size: number): Scheme | null {
-    let scheme = null;
-    let description = '';
-
+  get(name: string, x: number, y: number, size: number): Scheme {
     /*
     Adjust for trigonometric calculations
     E.g. the (x, y) are (40, 52) on the canvas,
@@ -24,56 +25,12 @@ export class SchemeService {
     so the circle_x will be: x - size / 2.
     circle_y will be: size / 2 - y;
     */
-
-    x -= size / 2;
-    y = size / 2 - y;
-
-    switch (name) {
-      case 'monochromatic': {
-        scheme = new Monochromatic(x, y, size)
-        description = 'Pick any color and see it\'s shadow\'s. The percentage displays the color\'s lightness, by HSL model.';
-        break;
-      }
-      case 'complementary': {
-        scheme = new Complementary(x, y, size)
-        description = 'This scheme offers two opposite colors (you can check it in our color picker!). Two colors around the middle one are the picked colors mixed in ratio 2:1 and 1:2.';
-        break;
-      }
-      case 'analogous': {
-        scheme = new Analogous(x, y, size)
-        description = 'The Analogous scheme provides various similar colors, that diversifies the choice from one color to six with a little different hue.'
-        break;
-      }
-      case 'compound': {
-        scheme = new Compound(x, y, size)
-        description = 'This scheme is similar to the analagous one, the only difference is that the center color was inverted, scheme is also known as "Split-Complementary".'
-        break;
-      }
-      case 'triadic': {
-        scheme = new Triadic(x, y, size)
-        description = 'The Triadic scheme gives 3 opposite colors. It provides visual contrast, while keeping color harmony and balance.'
-        break;
-      }
-      case 'rectangle': {
-        scheme = new Rectangle(x, y, size)
-        description = 'This scheme is similar to the compound one, expcept for the center color, that is splited in 2. You can look at it as two pairs of opposite colors.'
-        break;
-      }
-      case 'square': {
-        scheme = new Square(x, y, size)
-        description = 'The Square scheme is similar to the triadic, though there are 4 colors instead of 3. There are stil two pairs of colors, so the scheme is quite balanced.'
-        break;
-      }
-    }
-    if (scheme != null) {
-      scheme.description = description + ' Try clicking on colors.';
-    }
-    return scheme;
+    return new SchemeType[name.charAt(0).toUpperCase() + name.slice(1)](x - size / 2, size / 2 - y, size);
   }
 
   loadCoords(key: string): number[] {
     let coords = this.cookies.get(key) as string;
-    return coords.split(',').map(c => Number(c));
+    return coords.split(',').map(Number);
   }
 
   saveCoords(key: string, cursor: Cursor): void {
@@ -94,7 +51,7 @@ export class SchemeService {
     } else {
       y = cursor.canvasSize / 2 - cursor.y;
     }
-    this.cookies.set(key, x + ',' + y);
+    this.cookies.set(key, Math.round(x * 100) / 100 + ',' + Math.round(y * 100) / 100);
   }
 }
 
