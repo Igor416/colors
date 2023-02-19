@@ -1,7 +1,7 @@
 <div class="position-relative d-flex flex-column field text-start">
   <label [for]="name">{{ getError() }}</label>
   <div class="d-flex flex-column justify-content-center text-start input {{ error == '' ? 'valid' : 'invalid' }}">
-    <input type="text" [name]="name" [placeholder]="placeholder" class="form-control" [(ngModel)]="value" (change)="emit()" autocomplete="{{autocomplete}}">
+    <input type="{{name == 'email' ? 'email' : 'text'}}" [name]="name" [placeholder]="placeholder" class="form-control transition" [(ngModel)]="value" (change)="emit()" autocomplete="{{autocomplete}}">
     <div routerLink="/{{redirect}}" class="redirect" *ngIf="redirect">
       <span>{{redirectText}}</span>
     </div>

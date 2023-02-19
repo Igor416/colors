@@ -19,7 +19,7 @@
       [value]="code"
       (onChanged)="setField($event)">
     </app-field>
-    <input id="resend" (click)="resendCode()" value="Resend Code" class="form-control">
+    <input id="resend" (click)="resendCode()" value="Resend Code" class="form-control transition">
   </div>
   <div class="d-flex flex-column justify-content-center align-items-center" id="password" *ngIf="step == 3">
     <span id="title">New Password</span><br>
@@ -40,5 +40,5 @@
     </app-field>
     <app-remember-me [value]="remember_me" (onValueChanged)="check()"></app-remember-me>
   </div>
-  <input id="submit" class="transition" type="submit" value="Submit" class="form-control">
+  <input id="submit" type="submit" value="Submit" class="form-control transition">
 </form>
