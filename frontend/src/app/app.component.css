@@ -1,35 +1,23 @@
-.text {
-  top: 50vh;
-  z-index: -1;
-  font-size: 30px;
-  letter-spacing: 0.5em;
-}
-
-.text span {
-  padding: 5vh;
-  border: 1px solid black;
-}
-
-#header {
+header {
   width: 100vw;
   height: 10vh;
   line-height: 0;
   transform: rotate(180deg);
 }
 
-#header span {
+header span {
   right: 2vw;
   top: 2vh;
   transform: rotate(180deg);
 }
 
-#header svg {
+header svg {
   width: 130vw;
   height: 220px;
   animation: svg 20s infinite ease-in-out;
 }
 
-#header .shape-fill {
+header .shape-fill {
   fill: #5074e2;
   opacity: 0.4;
   animation: fill 15s infinite ease-in-out;
@@ -52,4 +40,44 @@
   width: 100vw;
   height: auto;
   padding: 2.5vh 2.5vw;
+}
+
+#home {
+  gap: 7.5vw;
+  animation: fade-in 0.5s;
+}
+
+#home a {
+  color: black;
+  text-decoration: none;
+}
+
+#home a:hover {
+  color: black;
+  text-decoration: none;
+}
+
+#home iframe {
+  width: 40vw;
+  min-height: 64vh;
+}
+
+#thanks {
+  font-size: 32px;
+  animation: fade-in 2s;
+}
+
+#info {
+  font-size: 24px;
+  animation: fade-in 4s;
+}
+
+@keyframes fade-in {
+  0% {opacity: 0}
+  50% {opacity: 0}
+  100% {opacity: 1}
+}
+
+#alert {
+  font-size: 20px;
 }
