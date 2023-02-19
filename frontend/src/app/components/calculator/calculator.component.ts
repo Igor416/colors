@@ -42,8 +42,7 @@ export class CalculatorComponent implements OnInit {
   }
 
   invertColor(id: number) {
-    let color = Color.toColor(this.equation.hexs[id]);
-    color = color.invert();
+    let color = Color.toColor(this.equation.hexs[id]).invert();
     this.equation.hexs[id] = color.hex.toString();
   }
 
