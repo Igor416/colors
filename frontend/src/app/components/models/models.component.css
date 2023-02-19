@@ -12,25 +12,18 @@
 }
 
 .model {
-  width: 85vw;
-  font-size: 28px;
-  margin-top: 5vh;
-}
-
-.model:nth-child(even) .model-content {
-  flex-direction: row-reverse;
-  text-align: right;
-}
-
-.model-content {
   margin-top: 2vh;
   width: 85vw;
   font-size: 24px;
 }
 
-.model-space {
-  width: 15vw;
-  height: auto;
+.model-title {
+  font-size: 28px;
+}
+
+.model:nth-child(even) {
+  flex-direction: row-reverse;
+  text-align: right;
 }
 
 @media screen and (max-width: 600px) {
@@ -46,25 +39,18 @@
     width: 90vw;
   }
 
+  .model-title {
+    font-size: 24px;
+  }
+
   .model {
     width: 90vw;
-    font-size: 24px;
+    font-size: 20px;
     margin-top: 3vh;
   }
 
-  .model:nth-child(even) .model-content {
+  .model, .model:nth-child(even) {
     flex-direction: column;
     text-align: left;
-  }
-
-  .model-content {
-    flex-direction: column;
-    align-items: center;
-    width: 90vw;
-    font-size: 20px;
-  }
-
-  .model-space {
-    display: none;
   }
 }

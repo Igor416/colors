@@ -2,18 +2,15 @@
   <div id="models_header" class="d-flex justify-content-between">
     <span id="models_title">Models</span>
   </div>
-  <div id="models_content" class="d-flex flex-column">
-    <div class="d-flex flex-column model" *ngFor="let model of models">
-      <div class="model-title">
-        {{ model.name == 'rgb' ? 'RGB | HEX' : model.name | uppercase }} Model
-      </div>
-      <div class="d-flex model-content">
-        <div class="model-text">
-          <span>{{ model.text }}</span>
-        </div>
-        <div class="model-space"></div>
-        <app-image src="assets/{{ model.name }}_model.png" alt="{{ model.name }} model" [style]="{width: '20vw'}" widthSmall="80vw"></app-image>
-      </div>
-    </div>
-  </div>
+  <table id="models_content" class="d-flex flex-column">
+    <tr class="d-flex align-items-center model" *ngFor="let model of models">
+      <td class="d-flex flex-column">
+        <span class="model-title">{{ model.name == 'rgb' ? 'RGB | HEX' : model.name | uppercase }} Model</span>
+        <span>{{ model.text }}</span>
+      </td>
+      <td>
+        <app-image src="assets/{{ model.name }}_model.png" alt="{{ model.name }} model" [style]="{width: '17.5vw'}" widthSmall="80vw"></app-image>
+      </td>
+    </tr>
+  </table>
 <div>
