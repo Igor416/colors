@@ -6,6 +6,10 @@
   font-size: 36px;
 }
 
+#models_content {
+  margin-bottom: 10vh;
+}
+
 .model {
   margin-top: 2vh;
   font-size: 24px;
@@ -18,6 +22,18 @@
 .model:nth-child(even) {
   flex-direction: row-reverse;
   text-align: right;
+}
+
+#video_title {
+  font-size: 32px;
+}
+
+#video {
+  width: 50%;
+}
+
+video {
+  width: 100%;
 }
 
 @media screen and (max-width: 600px) {
@@ -37,5 +53,13 @@
   .model, .model:nth-child(even) {
     flex-direction: column;
     text-align: left;
+  }
+
+  #video_title {
+    font-size: 24px;
+  }
+
+  #video {
+    width: 100%;
   }
 }
