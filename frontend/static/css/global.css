@@ -13,11 +13,7 @@
   }
 }
 
-.whitesmoke {
-  background-color: whitesmoke;
-}
-
-input {
+.whitesmoke, input {
   background-color: whitesmoke;
 }
 
