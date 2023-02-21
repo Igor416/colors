@@ -12,6 +12,10 @@ header span {
   color: white;
 }
 
+header span:hover {
+  cursor: pointer;
+}
+
 header svg {
   width: 130vw;
   height: 220px;
