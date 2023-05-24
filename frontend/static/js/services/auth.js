@@ -13,8 +13,8 @@ class AuthService {
     return this.cookies.get('auth') == 'true';
   }
 
-  displayErrors(errors) {
-    console.log(`Error: ${errors}`)
+  displayError(error) {
+    console.log(error)
   }
 
   login(data) {
@@ -26,14 +26,7 @@ class AuthService {
   }
 
   logout() {
-    this.setAuth(false)
     return this.post('logout/')
-  }
-
-  async get(url) {
-    const response = await fetch(this.api + url);
-    const data = await response.json();
-    return data;
   }
 
   async post(url, body) {
@@ -49,10 +42,16 @@ class AuthService {
     }
     const response = await fetch(this.api + url, options);
     const data = await response.json();
-    return data;
+    if (response.ok) {
+      return data;
+    }
+    throw new Error(data);
   }
 
   encrypt(data) {
+    if (!data) {
+      return data;
+    }
     if ('password' in data) {
       let password = data.password;
       data.password = this.rot13(password) // "very" secure
