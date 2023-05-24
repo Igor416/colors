@@ -42,13 +42,8 @@ This website is created for designers.
 	#### Features:
 	- *Zebra Grid*
 	
-- ### Log in, Sign up and Restore
+- ### Log in and Sign up
 	Autorization pages for entering, regestring and restoring account respectively
 	#### Features:
 	- *Input validation*
 	- *'Remember me' button*
-
-- ### Profile
-	Save and edit your color groups
-	#### Features:
-	- *Profile side menu*
