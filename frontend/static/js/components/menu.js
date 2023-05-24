@@ -33,7 +33,7 @@ class MenuComponent {
               `<a
                 id="profile"
                 class="transition row_href"
-                href="/profile">
+                href="/">
                 <span class="transition"><i class="fa fa-user"></i></span>
               </a>
               <div
@@ -72,7 +72,7 @@ class MenuComponent {
               `<a
                 id="profile"
                 class="transition column_href"
-                href="/profile">
+                href="/">
                 <span class="transition">profile&nbsp;<i class="fa fa-user"></i></span>
               </a>
               <div
@@ -122,7 +122,7 @@ class MenuComponent {
           `<a
             id="profile"
             class="transition href d-flex align-items-center justify-content-between"
-            href="/profile">
+            href="/">
             <span class="transition">profile&nbsp;<i class="fa fa-user"></i></span>
           </a>
           <div
@@ -167,15 +167,9 @@ class MenuComponent {
 
   exit() {
     this.toggleMenu()
-    this.auth.logout().subscribe({
-      next: (resp) => {
-        this.auth.setAuth(false)
-        window.location.href = `/`;
-      },
-      error: (e) => {
-        this.auth.displayErrors(e);
-      }
-    });
+    this.auth.logout().then(resp => {
+      window.location.reload();
+    }).catch((e) => this.auth.displayError(e));
   }
 
   toggleMenu() {
