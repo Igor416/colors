@@ -13,8 +13,6 @@ urlpatterns = [
     path('schemes', views.home, name = 'home'),
     path('schemes/<string>', views.home, name = 'home'),
     path('models', views.home, name = 'home'),
-    path('profile', views.home, name = 'home'),
     path('log_in', views.home, name = 'home'),
-    path('sign_up', views.home, name = 'home'),
-    path('restore', views.home, name = 'home'),
+    path('sign_in', views.home, name = 'home'),
 ]
