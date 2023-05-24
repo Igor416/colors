@@ -1,0 +1,62 @@
+#years_header {
+  font-size: 28px;
+}
+
+#decades_link {
+  font-size: 24px;
+}
+
+#years_content {
+  font-size: 24px;
+}
+
+#years_colors {
+  gap: 1vw;
+}
+
+#years_colors .color {
+  width: 10.5vw;
+  height: 10.5vw;
+  border-radius: 5%;
+}
+
+#years_colors .color .color-info {
+  max-width: 10.5vw;
+}
+
+@media screen and (max-width: 600px) {
+  #years {
+    margin: 0;
+  }
+
+  #years_header {
+    flex-direction: column;
+    font-size: 24px;
+  }
+
+  #decades_link {
+    font-size: 22px;
+  }
+
+  #decades_link span {
+    color: var(--bs-primary);
+    font-size: 22px;
+  }
+
+  #years_content {
+    font-size: 20px;
+  }
+
+  #years_colors {
+    gap: 2.5vh;
+  }
+
+  #years_colors .color {
+    width: 40vw;
+    height: 40vw;
+  }
+
+  #years_colors .color .color-info {
+    max-width: 40vw;
+  }
+}

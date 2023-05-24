@@ -1,0 +1,90 @@
+#equation_row {
+  flex-wrap: wrap;
+}
+
+.color {
+  width: 9vh;
+  height: 9vh;
+}
+
+.invert_picked_color {
+  font-size: 24px;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.sign {
+  height: 15vh;
+  width: 15vh;
+  display: inline-block;
+  font-size: 15vh;
+  line-height: 7vh;
+  text-align: center;
+}
+
+.mix {
+  font-size: 10vh;
+  line-height: 9vh;
+}
+
+.plus::before {
+  content: "+";
+}
+
+.minus::before {
+  content: "-";
+}
+
+.mix::before {
+  content: "&";
+}
+
+.equals::before {
+  content: "=";
+}
+
+.hex_color input {
+  font-size: 20px;
+  width: 12vh;
+}
+
+#result {
+  font-size: 24px;
+}
+
+#buttons {
+  font-size: 24px;
+}
+
+#choosen_sign div {
+  line-height: 11vh;
+}
+
+#change_sign_buttons {
+  font-size: 24px;
+}
+
+#global_buttons div button {
+  background-color: whitesmoke;
+  border: 0;
+  outline: 0;
+  color: black;
+}
+
+#help {
+  z-index: 1;
+  right: 7.5vw;
+  top: 22vh;
+  padding: 0.5vw;
+  border-radius: 50%;
+}
+
+#help:hover {
+  background-color: #ccc;
+}
+
+@media screen and (max-width: 600px) {
+  #equation_row {
+    flex-wrap: nowrap;
+    overflow: scroll;
+  }
+}

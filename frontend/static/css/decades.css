@@ -1,0 +1,60 @@
+#decades_header {
+  font-size: 28px;
+}
+
+#years_link {
+  font-size: 24px;
+}
+
+#decades_links {
+  width: 12vw;
+  font-size: 24px;
+}
+
+.decades_link {
+  font-size: 20px;
+  color: black;
+}
+
+#decade_content_container {
+  font-size: 24px;
+}
+
+#decade_content span {
+  white-space: pre-line;
+}
+
+@media screen and (max-width: 600px) {
+  #decades {
+    margin: 0;
+  }
+
+  #decades_header {
+    flex-direction: column;
+    font-size: 24px;
+  }
+
+  #years_link {
+    margin: 2vh 0;
+    font-size: 22px;
+  }
+
+  #decades_title {
+    width: 100%;
+  }
+
+  #decades_links {
+    width: 100%;
+    font-size: 20px;
+  }
+
+  #decades_content {
+    margin-top: 3vh;
+    font-size: 20px;
+  }
+
+  #decade_colors {
+    margin: 5vh 0;
+    gap: 2.5vh;
+  }
+}

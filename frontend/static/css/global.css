@@ -1,16 +1,21 @@
 .box {
   margin: 2.5vh 2.5vw;
   padding: 2.5vh 2.5vw 2.5vh 2.5vw;
-  min-height: 74vh;
+  min-height: 90vh;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 @media screen and (max-width: 600px) {
   .box {
+    width: 100vw;
     margin: 0 !important;
     flex-direction: column;
     align-items: center;
   }
+}
+
+a {
+  text-decoration: none !important;
 }
 
 .whitesmoke, input {
