@@ -1,6 +1,6 @@
 class CookiesService {
   constructor() { }
-  set(key, value, exhours=24) {
+  set(key, value, exhours = 24) {
     const d = new Date();
     d.setTime(d.getTime() + (exhours * 60 * 60 * 1000));
     document.cookie = `${key}=${value};expires=${d.toUTCString()};path=/`;
