@@ -18,22 +18,22 @@ class SignInComponent {
       <span id="title">Log in</span>
       <div id="inputs" class="d-flex flex-column">
         <div class="position-relative d-flex flex-column field text-start">
-          <label id="name_label" for="email">${this.name.error}</label>
+          <label id="name_label" for="name_input">${this.name.error}</label>
           <div id="name" class="d-flex flex-column justify-content-center text-start input valid">
             <input
               type="text"
-              name="name"
+              id="name_input"
               placeholder="Make up a login"
               class="form-control transition"
               value="${this.name.value}">
           </div>
         </div>
         <div class="position-relative d-flex flex-column field text-start">
-          <label id="email_label" for="email">${this.email.error}</label>
+          <label id="email_label" for="email_input">${this.email.error}</label>
           <div id="email" class="d-flex flex-column justify-content-center text-start input valid">
             <input
               type="email"
-              name="email"
+              id="email_input"
               placeholder="Your email"
               class="form-control transition"
               value="${this.email.value}"
@@ -44,11 +44,11 @@ class SignInComponent {
           </div>
         </div>
         <div class="position-relative d-flex flex-column field text-start">
-          <label id="password_label" for="password">${this.password.error}</label>
+          <label id="password_label" for="password_input">${this.password.error}</label>
           <div id="password" class="d-flex flex-column justify-content-center text-start input valid">
             <input
               type="password"
-              name="password"
+              id="password_input"
               placeholder="Make up a password"
               class="form-control transition"
               value="${this.password.value}"
@@ -56,11 +56,11 @@ class SignInComponent {
           </div>
         </div>
         <div class="position-relative d-flex flex-column field text-start">
-          <label id="password2_label" for="password2">${this.password2.error}</label>
+          <label id="password2_label" for="password2_input">${this.password2.error}</label>
           <div id="password2" class="d-flex flex-column justify-content-center text-start input valid">
             <input
               type="password"
-              name="password2"
+              id="password2_input"
               placeholder="Type in your password"
               class="form-control transition"
               value="${this.password.value}"
@@ -144,9 +144,8 @@ class SignInComponent {
     
     if (this.name.value && this.email.value && this.password.value && this.password2.value) {
       this.auth.signup(data).then(data => {
-        this.auth.setAuth(true, this.remember_me);
-        window.location.href = (`/profile`);
-      }).catch((e) => this.auth.displayErrors(e));
+        window.location.reload();
+      }).catch((e) => this.auth.displayError(e));
     }
   }
 }
