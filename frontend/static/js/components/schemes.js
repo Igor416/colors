@@ -2,7 +2,6 @@ class SchemesComponent {
   constructor(name) {
     this.isMobile = window.matchMedia("(max-width: 1080px)").matches
     this.size = screen.availWidth / 100 * (this.isMobile ? 80 /*80vw*/ : 20 /*20vw*/)
-    this.canvasService = new CanvasService(this.size)
     this.schemeService = new SchemeService(this.isMobile, this.size)
     let scheme;
     const coords = this.schemeService.loadCoords(name);
@@ -27,9 +26,9 @@ class SchemesComponent {
   render() {
     return (`
     <div class="box whitesmoke">
-      <div id="schemes_header" class="d-flex justify-content-between">
+      <div id="schemes_header" class="d-flex flex-sm-row flex-column justify-content-between">
         <span class="h3">${this.scheme.constructor.name} Scheme</span>
-        <select class="whitesmoke transition underlined h4 p-2" value="${this.picked_scheme}">
+        <select id="schemes_options" class="whitesmoke transition underlined h4 p-2" value="${this.picked_scheme}">
           ${this.schemes.map((scheme) => {return `<option
             class="whitesmoke text-black h5"
             ${scheme == this.picked_scheme ? 'selected' : ''}
@@ -38,33 +37,23 @@ class SchemesComponent {
           </option>`}).join('')}
         </select>
       </div>
-      <div id="scheme" class="d-flex justify-content-between align-items-center mt-5">
-        <div id="canvas_container"></div>
-        <div id="scheme_info" class="d-flex flex-column justify-content-between h3">
-          <div id="description">${this.scheme.description}</div>
-          <div id="cursor_values"></div>
-        </div>
+      <div id="description" class="my-5 h3">${this.scheme.description}</div>
+      ${this.isMobile ? `<input type="checkbox" id="switch" /><label class="w-100 d-block bg-secondary position-relative" for="switch"></label>` : ''}
+      <div id="scheme" class="d-flex justify-content-sm-between justify-content-center align-items-center mt-5">
+        <div id="canvas_container_white" style="display: block" class="position-relative"></div>
+        <div id="canvas_container_black" style="display: ${this.isMobile ? 'none' : 'block'}" class="position-relative"></div>
+      </div>
+      <div class="d-flex flex-column justify-content-between h3 mt-5">
+        <div id="cursor_values"></div>
       </div>
     </div>
     `)
   }
 
   init() {
-    const container = document.getElementById('canvas_container');
+    this.whiteCanvas = new Canvas(this.size, 'white', this.scheme.cursors, true)
+    this.blackCanvas = new Canvas(this.size, 'black', this.scheme.cursors, false)
 
-    this.wheel = this.canvasService.drawWheel();
-    container.style.width = container.style.height = this.size + 'px';
-    this.wheel.style.position = 'absolute';
-    container.appendChild(this.wheel);
-    this.canvasService.wheel = this.wheel;
-
-    this.canvas = document.createElement('canvas');
-    this.canvas.width = this.canvas.height = this.size;
-    this.canvas.style.position = 'absolute';
-    container.appendChild(this.canvas);
-    this.canvasService.canvas = this.canvas;
-
-    this.canvasService.drawAllCursors(this.scheme.cursors);
     this.setStaticEventListeners()
     this.setDynamicEventListeners()
     this.reload('cursor_values')
@@ -83,13 +72,22 @@ class SchemesComponent {
     this.onCursorDrag = this.onCursorDrag.bind(this)
     //cursor can only be moved when the mouse is down, so we need to track mouse state
     if (this.isMobile) {
-      this.canvas.addEventListener('touchstart', this.onMouseDown)
-      this.canvas.addEventListener('touchend', this.onMouseUp)
-      this.canvas.addEventListener('touchmove', this.onCursorDrag)
+      this.whiteCanvas.cursors.addEventListener('touchstart', this.onMouseDown)
+      this.whiteCanvas.cursors.addEventListener('touchend', this.onMouseUp)
+      this.whiteCanvas.cursors.addEventListener('touchmove', this.onCursorDrag)
+      this.blackCanvas.cursors.addEventListener('touchstart', this.onMouseDown)
+      this.blackCanvas.cursors.addEventListener('touchend', this.onMouseUp)
+      this.blackCanvas.cursors.addEventListener('touchmove', this.onCursorDrag)
+
+      this.chooseWheel = this.chooseWheel.bind(this)
+      document.getElementById('switch').addEventListener('click', this.chooseWheel)
     } else {
-      this.canvas.addEventListener('mousedown', this.onMouseDown)
-      this.canvas.addEventListener('mouseup', this.onMouseUp)
-      this.canvas.addEventListener('mousemove', this.onCursorDrag)
+      this.whiteCanvas.cursors.addEventListener('mousedown', this.onMouseDown)
+      this.whiteCanvas.cursors.addEventListener('mouseup', this.onMouseUp)
+      this.whiteCanvas.cursors.addEventListener('mousemove', this.onCursorDrag)
+      this.blackCanvas.cursors.addEventListener('mousedown', this.onMouseDown)
+      this.blackCanvas.cursors.addEventListener('mouseup', this.onMouseUp)
+      this.blackCanvas.cursors.addEventListener('mousemove', this.onCursorDrag)
     }
   }
 
@@ -100,7 +98,6 @@ class SchemesComponent {
   navigateTo(value) {
     if (value) {
       window.history.pushState({}, '', window.location.href)
-      //window.location.replace(`/schemes/${value.srcElement.value}`)
       main.setUrlParametr(value.srcElement.value)
       main.setComponent('/schemes')
     }
@@ -109,6 +106,13 @@ class SchemesComponent {
   toggle() {
     this.colors_shown = !this.colors_shown
     this.reload('cursor_values')
+  }
+
+  chooseWheel() {
+    this.blackCanvas.isActive = this.whiteCanvas.isActive
+    this.whiteCanvas.isActive = !this.whiteCanvas.isActive
+    document.getElementById('canvas_container_white').style.display = this.whiteCanvas.isActive ? 'block' : 'none'
+    document.getElementById('canvas_container_black').style.display = this.blackCanvas.isActive ? 'block' : 'none'
   }
 
   copy(event) {
@@ -121,29 +125,18 @@ class SchemesComponent {
     /*
     if user clicked on any cursor, update the lastActive with cursor's index, else don't update the lastActive field
     */
-    let mouseX, mouseY;
-    if (this.isMobile) {
-      mouseX = event.targetTouches[0].clientX;
-      mouseY = event.targetTouches[0].clientY;
-    } else {
-      mouseX = event.clientX;
-      mouseY = event.clientY;
-    }
-
-    mouseX -= this.canvas.offsetLeft + this.size / 2;
-    mouseY = this.size / 2 - mouseY + this.canvas.offsetTop;
+    const [mouseX, mouseY] = this.getMousePos(event)
 
     const inRange = (center, radius, point) => center - radius < point && point < center + radius;
     
-    for (let i = 0; i < this.scheme.cursors.length; i++) {
-      let cursor = this.scheme.cursors[i];
-      if (inRange(cursor.x, cursor.radius, mouseX) && inRange(cursor.y, cursor.radius, mouseY)) {
-        this.scheme.lastActive = i;
-        break;
+    for (let cursor of this.scheme.cursors) {
+      let [x, y] = this.schemeService.transformCoords(cursor)
+      if (inRange(x, cursor.radius, mouseX) && inRange(y, cursor.radius, mouseY)) {
+        this.scheme.lastActive = this.scheme.cursors.indexOf(cursor);
+        this.mouseIsDown = true;
+        return
       }
     }
-
-    this.mouseIsDown = true;
   }
 
   onMouseUp(event) {
@@ -154,6 +147,29 @@ class SchemesComponent {
     if (!this.mouseIsDown) {
       return;
     }
+    let [mouseX, mouseY] = this.getMousePos(event)
+
+    const cursor = this.scheme.cursors[this.scheme.lastActive]
+
+    //cursor can't go beyond the wheel, we handling it using Pythagoras's theorem
+    mouseX -= this.size / 2;
+    mouseY = this.size / 2 - mouseY;
+    if (Math.sqrt(Math.pow(mouseX, 2) + Math.pow(mouseY, 2)) <= this.size / 2) {
+      cursor.x = mouseX;
+      cursor.y = mouseY;
+      
+      this.scheme.update();
+      //as the cursors aren't independent we need to redraw every one. The dependencies are in the scheme.ts file
+      this.whiteCanvas.isActive = event.srcElement.id == 'white'
+      this.blackCanvas.isActive = event.srcElement.id == 'black'
+      this.whiteCanvas.updateCursors(this.scheme.cursors)
+      this.blackCanvas.updateCursors(this.scheme.cursors)
+      this.schemeService.saveCoords(this.picked_scheme, this.scheme.cursors[0])
+    }
+    this.reload('cursor_values')
+  }
+
+  getMousePos(event) {
     let mouseX, mouseY;
     if (this.isMobile) {
       mouseX = event.targetTouches[0].clientX;
@@ -163,25 +179,10 @@ class SchemesComponent {
       mouseY = event.clientY;
     }
 
-    mouseX -= this.canvas.offsetLeft + this.size / 2;
-    mouseY = this.size / 2 - mouseY + this.canvas.offsetTop;
-
-    const ctx = this.canvas.getContext('2d');
-
-    const cursor = this.scheme.cursors[this.scheme.lastActive]
-
-    //cursor can't go beyond the wheel, we handling it using Pythagoras's theorem
-    if (Math.sqrt(Math.pow(mouseX, 2) + Math.pow(mouseY, 2)) <= this.size / 2) {
-      cursor.x = mouseX;
-      cursor.y = mouseY;
-
-      this.scheme.update();
-      //as the cursors aren't independent we need to redraw every one. The dependencies are in the scheme.ts file
-      ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      this.canvasService.drawAllCursors(this.scheme.cursors);
-      this.schemeService.saveCoords(this.picked_scheme, this.scheme.cursors[0])
-    }
-    this.reload('cursor_values')
+    const rect = event.srcElement.getBoundingClientRect();
+    mouseX = (mouseX - rect.left) / (rect.right - rect.left) * event.srcElement.width
+    mouseY = (mouseY - rect.top) / (rect.bottom - rect.top) * event.srcElement.height
+    return [mouseX, mouseY]
   }
 
   reload(item) {
@@ -192,9 +193,9 @@ class SchemesComponent {
   getReloadable(item) {
     switch (item) {
       case 'cursor_values': return this.schemeService.getCursorsInfo().map(info => {return `<div
-      class="d-flex justify-content-center align-items-center cursor-value h4"
+      class="d-flex justify-content-center align-items-center cursor-value h4 mb-0 ${this.whiteCanvas.isActive ? 'text-black' : 'text-white'}"
       style="background-color: #${info.color.hex.toString()}">
-        <span>${this.colors_shown ? info.color.hex.toString() : info.label}&nbsp;<i data-hex=${info.color.hex.toString()} class="fas fa-copy"></i></span>
+        ${info.label != '' ? `<span>${this.colors_shown ? info.color.hex.toString() : info.label}&nbsp;<i data-hex=${info.color.hex.toString()} class="fas fa-copy"></i></span>` : ''}
     </div>`}).join('')
     }
   }
