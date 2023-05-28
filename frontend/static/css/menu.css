@@ -1,5 +1,4 @@
 #menu {
-  background-color: white;
   height: 100vh;
 }
 
@@ -30,22 +29,17 @@
 }
 
 #menu_mobile {
-  background-color: black;
   width: 100vw;
 }
 
 .row_href, .column_href, #times {
   width: auto;
   height: 5vh;
-  color: white;
-  padding: 0 5vw;
-  display: flex;
-  align-items: center;
-  border-left: 0.05vw solid white;
-  justify-content: space-between;
+  color: black;
+  border-left: 0.05vw solid black;
 }
 
-.row_href:first-child {
+.row_href:first-child, #times{
   border-left: none;
 }
 
@@ -53,9 +47,8 @@
   left: 0;
   top: 0;
   z-index: 1;
-  background-color: rgba(0, 0, 0, 0.8);
-  position: fixed;
-  width: 100%;
+  width: 100vw;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .column_href {
@@ -68,5 +61,4 @@
 
 #times {
   z-index: 2;
-  border: none;
 }
