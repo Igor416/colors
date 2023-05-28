@@ -30,7 +30,7 @@ class AuthService {
   }
 
   async post(url, body) {
-    let options = {
+    const options = {
       method: "POST",
       mode: 'cors',
       headers: {
@@ -53,8 +53,7 @@ class AuthService {
       return data;
     }
     if ('password' in data) {
-      let password = data.password;
-      data.password = this.rot13(password) // "very" secure
+      data.password = this.rot13(data.password) // "very" secure
     }
     return data;
   }

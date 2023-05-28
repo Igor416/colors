@@ -23,7 +23,7 @@ class SchemeService {
   }
 
   loadCoords(key) {
-    let coords = this.cookies.get(key);
+    const coords = this.cookies.get(key);
     return coords.split(',').map(Number);
   }
 
@@ -50,22 +50,22 @@ class SchemeService {
 
   getCursorsInfo() {
     //get label and color of the cursor. For details of the composition, consider using the website
-    let container = document.getElementById('cursor_values');
+    const container = document.getElementById('cursor_values');
     if (!container) {
       return []
     }
-    let info = [];
-    let cursors = this.scheme.cursors;
+    const info = [];
+    const cursors = this.scheme.cursors;
     if (cursors.length == 1) {
       //line
       container.style.gridTemplateColumns = 'auto '.repeat(5)
-      let color = cursors[0].color;
+      const color = cursors[0].color;
       //the hue and saturation remain unchanged
-      let H = color.hsl.a.value;
-      let S = color.hsl.b.value
+      const H = color.hsl.a.value;
+      const S = color.hsl.b.value
 
-      for (let l = 90; l >= 50; l -= 20) {
-        info.push(new CursorInfo(l + '%', new Color(new HSL(H, S, l))));
+      for (let L = 90; L >= 50; L -= 20) {
+        info.push(new CursorInfo(L + '%', new Color(new HSL(H, S, L))));
       }
 
       info.push(new CursorInfo('', new Color(new HSL(0, 0, 96)))); //background-color, simulate space between gradient and picked color
@@ -74,7 +74,7 @@ class SchemeService {
     } else if (cursors.length == 2) {
       //line
       container.style.gridTemplateColumns = 'auto '.repeat(5)
-      let mixed = cursors[0].color.operate(Sign.Mix, cursors[1].color)
+      const mixed = cursors[0].color.operate(Sign.Mix, cursors[1].color)
 
       info.push(new CursorInfo('1', cursors[0]));
       if (this.isMobile) {
@@ -90,11 +90,11 @@ class SchemeService {
 
     } else {
       //triangle and rectangle
-      let matrix = cursors.length == 3 ? [12, 2, 23, 1, 13, 3] : [1, 12, 2, 13, 14, 24, 3, 34, 4]
+      const matrix = cursors.length == 3 ? [12, 2, 23, 1, 13, 3] : [1, 12, 2, 13, 14, 24, 3, 34, 4]
       for (let el of matrix) {
         if (el > 10) {
-          let scnd = el % 10;
-          let frst = (el - scnd) / 10
+          const scnd = el % 10;
+          const frst = (el - scnd) / 10
           info.push(new CursorInfo(`${frst} & ${scnd}`, cursors[frst - 1], cursors[scnd - 1]))
         } else {
           info.push(new CursorInfo(`${el}`, cursors[el - 1]))

@@ -7,8 +7,8 @@ class CookiesService {
   }
   
   get(key) {
-    let name = key + "=";
-    let cookies = document.cookie.split(';');
+    const name = key + "=";
+    const cookies = document.cookie.split(';');
     for(let i = 0; i < cookies.length; i++) {
       let c = cookies[i];
       while (c.charAt(0) == ' ') {

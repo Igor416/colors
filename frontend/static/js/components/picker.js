@@ -11,10 +11,10 @@ class PickerComponent {
     return (`
     <div class="d-flex flex-column justify-content-between box whitesmoke">
       <div id="picker_header" class="d-flex justify-content-between w-100">
-        <span id="picker_title">${this.picked_model.name.toUpperCase()} (${this.picked_model.fullName}) Picker</span>
-        <select id="picker_options" class="whitesmoke underlined transition" value="${this.picked_model.name}">
+        <span class="h3">${this.picked_model.name.toUpperCase()} (${this.picked_model.fullName}) Picker</span>
+        <select id="picker_options" class="whitesmoke underlined transition h4 p-2" value="${this.picked_model.name}">
           ${this.models.map((model) => {return `<option
-            class="whitesmoke picker_option"
+            class="whitesmoke h5"
             ${model == this.picked_model ? 'selected' : ''}
             value="${model.name}">
             ${model.name}
@@ -26,9 +26,9 @@ class PickerComponent {
           id="picked_color"
           [ngStyle]="{ 'background-color': representColor() }"
           class="d-flex justify-content-center align-items-center rounded-circle">
-          <button id="invert_picked_color" class="border-0">invert</button>
+          <button id="invert_picked_color" class="border-0 h1">invert</button>
         </div>
-        <div id="picked_color_models" class="d-flex flex-column justify-content-between align-items-end">
+        <div id="picked_color_models" class="d-flex flex-column justify-content-between align-items-end h4">
           ${this.getReloadable('picked_color_models')}
           ${this.isMobile ? `<div class="w-100 text-center mb-2">
             <span>Copy <i data-model=${this.picked_model.name} class="fas fa-copy"></i><span>
@@ -85,7 +85,7 @@ class PickerComponent {
   }
 
   copy(event) {
-    let model = this.picked_color[event.srcElement.getAttribute('data-model')]
+    const model = this.picked_color[event.srcElement.getAttribute('data-model')]
     navigator.clipboard.writeText(model.toString());
   }
 
@@ -94,7 +94,7 @@ class PickerComponent {
       return this.updateSlider(event)
     }
 
-    let model = this.picked_color[event.srcElement.getAttribute('data-model')]
+    const model = this.picked_color[event.srcElement.getAttribute('data-model')]
     model[event.srcElement.getAttribute('data-id')].value = model.name == 'hex' ? event.srcElement.value : Number(event.srcElement.value)
     this.representColor(model)
     this.reload('picked_color_models')
@@ -111,7 +111,7 @@ class PickerComponent {
   }
 
   getModelsOrder() {
-    let order = this.picked_color.models;
+    const order = this.picked_color.models;
     for (let i = 0; i < order.length; i++) {
       if (order[i].name == this.picked_model.name) {
         order.splice(i, 1);
@@ -130,7 +130,7 @@ class PickerComponent {
 
   getReloadable(item) {
     switch (item) {
-      case 'picked_color_models': return this.getModelsOrder().map(model => {return `<div class="d-flex justify-content-end picked_color_model ${this.picked_model.name == model.name ? 'active' : '' }">
+      case 'picked_color_models': return this.getModelsOrder().map(model => {return `<div class="d-flex justify-content-end picked_color_model ${this.picked_model.name == model.name ? 'h3' : '' }">
         ${model.fields.map(field => {return `<div class="d-flex justify-content-between picked_color_field">
           <span class="picker_chooser_label">${field.name}: &nbsp;</span>
           <input

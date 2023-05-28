@@ -2,6 +2,7 @@ class Cursor {
   x;
   y;
   color;
+  label;
 
   constructor (x, y) {
     this.x = x;

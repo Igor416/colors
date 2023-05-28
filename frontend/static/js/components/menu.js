@@ -6,8 +6,8 @@ class MenuComponent {
     this.signedIn = this.auth.isAuth();
     this.isMobile = window.matchMedia("(max-width: 1080px)").matches
 
-    let names = ['schemes', 'picker', 'calculator', 'trends', 'models']
-    let links = ['schemes/analogous', 'picker', 'calculator', 'trends/years', 'models']
+    const names = ['schemes', 'picker', 'calculator', 'trends', 'models']
+    const links = ['schemes/analogous', 'picker', 'calculator', 'trends/years', 'models']
 
     names.forEach((_, i) => {
       this.hrefs.push({
@@ -53,10 +53,10 @@ class MenuComponent {
             </div>
           </div>
           <div class="transition d-flex flex-column justify-content-between" id="column">
-            <div id="column_hrefs" class="flex-column align-items-center">
+            <div id="column_href h4s" class="flex-column align-items-center">
               ${this.hrefs.map((href) => {return `<a
                 id="${href.name}_link"
-                class="transition column_href"
+                class="transition column_href h4"
                 href="/${href.link}">
                 <span class="transition">${href.name}</span>
               </a>`}).join('')}
@@ -64,31 +64,31 @@ class MenuComponent {
             <div id="column_links" class="flex-column align-items-center">
               <a
                 id="home"
-                class="transition column_href"
+                class="transition column_href h4"
                 href="/">
                 <span class="transition">home&nbsp;<i class="fa fa-home"></i></span>
               </a>
               ${this.signedIn ?
               `<a
                 id="profile"
-                class="transition column_href"
+                class="transition column_href h4"
                 href="/">
                 <span class="transition">profile&nbsp;<i class="fa fa-user"></i></span>
               </a>
               <div
                 id="exit"
-                class="transition column_href">
+                class="transition column_href h4">
                 <span class="transition">exit&nbsp;<i class="fas fa-sign-out-alt"></i></span>
               </div>` :
               `<a
                 id="log_in"
-                class="transition column_href"
+                class="transition column_href h4"
                 href="/log_in">
                 <span class="transition">log in&nbsp;<i class="fas fa-sign-in-alt"></i></span>
               </a>
               <a
                 id="sign_in"
-                class="transition column_href"
+                class="transition column_href h4"
                 href="/sign_in">
                 <span class="transition">sign up&nbsp;<i class="fas fa-sign-in-alt"></i></span>
               </a>`}
@@ -106,7 +106,7 @@ class MenuComponent {
         <div id="hrefs" class="d-flex flex-column">
           ${this.hrefs.map((href) => {return `<a
             id="${href.name}_link"
-            class="transition href d-flex align-items-center justify-content-between"
+            class="transition href h4 d-flex align-items-center justify-content-between"
             href="/${href.link}">
             <span class="transition">${href.name}</span>
           </a>`}).join('')}
@@ -114,31 +114,31 @@ class MenuComponent {
         <div id="links" class="d-flex flex-column">
           <a
             id="home"
-            class="transition href d-flex align-items-center justify-content-between"
+            class="transition href h4 d-flex align-items-center justify-content-between"
             href="/">
             <span class="transition">home&nbsp;<i class="fa fa-home"></i></span>
           </a>
           ${this.signedIn ?
           `<a
             id="profile"
-            class="transition href d-flex align-items-center justify-content-between"
+            class="transition href h4 d-flex align-items-center justify-content-between"
             href="/">
             <span class="transition">profile&nbsp;<i class="fa fa-user"></i></span>
           </a>
           <div
             id="exit"
-            class="transition href d-flex align-items-center justify-content-between">
+            class="transition href h4 d-flex align-items-center justify-content-between">
             <span class="transition">exit&nbsp;<i class="fas fa-sign-out-alt"></i></span>
           </div>` :
           `<a
             id="log_in"
-            class="transition href d-flex align-items-center justify-content-between"
+            class="transition href h4 d-flex align-items-center justify-content-between"
             href="/log_in">
             <span class="transition">log in&nbsp;<i class="fas fa-sign-in-alt"></i></span>
           </a>
           <a
             id="sign_in"
-            class="transition href d-flex align-items-center justify-content-between"
+            class="transition href h4 d-flex align-items-center justify-content-between"
             href="/sign_in">
             <span class="transition">sign up&nbsp;<i class="fas fa-sign-in-alt"></i></span>
           </a>`}
@@ -150,7 +150,7 @@ class MenuComponent {
   init() {
     this.setStaticEventListeners()
     if (this.isMobile) {
-      let menu = document.getElementById("menu_mobile")
+      const menu = document.getElementById("menu_mobile")
       this.row = menu.children[0].children[0];
       this.column = menu.children[1];
       this.opened = false;

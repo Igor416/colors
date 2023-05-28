@@ -1,16 +1,6 @@
-#picker_title {
-  font-size: 24px;
-}
-
 #picker_options {
   width: 10vw;
-  font-size: 24px;
   padding: 1vh 0.25vw;
-}
-
-.picker_option {
-  font-size: 20px;
-  color: black;
 }
 
 #picked_color {
@@ -19,17 +9,11 @@
 }
 
 #invert_picked_color {
-  font-size: 36px;
   background-color: rgba(0, 0, 0, 0);
 }
 
 #picked_color_models {
   width: 50vw;
-  font-size: 20px;
-}
-
-#picked_color_models .active {
-  font-size: 24px;
 }
 
 .picked_color_field {
@@ -47,10 +31,6 @@
 .picker_chooser_gradient {
   height: 1.5vh;
   border-radius: 10%;
-}
-
-.picker_chooser_field span {
-  font-size: 20px;
 }
 
 @media screen and (max-width: 600px) {

@@ -32,9 +32,9 @@ class Color {
   semiInvert() {
     const max = 255;
     const half = 128;
-    let R = this.rgb.a.value < half ? max : 0;
-    let G = this.rgb.b.value < half ? max : 0;
-    let B = this.rgb.c.value < half ? max : 0;
+    const R = this.rgb.a.value < half ? max : 0;
+    const G = this.rgb.b.value < half ? max : 0;
+    const B = this.rgb.c.value < half ? max : 0;
     return new Color(new RGB(R, G, B));
   }
 
@@ -47,9 +47,9 @@ class Color {
   }
 
   static toColor(hex) {
-    let R = hex.repeat(1).slice(0, 2);
-    let G = hex.repeat(1).slice(2, 4);
-    let B = hex.repeat(1).slice(4, 6);
+    const R = hex.repeat(1).slice(0, 2);
+    const G = hex.repeat(1).slice(2, 4);
+    const B = hex.repeat(1).slice(4, 6);
     return new Color(new HEX(R, G, B));
   }
 }

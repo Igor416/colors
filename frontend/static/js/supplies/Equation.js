@@ -13,23 +13,29 @@ class Equation {
     result - the hex, representing the result
     */
     if (row != '') {
-      this.hexs = row.split(new RegExp('[+&=-]{1}', 'g')); //split at any sign
+      this.hexs = row.split(new RegExp('[+&-]{1}', 'g')); //split at any sign
       this.signs = row.split(new RegExp('[A-Fa-f0-9]{6}', 'g')); //split at any hex
 
       /*as the row starts with hex and ends,
       when splitted there will be two empty string from both ends*/
-      this.signs.shift(); //removing first emplty string
-      this.signs.pop(); //removing last emplty string
-      this.signs.pop(); //removing = sign, beacuse it's at the tail of array
+      this.signs.shift(); //removing first empty string
+      this.signs.pop(); //removing last empty string
 
-      //removing the last hex (result) and storing it
-      this.result = this.hexs.pop();
+      this.getResult();
 
     } else {
       //default
       this.hexs = ['000000', '000000'];
       this.signs = [Sign.Plus];
       this.result = '000000';
+    }
+  }
+
+  static getSign(sign) {
+    switch (sign) {
+      case Sign.Plus: return 'plus';
+      case Sign.Minus: return 'minus';
+      case Sign.Mix: return 'mix';
     }
   }
 
@@ -41,6 +47,16 @@ class Equation {
   remove() {
     this.hexs.pop();
     this.signs.pop();
+  }
+
+  toArray() {
+    const row = [this.hexs[0]];
+    for (let i = 0; i < this.signs.length; i++) {
+      row.push(this.signs[i])
+      row.push(this.hexs[i + 1])
+    }
+    
+    return row;
   }
 
   getResult() {

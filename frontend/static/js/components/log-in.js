@@ -14,8 +14,8 @@ class LogInComponent {
     <form id="log_in" class="box whitesmoke d-flex flex-column justify-content-between align-items-center text-center">
       <span id="title">Log in</span>
       <div id="inputs" class="d-flex flex-column">
-        <div class="position-relative d-flex flex-column field text-start">
-          <label id="email_label" for="email_input">${this.email.error}</label>
+        <div class="position-relative d-flex flex-column field h4 text-start">
+          <label id="email_label" class="h4" for="email_input">${this.email.error}</label>
           <div id="email" class="d-flex flex-column justify-content-center text-start input valid">
             <input
               type="email"
@@ -24,17 +24,17 @@ class LogInComponent {
               class="form-control transition"
               value="${this.email.value}"
               autocomplete="username">
-            <a href="/sign_in" class="redirect">
+            <a href="/sign_in" class="redirect h5">
               <span>Don't have an account?</span>
             </a>
           </div>
         </div>
-        <div class="position-relative d-flex flex-column field text-start">
-          <label id="password_label" for="password_input">${this.password.error}</label>
+        <div class="position-relative d-flex flex-column field h4 text-start">
+          <label id="password_label" class="h4" for="password_input">${this.password.error}</label>
           <div id="password" class="d-flex flex-column justify-content-center text-start input valid">
             <input
-              type="password_input"
-              id="password"
+              type="password"
+              id="password_input"
               placeholder="Your password"
               class="form-control transition"
               value="${this.password.value}"
@@ -45,7 +45,7 @@ class LogInComponent {
           ${this.remember_me.render()}
         </div>
       </div>
-      <input id="submit" type="submit" value="Log In" class="form-control transition">
+      <input id="submit" class="h2" type="submit" value="Log In" class="form-control transition">
     </form>
     `)
   }
@@ -74,11 +74,11 @@ class LogInComponent {
   }
 
   update(event) {
-    let field = this[event.srcElement.name]
+    const field = this[event.srcElement.name]
     field.value = event.srcElement.value
     field.validate()
     document.getElementById(event.srcElement.name + '_label').innerHTML = field.error
-    let container = document.getElementById(event.srcElement.name)
+    const container = document.getElementById(event.srcElement.name)
     if (field.error) {
       container.classList.remove('valid')
       container.classList.add('invalid')
@@ -90,7 +90,7 @@ class LogInComponent {
 
   sendForm(event) {
     event.preventDefault()
-    let data = {
+    const data = {
       'email': this.email.value,
       'password': this.password.value,
       'remember_me': this.remember_me.value

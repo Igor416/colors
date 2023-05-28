@@ -1,20 +1,15 @@
 class SchemesComponent {
   constructor(name) {
     this.isMobile = window.matchMedia("(max-width: 1080px)").matches
-    let size = screen.availWidth
-    if (this.isMobile) {
-      size *= 80 / 100 //80vw
-    } else {
-      size *= 20 / 100 //20vw
-    }
-    this.canvasService = new CanvasService()
-    this.schemeService = new SchemeService(this.isMobile, size)
+    this.size = screen.availWidth / 100 * (this.isMobile ? 80 /*80vw*/ : 20 /*20vw*/)
+    this.canvasService = new CanvasService(this.size)
+    this.schemeService = new SchemeService(this.isMobile, this.size)
     let scheme;
-    let coords = this.schemeService.loadCoords(name);
+    const coords = this.schemeService.loadCoords(name);
     if (coords.length == 2) { //the cookie may expire, then length will be 0
       scheme = this.schemeService.get(name, coords[0], coords[1]);
     } else {
-      scheme = this.schemeService.get(name, size / 2, size / 4); //tint of violet
+      scheme = this.schemeService.get(name, this.size / 2, this.size / 4); //tint of violet
     }
 
     if (scheme == null) {
@@ -33,23 +28,21 @@ class SchemesComponent {
     return (`
     <div class="box whitesmoke">
       <div id="schemes_header" class="d-flex justify-content-between">
-        <span id="schemes_title">${this.scheme.constructor.name} Scheme</span>
-        <select id="schemes_options" class="whitesmoke transition underlined" value="${this.picked_scheme}">
+        <span class="h3">${this.scheme.constructor.name} Scheme</span>
+        <select class="whitesmoke transition underlined h4 p-2" value="${this.picked_scheme}">
           ${this.schemes.map((scheme) => {return `<option
-            class="whitesmoke schemes_option"
+            class="whitesmoke text-black h5"
             ${scheme == this.picked_scheme ? 'selected' : ''}
             value="${scheme}">
             ${scheme}
           </option>`}).join('')}
         </select>
       </div>
-      <div id="scheme" class="d-flex justify-content-between align-items-center">
+      <div id="scheme" class="d-flex justify-content-between align-items-center mt-5">
         <div id="canvas_container"></div>
-        <div id="scheme_info" class="d-flex flex-column justify-content-between">
+        <div id="scheme_info" class="d-flex flex-column justify-content-between h3">
           <div id="description">${this.scheme.description}</div>
-          <div id="cursor_values">
-            
-          </div>
+          <div id="cursor_values"></div>
         </div>
       </div>
     </div>
@@ -57,23 +50,16 @@ class SchemesComponent {
   }
 
   init() {
-    //there are 2 different canvas elements so that when user drags any of the cursors we may redraw only the cursors, the wheel is only drawn once, at the beginind, remains unchanged
-    let size = screen.availWidth
-    if (this.isMobile) {
-      size *= 80 / 100 //80vw
-    } else {
-      size *= 20 / 100 //20vw
-    }
-    let container = document.getElementById('canvas_container');
+    const container = document.getElementById('canvas_container');
 
-    this.wheel = this.canvasService.drawWheel(size);
-    container.style.width = container.style.height = size + 'px';
+    this.wheel = this.canvasService.drawWheel();
+    container.style.width = container.style.height = this.size + 'px';
     this.wheel.style.position = 'absolute';
     container.appendChild(this.wheel);
     this.canvasService.wheel = this.wheel;
 
     this.canvas = document.createElement('canvas');
-    this.canvas.width = this.canvas.height = size;
+    this.canvas.width = this.canvas.height = this.size;
     this.canvas.style.position = 'absolute';
     container.appendChild(this.canvas);
     this.canvasService.canvas = this.canvas;
@@ -127,7 +113,7 @@ class SchemesComponent {
 
   copy(event) {
     this.toggle()
-    let hex = event.srcElement.getAttribute('data-hex')
+    const hex = event.srcElement.getAttribute('data-hex')
     navigator.clipboard.writeText(hex);
   }
 
@@ -135,22 +121,19 @@ class SchemesComponent {
     /*
     if user clicked on any cursor, update the lastActive with cursor's index, else don't update the lastActive field
     */
-    let evt, mouseX, mouseY;
+    let mouseX, mouseY;
     if (this.isMobile) {
-      evt = event;
-      mouseX = evt.targetTouches[0].clientX;
-      mouseY = evt.targetTouches[0].clientY;
+      mouseX = event.targetTouches[0].clientX;
+      mouseY = event.targetTouches[0].clientY;
     } else {
-      evt = event;
-      mouseX = evt.clientX;
-      mouseY = evt.clientY;
+      mouseX = event.clientX;
+      mouseY = event.clientY;
     }
 
-    let size = this.canvas.width;
-    mouseX -= this.canvas.offsetLeft + size / 2;
-    mouseY = size / 2 - mouseY + this.canvas.offsetTop;
+    mouseX -= this.canvas.offsetLeft + this.size / 2;
+    mouseY = this.size / 2 - mouseY + this.canvas.offsetTop;
 
-    let inRange = (center, radius, point) => center - radius < point && point < center + radius;
+    const inRange = (center, radius, point) => center - radius < point && point < center + radius;
     
     for (let i = 0; i < this.scheme.cursors.length; i++) {
       let cursor = this.scheme.cursors[i];
@@ -171,27 +154,24 @@ class SchemesComponent {
     if (!this.mouseIsDown) {
       return;
     }
-    let evt, mouseX, mouseY;
+    let mouseX, mouseY;
     if (this.isMobile) {
-      evt = event;
-      mouseX = evt.targetTouches[0].clientX;
-      mouseY = evt.targetTouches[0].clientY;
+      mouseX = event.targetTouches[0].clientX;
+      mouseY = event.targetTouches[0].clientY;
     } else {
-      evt = event;
-      mouseX = evt.clientX;
-      mouseY = evt.clientY;
+      mouseX = event.clientX;
+      mouseY = event.clientY;
     }
 
-    let size = this.canvas.width;
-    mouseX -= this.canvas.offsetLeft + size / 2;
-    mouseY = size / 2 - mouseY + this.canvas.offsetTop;
+    mouseX -= this.canvas.offsetLeft + this.size / 2;
+    mouseY = this.size / 2 - mouseY + this.canvas.offsetTop;
 
-    let ctx = this.canvas.getContext('2d');
+    const ctx = this.canvas.getContext('2d');
 
-    let cursor = this.scheme.cursors[this.scheme.lastActive]
+    const cursor = this.scheme.cursors[this.scheme.lastActive]
 
     //cursor can't go beyond the wheel, we handling it using Pythagoras's theorem
-    if (Math.sqrt(Math.pow(mouseX, 2) + Math.pow(mouseY, 2)) <= size / 2) {
+    if (Math.sqrt(Math.pow(mouseX, 2) + Math.pow(mouseY, 2)) <= this.size / 2) {
       cursor.x = mouseX;
       cursor.y = mouseY;
 
@@ -212,9 +192,9 @@ class SchemesComponent {
   getReloadable(item) {
     switch (item) {
       case 'cursor_values': return this.schemeService.getCursorsInfo().map(info => {return `<div
-      class="d-flex justify-content-center align-items-center cursor-value"
+      class="d-flex justify-content-center align-items-center cursor-value h4"
       style="background-color: #${info.color.hex.toString()}">
-        <span>${this.colors_shown ? (info.label == '' ? '' : info.color.hex.toString()) : info.label}&nbsp;<i data-hex=${info.color.hex.toString()} class="fas fa-copy"></i></span>
+        <span>${this.colors_shown ? info.color.hex.toString() : info.label}&nbsp;<i data-hex=${info.color.hex.toString()} class="fas fa-copy"></i></span>
     </div>`}).join('')
     }
   }

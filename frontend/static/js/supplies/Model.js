@@ -47,22 +47,22 @@ class RGB extends Model {
   toHEX() {
     this.default();
     
-    let R = Number(this.a.value).toString(16);
-    let G = Number(this.b.value).toString(16);
-    let B = Number(this.c.value).toString(16);
+    const R = Number(this.a.value).toString(16);
+    const G = Number(this.b.value).toString(16);
+    const B = Number(this.c.value).toString(16);
     
     return new HEX(R, G, B);
   }
 
   toHSL() {
     this.default();
-    let R = this.a.value / 255;
-    let G = this.b.value / 255;
-    let B = this.c.value / 255;
+    const R = this.a.value / 255;
+    const G = this.b.value / 255;
+    const B = this.c.value / 255;
 
-    let Max = Math.max(R, G, B);
-    let Min = Math.min(R, G, B);
-    let C = Max - Min;
+    const Max = Math.max(R, G, B);
+    const Min = Math.min(R, G, B);
+    const C = Max - Min;
 
     // wikipedia src: "https://en.wikipedia.org/wiki/HSL_and_HSV"
     let H = 0;
@@ -103,13 +103,13 @@ class RGB extends Model {
 
   toHWB() {
     this.default();
-    let R = this.a.value / 255;
-    let G = this.b.value / 255;
-    let B = this.c.value / 255;
+    const R = this.a.value / 255;
+    const G = this.b.value / 255;
+    const B = this.c.value / 255;
 
-    let Max = Math.max(R, G, B);
-    let Min = Math.min(R, G, B);
-    let C = Max - Min;
+    const Max = Math.max(R, G, B);
+    const Min = Math.min(R, G, B);
+    const C = Max - Min;
 
     // wikipedia src: "https://en.wikipedia.org/wiki/HSL_and_HSV"
     let H = 0;
@@ -120,15 +120,15 @@ class RGB extends Model {
     }
     L = Math.round(L * 100) / 100;
 
-    let V = (L + Math.min(L, 1 - L) * S);
+    const V = (L + Math.min(L, 1 - L) * S);
     if (V == 0) {
       S = 0;
     } else {
       S = 2 * (1 - L / V);
     }
 
-    let W = Math.round((1 - S) * V * 100);
-    let K = Math.round((1 - V) * 100);
+    const W = Math.round((1 - S) * V * 100);
+    const K = Math.round((1 - V) * 100);
 
     if (C == 0) {
       H = 0;
@@ -161,22 +161,19 @@ class RGB extends Model {
 
   toCMYK() {
     this.default();
-    let R = this.a.value / 255;
-    let G = this.b.value / 255;
-    let B = this.c.value / 255;
+    const R = this.a.value / 255;
+    const G = this.b.value / 255;
+    const B = this.c.value / 255;
 
-    let C = 0;
-    let M = 0;
-    let Y = 0;
     let K = 1 - Math.max(R, G, B);
+    const C = Math.round((1 - R - K) / (1 - K) * 100);
+    const M = Math.round((1 - G - K) / (1 - K) * 100);
+    const Y = Math.round((1 - B - K) / (1 - K) * 100);
     if (K == 1) {
       K = Math.round(K * 100);
-      return new CMYK(C, M, Y, K);
+      return new CMYK(0, 0, 0, K);
     }
-
-    C = Math.round((1 - R - K) / (1 - K) * 100);
-    M = Math.round((1 - G - K) / (1 - K) * 100);
-    Y = Math.round((1 - B - K) / (1 - K) * 100);
+    
     K = Math.round(K * 100);
 
     return new CMYK(C, M, Y, K);
@@ -234,9 +231,9 @@ class HEX extends Model {
 
   toRGB() {
     this.default();
-    let R = parseInt(this.a.value, 16);
-    let G = parseInt(this.b.value, 16);
-    let B = parseInt(this.c.value, 16);
+    const R = parseInt(this.a.value, 16);
+    const G = parseInt(this.b.value, 16);
+    const B = parseInt(this.c.value, 16);
 
     return new RGB(R, G, B);
   }
@@ -247,13 +244,13 @@ class HEX extends Model {
 
   toHSL() {
     this.default();
-    let R = parseInt(this.a.value, 16) / 255;
-    let G = parseInt(this.b.value, 16) / 255;
-    let B = parseInt(this.c.value, 16) / 255;
+    const R = parseInt(this.a.value, 16) / 255;
+    const G = parseInt(this.b.value, 16) / 255;
+    const B = parseInt(this.c.value, 16) / 255;
 
-    let Max = Math.max(R, G, B);
-    let Min = Math.min(R, G, B);
-    let C = Max - Min;
+    const Max = Math.max(R, G, B);
+    const Min = Math.min(R, G, B);
+    const C = Max - Min;
 
     // wikipedia src: "https://en.wikipedia.org/wiki/HSL_and_HSV"
     let H = 0;
@@ -298,22 +295,19 @@ class HEX extends Model {
 
   toCMYK() {
     this.default();
-    let R = parseInt(this.a.value, 16) / 255;
-    let G = parseInt(this.b.value, 16) / 255;
-    let B = parseInt(this.c.value, 16) / 255;
+    const R = parseInt(this.a.value, 16) / 255;
+    const G = parseInt(this.b.value, 16) / 255;
+    const B = parseInt(this.c.value, 16) / 255;
 
-    let C = 0;
-    let M = 0;
-    let Y = 0;
     let K = 1 - Math.max(R, G, B);
+    const C = Math.round((1 - R - K) / (1 - K) * 100);
+    const M = Math.round((1 - G - K) / (1 - K) * 100);
+    const Y = Math.round((1 - B - K) / (1 - K) * 100);
     if (K == 1) {
       K = Math.round(K * 100);
-      return new CMYK(C, M, Y, K);
+      return new CMYK(0, 0, 0, K);
     }
-
-    C = Math.round((1 - R - K) / (1 - K) * 100);
-    M = Math.round((1 - G - K) / (1 - K) * 100);
-    Y = Math.round((1 - B - K) / (1 - K) * 100);
+    
     K = Math.round(K * 100);
 
     return new CMYK(C, M, Y, K);
@@ -336,7 +330,7 @@ class HSL extends Model {
   }
 
   getGradient(value) {
-    let cases = {
+    const cases = {
       'a': 'red, yellow, lime, cyan, blue, magenta, red',
       'b': `grey, #${this.toHEX().toString()}, white`,
       'c': `black, #${this.toHEX().toString()}, white`,
@@ -346,40 +340,40 @@ class HSL extends Model {
 
   toRGB() {
     this.default();
-    let H = this.a.value;
-    let S = this.b.value / 100;
-    let L = this.c.value / 100;
+    const H = this.a.value;
+    const S = this.b.value / 100;
+    const L = this.c.value / 100;
 
     // wikipedia src: "https://en.wikipedia.org/wiki/HSL_and_HSV"
-    let a = S * Math.min(L, 1 - L);
-    let f = (n) => {
-      let k = (n + H / 30) % 12;
+    const a = S * Math.min(L, 1 - L);
+    const f = (n) => {
+      const k = (n + H / 30) % 12;
       return L - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
     };
 
-    let R = Math.round(255 * f(0));
-    let G = Math.round(255 * f(8));
-    let B = Math.round(255 * f(4));
+    const R = Math.round(255 * f(0));
+    const G = Math.round(255 * f(8));
+    const B = Math.round(255 * f(4));
 
     return new RGB(R, G, B);
   }
 
   toHEX() {
     this.default();
-    let H = this.a.value;
-    let S = this.b.value / 100;
-    let L = this.c.value / 100;
+    const H = this.a.value;
+    const S = this.b.value / 100;
+    const L = this.c.value / 100;
 
     // wikipedia src: "https://en.wikipedia.org/wiki/HSL_and_HSV"
-    let a = S * Math.min(L, 1 - L);
-    let f = (n) => {
-      let k = (n + H / 30) % 12;
+    const a = S * Math.min(L, 1 - L);
+    const f = (n) => {
+      const k = (n + H / 30) % 12;
       return L - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
     };
 
-    let R = Math.round(255 * f(0)).toString(16);
-    let G = Math.round(255 * f(8)).toString(16);
-    let B = Math.round(255 * f(4)).toString(16);
+    const R = Math.round(255 * f(0)).toString(16);
+    const G = Math.round(255 * f(8)).toString(16);
+    const B = Math.round(255 * f(4)).toString(16);
 
     return new HEX(R, G, B);
   }
@@ -390,19 +384,19 @@ class HSL extends Model {
 
   toHWB() {
     this.default();
-    let H = this.a.value;
+    const H = this.a.value;
     let S = this.b.value / 100;
-    let L = this.c.value / 100;
+    const L = this.c.value / 100;
 
-    let V = (L + Math.min(L, 1 - L) * S);
+    const V = (L + Math.min(L, 1 - L) * S);
     if (V == 0) {
       S = 0;
     } else {
       S = 2 * (1 - L / V);
     }
 
-    let W = Math.round((1 - S) * V * 100);
-    let B = Math.round((1 - V) * 100);
+    const W = Math.round((1 - S) * V * 100);
+    const B = Math.round((1 - V) * 100);
 
     return new HWB(H, W, B);
   }
@@ -438,18 +432,18 @@ class HWB extends Model {
 
   toRGB() {
     this.default();
-    let H = this.a.value;
-    let W = this.b.value / 100;
-    let K = this.c.value / 100;
+    const H = this.a.value;
+    const W = this.b.value / 100;
+    const K = this.c.value / 100;
 
     if (K == 1) {
       return new RGB(0, 0, 0);
     }
 
     let S = 1 - (W / (1 - K));
-    let V = 1 - K;
+    const V = 1 - K;
 
-    let L = V * (1 - (S / 2));
+    const L = V * (1 - (S / 2));
     if (L == 0 || L == 1) {
       S = 0;
     } else {
@@ -457,33 +451,33 @@ class HWB extends Model {
     }
 
     // wikipedia src: "https://en.wikipedia.org/wiki/HSL_and_HSV"
-    let a = S * Math.min(L, 1 - L);
-    let f = (n) => {
-      let k = (n + H / 30) % 12;
+    const a = S * Math.min(L, 1 - L);
+    const f = (n) => {
+      const k = (n + H / 30) % 12;
       return L - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
     };
 
-    let R = Math.round(255 * f(0));
-    let G = Math.round(255 * f(8));
-    let B = Math.round(255 * f(4));
+    const R = Math.round(255 * f(0));
+    const G = Math.round(255 * f(8));
+    const B = Math.round(255 * f(4));
 
     return new RGB(R, G, B);
   }
 
   toHEX() {
     this.default();
-    let H = this.a.value;
-    let W = this.b.value / 100;
-    let K = this.c.value / 100;
+    const H = this.a.value;
+    const W = this.b.value / 100;
+    const K = this.c.value / 100;
 
     if (K == 1) {
       return new HEX('0', '0', '0');
     }
 
     let S = 1 - (W / (1 - K));
-    let V = 1 - K;
+    const V = 1 - K;
 
-    let L = V * (1 - (S / 2));
+    const L = V * (1 - (S / 2));
     if (L == 0 || L == 1) {
       S = 0;
     } else {
@@ -491,24 +485,24 @@ class HWB extends Model {
     }
 
     // wikipedia src: "https://en.wikipedia.org/wiki/HSL_and_HSV"
-    let a = S * Math.min(L, 1 - L);
-    let f = (n) => {
-      let k = (n + H / 30) % 12;
+    const a = S * Math.min(L, 1 - L);
+    const f = (n) => {
+      const k = (n + H / 30) % 12;
       return L - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
     };
 
-    let R = Math.round(255 * f(0)).toString(16);
-    let G = Math.round(255 * f(8)).toString(16);
-    let B = Math.round(255 * f(4)).toString(16);
+    const R = Math.round(255 * f(0)).toString(16);
+    const G = Math.round(255 * f(8)).toString(16);
+    const B = Math.round(255 * f(4)).toString(16);
 
     return new HEX(R, G, B);
   }
 
   toHSL() {
     this.default();
-    let H = this.a.value;
-    let W = this.b.value / 100;
-    let B = this.c.value / 100;
+    const H = this.a.value;
+    const W = this.b.value / 100;
+    const B = this.c.value / 100;
 
     let S = 0;
     if (B == 1) {
@@ -516,7 +510,7 @@ class HWB extends Model {
     }
 
     S = 1 - (W / (1 - B));
-    let V = 1 - B;
+    const V = 1 - B;
 
     let L = V * (1 - (S / 2));
     if (L == 0 || L == 1) {
@@ -576,28 +570,28 @@ class CMYK extends Model {
 
   toRGB() {
     this.default();
-    let C = this.a.value / 100;
-    let M = this.b.value / 100;
-    let Y = this.c.value / 100;
-    let K = this.d.value / 100;
+    const C = this.a.value / 100;
+    const M = this.b.value / 100;
+    const Y = this.c.value / 100;
+    const K = this.d.value / 100;
 
-    let R = Math.round(255 * (1 - C) * (1 - K));
-    let G = Math.round(255 * (1 - M) * (1 - K));
-    let B = Math.round(255 * (1 - Y) * (1 - K));
+    const R = Math.round(255 * (1 - C) * (1 - K));
+    const G = Math.round(255 * (1 - M) * (1 - K));
+    const B = Math.round(255 * (1 - Y) * (1 - K));
 
     return new RGB(R, G, B);
   }
 
   toHEX() {
     this.default();
-    let C = this.a.value / 100;
-    let M = this.b.value / 100;
-    let Y = this.c.value / 100;
-    let K = this.d.value / 100;
+    const C = this.a.value / 100;
+    const M = this.b.value / 100;
+    const Y = this.c.value / 100;
+    const K = this.d.value / 100;
 
-    let R = Math.round(255 * (1 - C) * (1 - K)).toString(16);
-    let G = Math.round(255 * (1 - M) * (1 - K)).toString(16);
-    let B = Math.round(255 * (1 - Y) * (1 - K)).toString(16);
+    const R = Math.round(255 * (1 - C) * (1 - K)).toString(16);
+    const G = Math.round(255 * (1 - M) * (1 - K)).toString(16);
+    const B = Math.round(255 * (1 - Y) * (1 - K)).toString(16);
 
     return new HEX(R, G, B);
   }

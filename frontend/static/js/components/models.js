@@ -23,13 +23,13 @@ class ModelsComponent {
   render() {
     return (`
     <div class="d-flex flex-column align-items-center box whitesmoke">
-      <div id="models_header" class="d-flex justify-content-between">
-        <span id="models_title">Models</span>
+      <div id="models_header" class="d-flex justify-content-between h1">
+        <span>Models</span>
       </div>
       <table id="models_content" class="d-flex flex-column">
-        ${(this.models.map((model) => {return `<tr class="d-flex align-items-center model">
+        ${(this.models.map((model) => {return `<tr class="d-flex align-items-center model h3">
           <td class="d-flex flex-column">
-            <span class="model-title">${model.name == 'rgb' ? 'RGB | HEX' : model.name.toUpperCase()} Model</span>
+            <span class="h2">${model.name == 'rgb' ? 'RGB | HEX' : model.name.toUpperCase()} Model</span>
             <span>${model.text}</span>
           </td>
           <td>
@@ -37,7 +37,7 @@ class ModelsComponent {
           </td>
         </tr>`})).join('')}
       </table>
-      <span id="video_title">Educative video. Credits to: <a class="underlined" href="https://www.youtube.com/@rhumbline" target="_blank">@rhumbline</a></span>
+      <span class="h1">Educative video. Credits to: <a class="underlined" href="https://www.youtube.com/@rhumbline" target="_blank">@rhumbline</a></span>
       <div id="video">
         <video controls poster="/static/assets/preview.png">
           <source src="/static/assets/video.mp4" type="video/mp4">

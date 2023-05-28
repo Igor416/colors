@@ -5,27 +5,27 @@ class CalculatorComponent {
     this.pickedSignId = 0
     this.minColors = 2;
     this.maxColors = 26;
-    this.equation = this.colors.loadEquation('calculator_colors');
+    this.equation = this.colors.loadEquation();
   }
 
   render() {
     return (`
     <div class="box whitesmoke d-flex flex-column justify-content-between">
       <div id="equation" class="d-flex justify-content-start w-100 mt-5 flex-nowrap border-0">
-        <div id="equation_row" class="d-flex justify-content-start">${this.getReloadable('equation_row')}</div>
+        <div id="equation_row" class="d-flex flex-wrap justify-content-start">${this.getReloadable('equation_row')}</div>
         <div class="element sign equals"></div>
         <div class="hex_color d-flex flex-column justfiy-content-start align-items-center p-0 mb-5">
           <div id="result_color" class="color d-flex justify-content-center align-items-center mb-3 rounded-circle" style="background-color: #${this.equation.getResult()}"></div>
-          <input id="result" disabled class="underlined" type="text" value="${this.equation.getResult()}">
+          <input id="result" disabled class="underlined h3" type="text" value="${this.equation.getResult()}">
         </div>
       </div>
-      <div id="buttons" class="whitesmoke d-flex flex-column align-items-center w-100">
+      <div id="buttons" class="whitesmoke d-flex flex-column align-items-center w-100 h3">
         <div id="sign_buttons" class="d-flex flex-column justify-content-center w-100">
           <div id="choosen_sign" class="d-flex justify-content-between align-items-center mb-0">
             <span>Current Sign</span>
             <div class="sign ${this.getPickedSign()}"></div>
           </div>
-          <div id="change_sign_buttons" class="d-flex justify-content-between align-items-center mb-0">
+          <div id="change_sign_buttons" class="d-flex justify-content-between align-items-center mb-0 h3">
             <span>Change Sign</span>
             <div>
               <div data-sign="+" class="sign plus"></div>
@@ -87,52 +87,34 @@ class CalculatorComponent {
     Array.from(document.getElementsByClassName('hex_color')).forEach(el => el.children[1].addEventListener('input', this.update))
   }
 
-  getRow() {
-    let row = [this.equation.hexs[0]];
-    for (let i = 0; i < this.equation.signs.length; i++) {
-      row.push(this.equation.signs[i])
-      row.push(this.equation.hexs[i + 1])
-    }
-    
-    return row;
-  }
-
   getInvertedColor(id) {
-    let color = Color.toColor(this.equation.hexs[id]);
+    const color = Color.toColor(this.equation.hexs[id]);
     return color.semiInvert().hex.toString(); //to get the text color
   }
 
   invertColor(event) {
-    let id = Number(event.srcElement.getAttribute('data-id')) / 2;
-    let color = Color.toColor(this.equation.hexs[id]).invert();
+    const id = Number(event.srcElement.getAttribute('data-id')) / 2;
+    const color = Color.toColor(this.equation.hexs[id]).invert();
     this.equation.hexs[id] = color.hex.toString();
     this.reload('equation_row')
   }
 
   update(event) {
-    let val = event.srcElement.value.slice(0, 6);
-    let id = Number(event.srcElement.getAttribute('data-id'));
+    const val = event.srcElement.value.slice(0, 6);
+    const id = Number(event.srcElement.getAttribute('data-id'));
     this.equation.hexs[id / 2] = val// + '0'.repeat(6 - val.length)
     this.reload('equation_row')
     document.getElementsByTagName('input')[id / 2].focus()
   }
 
   pickSign(event) {
-    let old = this.getPickedSign();
+    const old = this.getPickedSign();
     this.pickedSignId = (event.srcElement.getAttribute('data-id') - 1) / 2
     this.setPickedSign(old, this.getPickedSign())
   }
 
-  getSign(sign) {
-    switch (sign) {
-      case Sign.Plus: return 'plus';
-      case Sign.Minus: return 'minus';
-      case Sign.Mix: return 'mix';
-    }
-  }
-
   getPickedSign() {
-    return this.getSign(this.equation.signs[this.pickedSignId]);
+    return Equation.getSign(this.equation.signs[this.pickedSignId]);
   }
 
   setPickedSign(o, n) {
@@ -140,7 +122,7 @@ class CalculatorComponent {
   }
 
   changeSign(event) {
-    this.setPickedSign(this.getPickedSign(), this.getSign(event.srcElement.getAttribute('data-sign')))
+    this.setPickedSign(this.getPickedSign(), Equation.getSign(event.srcElement.getAttribute('data-sign')))
     this.equation.signs[this.pickedSignId] = event.srcElement.getAttribute('data-sign');
     this.reload('equation_row')
   }
@@ -166,7 +148,7 @@ class CalculatorComponent {
 
   calculate() {
     const result = this.equation.getResult()
-    this.colors.saveEquation('calculator_colors', this.equation);
+    this.colors.saveEquation(this.equation);
     document.getElementById('result').value = result;
     document.getElementById('result_color').style.backgroundColor = '#' + result;
   }
@@ -179,17 +161,17 @@ class CalculatorComponent {
 
   getReloadable(item) {
     switch (item) {
-      case 'equation_row': return this.getRow().map((el, id) => {return `<div
-        data-id="${id}"
-        class="${
-          id % 2 == 0 ?
-          'hex_color d-flex flex-column justfiy-content-start align-items-center p-0 mb-5'
-          :
-          'sign ' + this.getSign(el)
-        }">
+      case 'equation_row': return this.equation.toArray().map((el, id) => {return `<div
+      data-id="${id}"
+      class="${
+        id % 2 == 0 ?
+        'hex_color d-flex flex-column justfiy-content-start align-items-center p-0 mb-5 h4'
+        :
+        'sign ' + Equation.getSign(el)
+      }">
       ${id % 2 == 0 ? `<div class="color d-flex justify-content-center align-items-center mb-3 rounded-circle" data-id="${id}"
         style="background-color: #${el}">
-        <button data-id="${id}" class="invert_picked_color border-0 outline-0"
+        <button data-id="${id}" class="invert_picked_color h3 border-0 outline-0"
           style="color: #${this.getInvertedColor(id / 2)}">invert
         </button>
       </div>

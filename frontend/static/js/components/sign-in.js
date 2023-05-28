@@ -17,8 +17,8 @@ class SignInComponent {
     <form id="sign_in" class="box whitesmoke d-flex flex-column justify-content-between align-items-center text-center">
       <span id="title">Log in</span>
       <div id="inputs" class="d-flex flex-column">
-        <div class="position-relative d-flex flex-column field text-start">
-          <label id="name_label" for="name_input">${this.name.error}</label>
+        <div class="position-relative d-flex flex-column field h4 text-start">
+          <label id="name_label" class="h4" for="name_input">${this.name.error}</label>
           <div id="name" class="d-flex flex-column justify-content-center text-start input valid">
             <input
               type="text"
@@ -28,8 +28,8 @@ class SignInComponent {
               value="${this.name.value}">
           </div>
         </div>
-        <div class="position-relative d-flex flex-column field text-start">
-          <label id="email_label" for="email_input">${this.email.error}</label>
+        <div class="position-relative d-flex flex-column field h4 text-start">
+          <label id="email_label" class="h4" for="email_input">${this.email.error}</label>
           <div id="email" class="d-flex flex-column justify-content-center text-start input valid">
             <input
               type="email"
@@ -38,13 +38,13 @@ class SignInComponent {
               class="form-control transition"
               value="${this.email.value}"
               autocomplete="username">
-            <a href="/log_in" class="redirect">
+            <a href="/log_in" class="redirect h5">
               <span>Already have an account?</span>
             </a>
           </div>
         </div>
-        <div class="position-relative d-flex flex-column field text-start">
-          <label id="password_label" for="password_input">${this.password.error}</label>
+        <div class="position-relative d-flex flex-column field h4 text-start">
+          <label id="password_label" class="h4" for="password_input">${this.password.error}</label>
           <div id="password" class="d-flex flex-column justify-content-center text-start input valid">
             <input
               type="password"
@@ -55,8 +55,8 @@ class SignInComponent {
               autocomplete="new-password">
           </div>
         </div>
-        <div class="position-relative d-flex flex-column field text-start">
-          <label id="password2_label" for="password2_input">${this.password2.error}</label>
+        <div class="position-relative d-flex flex-column field h4 text-start">
+          <label id="password2_label" class="h4" for="password2_input">${this.password2.error}</label>
           <div id="password2" class="d-flex flex-column justify-content-center text-start input valid">
             <input
               type="password"
@@ -71,7 +71,7 @@ class SignInComponent {
           ${this.remember_me.render()}
         </div>
       </div>
-      <input id="submit" type="submit" value="Sign Up" class="form-control transition">
+      <input id="submit" class="h2" type="submit" value="Sign Up" class="form-control transition">
     </form>
     `)
   }
@@ -100,7 +100,7 @@ class SignInComponent {
   }
 
   update(event) {
-    let field = this[event.srcElement.name]
+    const field = this[event.srcElement.name]
     field.value = event.srcElement.value
     field.validate()
     document.getElementById(event.srcElement.name + '_label').innerHTML = field.error
@@ -121,7 +121,7 @@ class SignInComponent {
     if (otherField) {
       otherField.validate()
       document.getElementById(otherName + '_label').innerHTML = otherField.error
-      let container = document.getElementById(otherName)
+      container = document.getElementById(otherName)
       if (otherField.error) {
         container.classList.remove('valid')
         container.classList.add('invalid')
@@ -134,7 +134,7 @@ class SignInComponent {
 
   sendForm(event) {
     event.preventDefault()
-    let data = {
+    const data = {
       'name': this.name.value,
       'email': this.email.value,
       'password': this.password.value,

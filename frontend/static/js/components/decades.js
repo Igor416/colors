@@ -13,15 +13,15 @@ class DecadesComponent {
   render() {
     return (`
     <div class="box whitesmoke">
-      <div id="decades_header" class="d-flex justify-content-between align-items-center">
+      <div id="decades_header" class="d-flex justify-content-between align-items-center h2">
         <div id="decades_title">
           <span>Trends through the decades</span>
           <br>
-          <span id="years_link">
+          <span id="years_link" class="h2 my-sm-0 my-4">
             See also: <a class="transition" href="/trends/years">Trends through years</a>
           </span>
         </div>
-        <select id="decades_links" class="underlined whitesmoke transition" value="${this.decade.decade}">
+        <select id="decades_links" class="underlined whitesmoke transition h4" value="${this.decade.decade}">
           ${this.decades.map((decade) => {return `<option
             class="whitesmoke underlined decades_link"
             ${decade == this.decade.decade ? 'selected' : ''}
@@ -30,7 +30,7 @@ class DecadesComponent {
           </option>`}).join('')}
         </select>
       </div>
-      <div id="decade_content_container" class="d-flex flex-column align-items-center mt-5">
+      <div id="decade_content_container" class="d-flex flex-column align-items-center mt-5 h3">
         <div id="decade_content" class="d-flex flex-column w-100">
           <div id="decade_description">
             <span>${this.decade.description}</span><br><br>
@@ -54,7 +54,7 @@ class DecadesComponent {
   }
 
   init() {
-    let colors = document.getElementsByClassName('color')
+    const colors = document.getElementsByClassName('color')
     this.colors = colors;
     this.setStaticEventListeners()
   }

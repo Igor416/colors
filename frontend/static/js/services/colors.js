@@ -4,7 +4,7 @@ class ColorsService {
   }
 
   loadColor(key) {
-    let color = this.cookies.get(key);
+    const color = this.cookies.get(key);
     if (color != '' && !color.includes("NaN")) {
       return Color.toColor(color);
     }
@@ -15,11 +15,11 @@ class ColorsService {
     this.cookies.set(key, color.hex.toString());
   }
 
-  loadEquation(key) {
-    return new Equation(this.cookies.get(key));
+  loadEquation() {
+    return new Equation(this.cookies.get('calculator_colors'));
   }
 
-  saveEquation(key, equation) {
+  saveEquation(equation) {
     /*
     E.g. hexs = ['ff0080', '507090', '000000']
          signs = ['+', '&']
@@ -34,8 +34,6 @@ class ColorsService {
       row += equation.signs[j - 1];
       row += equation.hexs[j];
     }
-    row += '=';
-    row += equation.result;
-    this.cookies.set(key, row);
+    this.cookies.set('calculator_colors', row);
   }
 }

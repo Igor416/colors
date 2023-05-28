@@ -4,7 +4,7 @@
 }
 
 #title {
-  font-size: 44px;
+  font-size: 3rem;
   margin-bottom: 10vh;
 }
 
@@ -14,7 +14,6 @@
 }
 
 #submit {
-  font-size: 28px;
   width: 10vw;
 }
 
@@ -25,7 +24,7 @@
 
 @media screen and (max-width: 600px) {
   #title {
-    font-size: 32px;
+    font-size: 2.5rem;
     margin-bottom: 5vh;
   }
 
@@ -35,12 +34,10 @@
   }
 
   #inputs div {
-    font-size: 20px;
     width: 80vw;
   }
 
   #submit {
-    font-size: 24px;
     width: 60vw;
   }
 }

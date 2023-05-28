@@ -13,10 +13,10 @@ class Scheme {
   }
 
   getInitials() {
-    let active = this.cursors[this.lastActive];
-    let c = Math.sqrt(Math.pow(active.x, 2) + Math.pow(active.y, 2));
-    let offset = active.y > 0 ? 90 : 270;
-    let angle = active.x == 0 ? 0 : (active.y == 0 ? Math.sign(active.x) * -90 : Math.atan(active.x / active.y) / Math.PI * 180);
+    const active = this.cursors[this.lastActive];
+    const c = Math.sqrt(Math.pow(active.x, 2) + Math.pow(active.y, 2));
+    const offset = active.y > 0 ? 90 : 270;
+    const angle = active.x == 0 ? 0 : (active.y == 0 ? Math.sign(active.x) * -90 : Math.atan(active.x / active.y) / Math.PI * 180);
     //parentheses for better reading
 
     return [c, angle, offset]
@@ -56,7 +56,7 @@ class Analogous extends Scheme {
   }
 
   update() {
-    let [c, angle, offset] = this.getInitials()
+    const [c, angle, offset] = this.getInitials()
     
     switch (this.lastActive) {
       case 0: {
@@ -87,7 +87,7 @@ class Compound extends Scheme {
   }
 
   update() {
-    let [c, angle, offset] = this.getInitials()
+    const [c, angle, offset] = this.getInitials()
 
     switch (this.lastActive) {
       case 0: {
@@ -118,10 +118,10 @@ class Triadic extends Scheme {
   }
 
   update() {
-    let [c, angle1, offset] = this.getInitials()
+    const [c, angle1, offset] = this.getInitials()
 
-    let angle2 = offset - 120 - angle1;
-    let angle3 = offset - 240 - angle1;
+    const angle2 = offset - 120 - angle1;
+    const angle3 = offset - 240 - angle1;
     switch (this.lastActive) {
       case 0: {
         this.cursors[2].setCoords(c, angle2);
@@ -151,10 +151,10 @@ class Rectangle extends Scheme {
   }
 
   update() {
-    let [c, angle1, offset] = this.getInitials()
+    const [c, angle1, offset] = this.getInitials()
 
-    let angle2 = offset - 120 - angle1;
-    let angle3 = offset - 240 - angle1;
+    const angle2 = offset - 120 - angle1;
+    const angle3 = offset - 240 - angle1;
     switch (this.lastActive) {
       case 0: {
         this.cursors[1].setCoords(c, angle2);
@@ -190,9 +190,9 @@ class Square extends Scheme {
   }
 
   update() {
-    let [c, angle1, offset] = this.getInitials();
+    const [c, angle1, offset] = this.getInitials();
 
-    let angle2 = offset - 90 - angle1;
+    const angle2 = offset - 90 - angle1;
     switch (this.lastActive) {
       case 0: {
         this.cursors[1].setCoords(c, angle2);

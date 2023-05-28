@@ -17,11 +17,11 @@ const routes = {
 
 function catchRedirect(e) {
   e.preventDefault();//prevent going by link address
-  let el = e.srcElement;
+  const el = e.srcElement;
   while (!el.href) {
     el = el.parentElement
   }//maybe not the element fired an event, so find it's closest parent
-  let href = el.href;
+  const href = el.href;
   let urlParametr = title = href.split('/').slice(-1)[0];
 
   for (let path of ['trends/decades/', 'trends/years', 'calculator/help', 'schemes']) {
@@ -51,6 +51,10 @@ class Main {
 
   parseUrl() {
     const pathname = location.pathname
+    if (pathname == '/calculator/help') {
+      this.setComponent(pathname)
+      return
+    }
     for (let route in routes) {
       if (pathname.startsWith(route)) {
         if (route != pathname) {

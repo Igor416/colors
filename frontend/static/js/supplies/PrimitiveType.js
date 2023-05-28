@@ -51,8 +51,7 @@ class Integer extends PrimitiveType {
   }
 
   Mix(int) {
-    let value = Math.round((this.value + int.value) / 2);
-    return new Integer(value, this.max);
+    return new Integer(Math.round((this.value + int.value) / 2), this.max);
   }
 }
 
@@ -62,7 +61,7 @@ class String extends PrimitiveType {
   }
 
   handle() {
-    let regex = new RegExp('([A-Fa-f0-9]{1}|[A-Fa-f0-9]{2})');
+    const regex = new RegExp('([A-Fa-f0-9]{1}|[A-Fa-f0-9]{2})');
     if (!this.value.match(regex)) {
       this.value = '0';
     } else {

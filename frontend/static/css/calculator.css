@@ -1,14 +1,9 @@
-#equation_row {
-  flex-wrap: wrap;
-}
-
 .color {
-  width: 9vh;
-  height: 9vh;
+  width: 10vh;
+  height: 10vh;
 }
 
 .invert_picked_color {
-  font-size: 24px;
   background-color: rgba(0, 0, 0, 0);
 }
 
@@ -43,24 +38,7 @@
 }
 
 .hex_color input {
-  font-size: 20px;
   width: 12vh;
-}
-
-#result {
-  font-size: 24px;
-}
-
-#buttons {
-  font-size: 24px;
-}
-
-#choosen_sign div {
-  line-height: 11vh;
-}
-
-#change_sign_buttons {
-  font-size: 24px;
 }
 
 #global_buttons div button {

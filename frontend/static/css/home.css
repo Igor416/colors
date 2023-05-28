@@ -13,12 +13,10 @@
 }
 
 #thanks {
-  font-size: 32px;
   animation: fade-in 2s;
 }
 
 #info {
-  font-size: 24px;
   animation: fade-in 4s;
 }
 

@@ -1,13 +1,12 @@
 .field {
   gap: 0.5vh;
-  font-size: 20px;
   width: 15vw;
 }
 
 .valid::after, .invalid::after {
   position: absolute;
   right: 6px;
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 
 .valid::after {
@@ -24,16 +23,6 @@
 
 label {
   color: var(--bs-danger);
-  font-size: 18px;
-}
-
-.redirect span {
-  color: var(--bs-primary);
-  font-size: 16px;
-}
-
-.redirect:hover {
-  cursor: pointer;
 }
 
 #remember_me {
@@ -50,13 +39,12 @@ label {
 
 @media screen and (max-width: 600px) {
   .field {
-    font-size: 20px;
     width: 80vw;
   }
 
   .valid::after, .invalid::after {
     margin-left: calc(80vw - 24px);
-    font-size: 20px;
+    font-size: 1.25rem;
   }
   
   #remember_me {
