@@ -2,6 +2,7 @@ class Cursor {
   x;
   y;
   color;
+  radius;
   label;
 
   constructor (x, y) {
