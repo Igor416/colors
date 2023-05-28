@@ -1,16 +1,30 @@
-class CanvasService {
-  constructor(size) {
+class Canvas {
+  size
+  centerColor
+  container
+  wheel
+  cursors
+
+  constructor(size, centerColor, cursors, isActive) {
     this.size = size;
+    this.centerColor = centerColor;
+    this.container = document.getElementById('canvas_container_' + centerColor);
+    this.container.style.width = this.container.style.height = this.size + 'px';
+    this.isActive = isActive;
+    this.container.appendChild(this.drawWheel())
+    this.container.appendChild(this.drawCursors())
+    this.updateCursors(cursors, isActive)
   }
 
   drawWheel() {
     //https://stackoverflow.com/questions/46214072/color-wheel-picker-canvas-javascript
     const degToRad = (deg) => (deg * (Math.PI / 180));
 
-    this.canvas = document.createElement('canvas');
-    const context = getContext(this.canvas);
-    this.canvas.width = this.size;
-    this.canvas.height = this.size;
+    this.wheel = document.createElement('canvas');
+    const context = this.getWheelContext();
+    this.wheel.width = this.size;
+    this.wheel.height = this.size;
+    this.wheel.style.position = 'absolute';
 
     // Initiate variables
     let angle = 0;
@@ -47,7 +61,7 @@ class CanvasService {
 
       const rgb = `rgb(${hexCode.map(h => Math.floor(h)).join(',')})`;
       const grad = context.createRadialGradient(radius, radius, 0, radius, radius, radius);
-      grad.addColorStop(0, 'white');
+      grad.addColorStop(0, this.centerColor);
       grad.addColorStop(1, rgb);
       context.fillStyle = grad;
 
@@ -62,17 +76,25 @@ class CanvasService {
       angle++;
     }
 
-    return this.canvas;
+    return this.wheel
   }
 
-  drawAllCursors(cursors) {
-    const radius = 12;
-    let x, y;
+  drawCursors() {
+    this.cursors = document.createElement('canvas')
+    this.cursors.id = this.centerColor
+    this.cursors.width = this.cursors.height = this.size;
+    this.cursors.style.position = 'absolute';
+    return this.cursors
+  }
 
-    const ctx = getContext(this.canvas);
-    ctx.globalCompositeOperation = "source-over";
+  updateCursors(cursors) {
+    let x, y;
+    const ctx = this.getCursorsContext();
+    ctx.clearRect(0, 0, this.size, this.size)
+    ctx.globalCompositeOperation = 'source-over';
     ctx.lineWidth = 3;
     for (let cursor of cursors) {
+      cursor.radius = this.isActive ? 15 : 12
       ctx.beginPath();
       /*
       Adjust for trigonometric calculations
@@ -88,22 +110,28 @@ class CanvasService {
       } else {
         y = this.size / 2 - cursor.y;
       }
-      cursor.color = this.getColor(x, y);
-      ctx.arc(x, y, radius, 0, 2 * Math.PI);
-      ctx.strokeStyle = "black";
+      if (this.isActive) {
+        cursor.color = this.getColor(x, y);
+      }
+      ctx.arc(x, y, cursor.radius, 0, 2 * Math.PI);
+      ctx.strokeStyle = this.centerColor == 'black' ? 'white' : 'black';
       ctx.stroke();
       ctx.closePath();
     }
   }
 
   getColor(x, y) {
-    const ctx = getContext(this.wheel);
+    const ctx = this.getWheelContext(this.wheel);
     const data = ctx.getImageData(x, y, 1, 1);
     const rgb = data.data.slice(0, 3);
     return new Color(new RGB(rgb[0], rgb[1], rgb[2]));
   }
-}
 
-function getContext(canvas) {
-  return canvas.getContext('2d', { willReadFrequently: true });
+  getWheelContext() {
+    return this.wheel.getContext('2d', { willReadFrequently: true });
+  }
+
+  getCursorsContext() {
+    return this.cursors.getContext('2d', { willReadFrequently: true });
+  }
 }
