@@ -28,6 +28,11 @@ class SchemeService {
   }
 
   saveCoords(key, cursor) {
+    let [x, y] = this.transformCoords(cursor);
+    this.cookies.set(key, Math.round(x * 100) / 100 + ',' + Math.round(y * 100) / 100);
+  }
+
+  transformCoords(cursor) {
     let x, y;
 
     /*
@@ -45,7 +50,7 @@ class SchemeService {
     } else {
       y = this.size / 2 - cursor.y;
     }
-    this.cookies.set(key, Math.round(x * 100) / 100 + ',' + Math.round(y * 100) / 100);
+    return [x, y]
   }
 
   getCursorsInfo() {
@@ -77,15 +82,10 @@ class SchemeService {
       const mixed = cursors[0].color.operate(Sign.Mix, cursors[1].color)
 
       info.push(new CursorInfo('1', cursors[0]));
-      if (this.isMobile) {
-        info.push(new CursorInfo('1 & 1.2', mixed, cursors[0]));
-        info.push(new CursorInfo('1 & 2', mixed));
-        info.push(new CursorInfo('1.2 & 2', mixed, cursors[1]));
-      } else {
-        info.push(new CursorInfo('1 & 1 & 2', mixed, cursors[0]));
-        info.push(new CursorInfo('1 & 2', mixed));
-        info.push(new CursorInfo('1 & 2 & 2', mixed, cursors[1]));
-      }
+      const [mixed1, mixed2] = this.isMobile ? ['1 & 1.2', '1.2 & 2'] : ['1 & 1 & 2', '1 & 2 & 2']
+      info.push(new CursorInfo(mixed1, mixed, cursors[0]));
+      info.push(new CursorInfo('1 & 2', mixed));
+      info.push(new CursorInfo(mixed2, mixed, cursors[1]));
       info.push(new CursorInfo('2', cursors[1]));
 
     } else {
