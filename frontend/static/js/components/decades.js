@@ -67,8 +67,9 @@ class DecadesComponent {
   navigateTo(value) {
     if (value) {
       window.history.pushState({}, '', window.location.href)
-      main.setUrlParametr(value.srcElement.value)
-      main.setComponent('/trends/decades')
+      window.location.replace('/trends/decades/' + value.srcElement.value)
+      //main.setUrlParametr(value.srcElement.value)
+      //main.setComponent('/trends/decades')
     }
   }
 }
