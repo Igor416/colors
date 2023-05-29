@@ -2,6 +2,25 @@
   height: auto;
 }
 
+button {
+  background-color: whitesmoke;
+}
+
+#add_button:hover, #remove_button:hover {
+  transform: scale(1.25);
+}
+
+#saturation input {
+  writing-mode: bt-lr;
+  width: 0;
+  -webkit-appearance: slider-vertical;
+}
+
+#saturation span {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+}
+
 #cursor_values {
   display: grid;
   grid-template-columns: auto auto auto;
