@@ -23,6 +23,25 @@ class Scheme {
   }
 }
 
+class Custom extends Scheme {
+  name = 'custom'
+  description = 'Choose whatever colors you wish'
+
+  constructor(x, y) {
+    super(x, y, 1)
+  }
+
+  update() { }
+
+  addCursor(x, y) {
+    this.cursors.push(new Cursor(x, y))
+  }
+
+  removeCursor(i) {
+    this.cursors.splice(i, 1)
+  }
+}
+
 class Monochromatic extends Scheme {
   name = 'monochromatic';
   description = 'Pick any color and see it\'s shadow\'s. The percentage displays the color\'s lightness, by HSL model.';
