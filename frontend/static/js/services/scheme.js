@@ -1,24 +1,20 @@
 const SchemeType = {
-  Monochromatic, Complementary, Analogous, Compound, Triadic, Rectangle, Square
+  Custom, Monochromatic, Complementary, Analogous, Compound, Triadic, Rectangle, Square
 }
 
 class SchemeService {
-  constructor(isMobile, size) {
+  constructor(isMobile, size, saturation) {
     this.cookies = new CookiesService()
     this.isMobile = isMobile;
     this.size = size;
+    this.transformToReal = this.transformToReal.bind(this)
+    this.transformToTrig = this.transformToTrig.bind(this)
+    this.saturation = saturation
   }
 
   get(name, x, y) {
-    /*
-    Adjust for trigonometric calculations
-    E.g. the (x, y) are (40, 52) on the canvas,
-    though we need to perform calculations, as the center
-    of the unit circle is at coords (size / 2, size / 2),
-    so the circle_x will be: x - size / 2.
-    circle_y will be: size / 2 - y;
-    */
-    this.scheme = new SchemeType[name.charAt(0).toUpperCase() + name.slice(1)](x - this.size / 2, this.size / 2 - y);
+    [x, y] = this.transformToTrig(x, y)
+    this.scheme = new SchemeType[name.charAt(0).toUpperCase() + name.slice(1)](x, y);
     return this.scheme
   }
 
@@ -28,13 +24,26 @@ class SchemeService {
   }
 
   saveCoords(key, cursor) {
-    let [x, y] = this.transformCoords(cursor);
+    let [x, y] = this.transformToReal(cursor.x, cursor.y);
     this.cookies.set(key, Math.round(x * 100) / 100 + ',' + Math.round(y * 100) / 100);
   }
 
-  transformCoords(cursor) {
-    let x, y;
+  transformToTrig(x, y) {
+    /*
+    Adjust for trigonometric calculations
+    E.g. the (x, y) are (40, 52) on the canvas,
+    though we need to perform calculations, as the center
+    of the unit circle is at coords (size / 2, size / 2),
+    so the circle_x will be: x - size / 2.
+    circle_y will be: size / 2 - y;
+    */
 
+    x -= this.size / 2
+    y = this.size / 2 - y
+    return [x, y]
+  }
+
+  transformToReal(x, y) {
     /*
     Adjust for trigonometric calculations
     E.g. the (x, y) are (-40, 52) on the unit circle,
@@ -44,11 +53,11 @@ class SchemeService {
     size / 2 - y; Else: size / 2 + |y| or size / 2 + abs(y)
     */
 
-    x = cursor.x + this.size / 2
-    if (cursor.y < 0) {
-      y = Math.abs(cursor.y) + this.size / 2;
+    x += this.size / 2
+    if (y < 0) {
+      y = Math.abs(y) + this.size / 2;
     } else {
-      y = this.size / 2 - cursor.y;
+      y = this.size / 2 - y;
     }
     return [x, y]
   }
@@ -61,7 +70,17 @@ class SchemeService {
     }
     const info = [];
     const cursors = this.scheme.cursors;
-    if (cursors.length == 1) {
+    for (let cursor of cursors) {
+      cursor.color.hsl.b.value = this.saturation
+      cursor.color.update(cursor.color.hsl)
+    }
+    if (this.scheme.name == 'custom') {
+      container.style.gridTemplateColumns = 'auto '.repeat(cursors.length)
+      for (let i = 0; i < cursors.length; i++) {
+        info.push(new CursorInfo(i + 1, cursors[i]))
+      }
+    }
+    else if (cursors.length == 1) {
       //line
       container.style.gridTemplateColumns = 'auto '.repeat(5)
       const color = cursors[0].color;
