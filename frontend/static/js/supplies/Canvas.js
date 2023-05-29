@@ -5,7 +5,7 @@ class Canvas {
   wheel
   cursors
 
-  constructor(size, centerColor, cursors, isActive) {
+  constructor(size, centerColor, cursors, isActive, transform) {
     this.size = size;
     this.centerColor = centerColor;
     this.container = document.getElementById('canvas_container_' + centerColor);
@@ -13,7 +13,7 @@ class Canvas {
     this.isActive = isActive;
     this.container.appendChild(this.drawWheel())
     this.container.appendChild(this.drawCursors())
-    this.updateCursors(cursors, isActive)
+    this.updateCursors(cursors, transform)
   }
 
   drawWheel() {
@@ -34,9 +34,9 @@ class Canvas {
     const radius = this.size / 2;
 
     // For each degree in circle, perform operation
-    while (angle < 360) {
+    while (angle <= 360) {
       // find index immediately before our pivot
-      const pivotPointerbefore = (pivotPointer + 3 - 1) % 3;
+      const pivotPointerbefore = (pivotPointer + 2) % 3;
 
       // Modify colors
       if (hexCode[pivotPointer] < 255) {
@@ -58,8 +58,7 @@ class Canvas {
         hexCode[pivotPointer] = 255;
         pivotPointer = (pivotPointer + 1) % 3;
       }
-
-      const rgb = `rgb(${hexCode.map(h => Math.floor(h)).join(',')})`;
+      const rgb = `rgb(${hexCode.map(h => Math.floor(h)).join(', ')})`;
       const grad = context.createRadialGradient(radius, radius, 0, radius, radius, radius);
       grad.addColorStop(0, this.centerColor);
       grad.addColorStop(1, rgb);
@@ -79,6 +78,10 @@ class Canvas {
     return this.wheel
   }
 
+  saturateWheel(percentage) {
+    this.container.style.filter = `grayscale(${percentage / 100})`
+  }
+
   drawCursors() {
     this.cursors = document.createElement('canvas')
     this.cursors.id = this.centerColor
@@ -87,8 +90,7 @@ class Canvas {
     return this.cursors
   }
 
-  updateCursors(cursors) {
-    let x, y;
+  updateCursors(cursors, transform) {
     const ctx = this.getCursorsContext();
     ctx.clearRect(0, 0, this.size, this.size)
     ctx.globalCompositeOperation = 'source-over';
@@ -96,20 +98,7 @@ class Canvas {
     for (let cursor of cursors) {
       cursor.radius = this.isActive ? 15 : 12
       ctx.beginPath();
-      /*
-      Adjust for trigonometric calculations
-      E.g. the (x, y) are (-40, 52) on the unit circle,
-      though we need to draw it on canvas, as the center of circle
-      is at coords (size / 2, size / 2), so the canvas_x will be:
-      size / 2 + x. If y is positive, then canvas_y will be:
-      size / 2 - y; Else: size / 2 + |y| or size / 2 + abs(y)
-      */
-      x = cursor.x + this.size / 2
-      if (cursor.y < 0) {
-        y = Math.abs(cursor.y) + this.size / 2;
-      } else {
-        y = this.size / 2 - cursor.y;
-      }
+      let [x, y] = transform(cursor.x, cursor.y)
       if (this.isActive) {
         cursor.color = this.getColor(x, y);
       }
@@ -134,4 +123,8 @@ class Canvas {
   getCursorsContext() {
     return this.cursors.getContext('2d', { willReadFrequently: true });
   }
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
