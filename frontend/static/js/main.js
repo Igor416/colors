@@ -1,4 +1,4 @@
-const menu = new MenuComponent()
+const menu = window.matchMedia("(max-width: 1080px)").matches ? new MobileMenuComponent() : new MenuComponent()
 const node = document.createRange().createContextualFragment(menu.render())
 document.getElementById('sidebar').appendChild(node)
 menu.init()
