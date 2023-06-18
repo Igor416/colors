@@ -24,7 +24,7 @@ class SchemeService {
   }
 
   saveCoords(key, cursor) {
-    let [x, y] = this.transformToReal(cursor.x, cursor.y);
+    const [x, y] = this.transformToReal(cursor.x, cursor.y);
     this.cookies.set(key, Math.round(x * 100) / 100 + ',' + Math.round(y * 100) / 100);
   }
 
