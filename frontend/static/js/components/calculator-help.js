@@ -48,7 +48,7 @@ class CalculatorHelpComponent extends Component {
             <h4>${example.text}</h4>
             <span class="h1">Example: </span>
             ${example.equations.map(equation => {return (`<div class="example d-flex flex-wrap p-4">
-              ${equation.toArray().map((el, i) => {this.renderIf(
+              ${equation.toArray().map((el, i) => {return this.renderIf(
                 i % 2 == 0,
                 `<div class="operation d-flex flex-column justify-content-between align-items-center p-0">
                   <div class="d-flex justify-content-center align-items-center rounded-circle" style="background-color: #${el};">
