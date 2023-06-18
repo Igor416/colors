@@ -12,7 +12,7 @@ class CalculatorComponent extends Component {
     return (`
     <div class="box whitesmoke d-flex flex-column justify-content-between">
       <div id="equation" class="d-flex justify-content-start w-100 mt-5 flex-nowrap border-0">
-        <div id="equation_row" class="d-flex flex-wrap justify-content-start">${this.getReloadable()}</div>
+        <div id="equation_row" class="d-flex flex-wrap justify-content-start">${this.getReloadable().join('')}</div>
         <div class="element sign equals"></div>
         <div class="hex-color d-flex flex-column justfiy-content-start align-items-center p-0 mb-5">
           <div id="result_color" class="color d-flex justify-content-center align-items-center mb-3 rounded-circle" style="background-color: #${this.equation.getResult()}"></div>
@@ -161,7 +161,7 @@ class CalculatorComponent extends Component {
         </button>
       </div>
       <input data-id=${id} type="text" class="underlined" value="${el}">` : ''}
-    </div>`}).join('')
+    </div>`})
     }
   }
 }

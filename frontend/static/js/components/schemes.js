@@ -272,7 +272,7 @@ class SchemesComponent extends Component {
             <i data-hex=${info.color.hex.toString()} class="fas fa-copy"></i>
           </span>`
         )}
-    </div>`}).join('')
+    </div>`})
     }
   }
 }

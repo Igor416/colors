@@ -13,7 +13,7 @@ class PickerComponent extends Component {
       <div id="picker_header" class="d-flex justify-content-between w-100">
         <span class="h3">${this.picked_model.name.toUpperCase()} (${this.picked_model.fullName}) Picker</span>
         <select id="picker_options" class="whitesmoke underlined transition h4 p-2" value="${this.picked_model.name}">
-          ${this.modelsOrder.map((model) => {return `<option
+          ${this.models.map((model) => {return `<option
             class="whitesmoke h5"
             ${this.renderIf(model == this.picked_model, 'selected')}
             value="${model.name}">
@@ -29,14 +29,14 @@ class PickerComponent extends Component {
           <button id="invert_picked_color" class="border-0 h1">invert</button>
         </div>
         <div id="picked_color_models" class="d-flex flex-column justify-content-between align-items-end h4">
-          ${this.getReloadable('picked_color_models')}
+          ${this.getReloadable('picked_color_models').join('')}
           ${this.renderIf(this.isMobile, `<div class="w-100 text-center mb-2">
             <span>Copy <i data-model=${this.picked_model.name} class="fas fa-copy"></i><span>
           </div>`)}
         </div>
       </div>
       <div id="picker_chooser" class="flex-column">
-        ${this.getReloadable()}
+        ${this.getReloadable().join('')}
       </div>
     </div>  
     `)
@@ -123,7 +123,7 @@ class PickerComponent extends Component {
 
   getReloadable(item) {
     switch (item) {
-      case 'picked_color_models': return this.models.map(model => {return `<div class="d-flex justify-content-end picked_color_model ${this.renderIf(this.picked_model.name == model.name, 'h3')}">
+      case 'picked_color_models': return this.modelsOrder.map(model => {return `<div class="d-flex justify-content-end picked_color_model ${this.renderIf(this.picked_model.name == model.name, 'h3')}">
         ${model.fields.map(field => {return `<div class="d-flex justify-content-between picked-color-field">
           <span class="picker_chooser_label">${field.name}: &nbsp;</span>
           <input
@@ -135,7 +135,7 @@ class PickerComponent extends Component {
             value="${model[field.value].value}">
         </div>`}).join('')}
         ${this.renderIf(!this.isMobile, `<i data-model=${model.name} class="fas fa-copy"></i>`)}
-      </div>`}).join('')
+      </div>`})
       default: return this.picked_model.fields.map(field => {return `<div class="picker_chooser_field">
         <span class="picker_chooser_label">${field.name}: &nbsp;</span>
         <div
@@ -149,7 +149,7 @@ class PickerComponent extends Component {
         min="${this.picked_model[field.value].min}"
         max="${this.picked_model[field.value].max}"
         value="${this.picked_model[field.value].value}">
-      </div>`}).join('')
+      </div>`})
     }
   }
 }
