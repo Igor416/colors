@@ -3,7 +3,7 @@
   height: 10vh;
 }
 
-.invert_picked_color {
+.invert-picked-color {
   background-color: rgba(0, 0, 0, 0);
 }
 
@@ -37,7 +37,7 @@
   content: "=";
 }
 
-.hex_color input {
+.hex-color input {
   width: 12vh;
 }
 

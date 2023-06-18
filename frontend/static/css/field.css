@@ -5,19 +5,17 @@
 
 .valid::after, .invalid::after {
   position: absolute;
-  right: 6px;
+  right: 0.5rem;
   font-size: 1.5rem;
 }
 
 .valid::after {
   content: "\2713";
-  top: 6px;
   color: var(--bs-green);
 }
 
 .invalid::after {
   content: "\2715";
-  top: 33px;
   color: var(--bs-red);
 }
 

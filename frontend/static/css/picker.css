@@ -16,19 +16,19 @@
   width: 50vw;
 }
 
-.picked_color_field {
+.picked-color-field {
   margin-right: 4vw;
 }
 
-.picked_color_field:last-child {
+.picked-color-field:last-child {
   margin-right: 0;
 }
 
-.picked_color_field input {
+.picked-color-field input {
   width: 4vw;
 }
 
-.picker_chooser_gradient {
+.picker-chooser-gradient {
   height: 1.5vh;
   border-radius: 10%;
 }
@@ -62,12 +62,12 @@
     margin-bottom: 3vh;
   }
 
-  .picked_color_field {
+  .picked-color-field {
     margin-right: 8vw;
     margin-bottom: 1vh;
   }
 
-  .picked_color_field input {
+  .picked-color-field input {
     width: 14vw;
   }
 
