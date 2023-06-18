@@ -112,7 +112,7 @@ class PickerComponent extends Component {
     this.picked_model[event.srcElement.getAttribute('data-id')].value = Number(event.srcElement.value)
     this.representColor(this.picked_model)
     this.reload('picked_color_models')
-    this.picked_model.fields.slice(1).map((field, i) => {
+    this.picked_model.fields.slice(1).forEach((field, i) => {
       document.getElementsByClassName('picker-chooser-gradient')[i + 1].style.background = this.picked_model.getGradient(field.value)
     })
   }
@@ -133,9 +133,9 @@ class PickerComponent extends Component {
             class="underlined field"
             ${this.renderIf(model.name != 'hex', `min="${model[field.value].min}" max="${model[field.value].max}"`)}
             value="${model[field.value].value}">
-        </div>`})}
+        </div>`}).join('')}
         ${this.renderIf(!this.isMobile, `<i data-model=${model.name} class="fas fa-copy"></i>`)}
-      </div>`})
+      </div>`}).join('')
       default: return this.picked_model.fields.map(field => {return `<div class="picker_chooser_field">
         <span class="picker_chooser_label">${field.name}: &nbsp;</span>
         <div
@@ -149,7 +149,7 @@ class PickerComponent extends Component {
         min="${this.picked_model[field.value].min}"
         max="${this.picked_model[field.value].max}"
         value="${this.picked_model[field.value].value}">
-      </div>`})
+      </div>`}).join('')
     }
   }
 }

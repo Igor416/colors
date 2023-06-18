@@ -161,7 +161,7 @@ class CalculatorComponent extends Component {
         </button>
       </div>
       <input data-id=${id} type="text" class="underlined" value="${el}">` : ''}
-    </div>`})
+    </div>`}).join('')
     }
   }
 }
