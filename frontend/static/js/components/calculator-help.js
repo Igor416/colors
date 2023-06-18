@@ -1,6 +1,6 @@
-class CalculatorHelpComponent {
-
+class CalculatorHelpComponent extends Component {
   constructor() {
+    super()
     this.examples = [
       {
         name: 'Adding',
@@ -31,9 +31,7 @@ class CalculatorHelpComponent {
   render() {
     return (`
     <div class="box whitesmoke">
-      <span id="heading">
-        Calculator User Guide
-      </span>
+      <span id="heading">Calculator User Guide</span>
       <h4>There are 3 operations available in the calculator:</h4>
       <ol>
         <li class="operation-name h3">adding (+)</li>
@@ -50,19 +48,15 @@ class CalculatorHelpComponent {
             <h4>${example.text}</h4>
             <span class="h1">Example: </span>
             ${example.equations.map(equation => {return (`<div class="example d-flex flex-wrap p-4">
-              ${equation.toArray().map((el, i) => {
-                if (i % 2 == 0) {
-                  return (`
-                  <div class="operation d-flex flex-column justify-content-between align-items-center p-0">
-                    <div class="d-flex justify-content-center align-items-center rounded-circle" style="background-color: #${el};">
-                    </div>
-                    <input class="border-0 outline-0 border-bottom" type="text" value="${el}" disabled>
+              ${equation.toArray().map((el, i) => {this.renderIf(
+                i % 2 == 0,
+                `<div class="operation d-flex flex-column justify-content-between align-items-center p-0">
+                  <div class="d-flex justify-content-center align-items-center rounded-circle" style="background-color: #${el};">
                   </div>
-                  `)
-                }
-                return (`
-                  <div class="sign ${Equation.getSign(el)}"></div>
-                `)
+                  <input class="border-0 outline-0 border-bottom" type="text" value="${el}" disabled>
+                </div>`,
+                `<div class="sign ${Equation.getSign(el)}"></div>`
+                )
               }).join('')}
               <div class="sign equals"></div>
               <div class="operation d-flex flex-column justify-content-between align-items-center p-0">
@@ -79,8 +73,5 @@ class CalculatorHelpComponent {
       </a>
     </div>
     `)
-  }
-
-  init() {
   }
 }

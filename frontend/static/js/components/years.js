@@ -1,7 +1,7 @@
-class YearsComponent {
+class YearsComponent extends Component {
   constructor() {
+    super()
     this.trends = new TrendsService()
-    this.isMobile = window.matchMedia("(max-width: 1080px)").matches;
     this.colors = this.trends.getYearColors();
     this.choosed_color = this.colors[0];
   }
@@ -35,9 +35,5 @@ class YearsComponent {
       </div>
     </div>
     `)
-  }
-
-  init() {
-    
   }
 }

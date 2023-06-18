@@ -1,5 +1,6 @@
-class DecadesComponent {
+class DecadesComponent extends Component {
   constructor(decade) {
+    super()
     this.decades = []
     this.trends = new TrendsService();
     this.decade = this.trends.getDecadePallete(decade);
@@ -7,7 +8,6 @@ class DecadesComponent {
     for (let i = 1920; i <= 2010; i += 10) {
       this.decades.push(i.toString())
     }
-    this.isMobile = window.matchMedia("(max-width: 1080px)").matches;
   }
 
   render() {
@@ -23,8 +23,8 @@ class DecadesComponent {
         </div>
         <select id="decades_links" class="underlined whitesmoke transition h4" value="${this.decade.decade}">
           ${this.decades.map((decade) => {return `<option
-            class="whitesmoke underlined decades_link"
-            ${decade == this.decade.decade ? 'selected' : ''}
+            class="whitesmoke underlined"
+            ${this.renderIf(decade == this.decade.decade, 'selected')}
             value="${decade}">
             ${decade}
           </option>`}).join('')}
@@ -53,23 +53,11 @@ class DecadesComponent {
     `)
   }
 
-  init() {
-    const colors = document.getElementsByClassName('color')
-    this.colors = colors;
-    this.setStaticEventListeners()
-  }
-
   setStaticEventListeners() {
-    this.navigateTo = this.navigateTo.bind(this)
-    document.getElementById("decades_links").addEventListener('change', this.navigateTo)
+    this.listenOne('decades_links', this.navigateTo, 'change')
   }
 
-  navigateTo(value) {
-    if (value) {
-      window.history.pushState({}, '', window.location.href)
-      window.location.replace('/trends/decades/' + value.srcElement.value)
-      //main.setUrlParametr(value.srcElement.value)
-      //main.setComponent('/trends/decades')
-    }
+  navigateTo = (event) => {
+    super.navigateTo('/trends/decades', event.srcElement.value)
   }
 }

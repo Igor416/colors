@@ -1,5 +1,6 @@
-class ModelsComponent {
+class ModelsComponent extends Component {
   constructor() {
+    super()
     this.models = [
       {
         name: 'rgb',
@@ -29,7 +30,7 @@ class ModelsComponent {
       <table id="models_content" class="d-flex flex-column">
         ${(this.models.map((model) => {return `<tr class="d-flex align-items-center model h3">
           <td class="d-flex flex-column">
-            <span class="h2">${model.name == 'rgb' ? 'RGB | HEX' : model.name.toUpperCase()} Model</span>
+            <span class="h2">${this.renderIf(model.name == 'rgb', 'RGB | HEX', model.name.toUpperCase())} Model</span>
             <span>${model.text}</span>
           </td>
           <td>
@@ -48,9 +49,5 @@ class ModelsComponent {
       </div>
     <div>
     `)
-  }
-
-  init() {
-    
   }
 }
