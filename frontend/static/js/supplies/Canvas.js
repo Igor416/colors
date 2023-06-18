@@ -21,9 +21,7 @@ class Canvas {
     const degToRad = (deg) => (deg * (Math.PI / 180));
 
     this.wheel = document.createElement('canvas');
-    const context = this.getWheelContext();
-    this.wheel.width = this.size;
-    this.wheel.height = this.size;
+    this.wheel.width = this.wheel.height = this.size;
     this.wheel.style.position = 'absolute';
 
     // Initiate variables
@@ -32,6 +30,7 @@ class Canvas {
     const hexCode = [255, 0, 0];
     const colorOffsetByDegree = 4.322;
     const radius = this.size / 2;
+    const context = this.getWheelContext();
 
     // For each degree in circle, perform operation
     while (angle <= 360) {
@@ -98,7 +97,7 @@ class Canvas {
     for (let cursor of cursors) {
       cursor.radius = this.isActive ? 15 : 12
       ctx.beginPath();
-      let [x, y] = transform(cursor.x, cursor.y)
+      const [x, y] = transform(cursor.x, cursor.y)
       if (this.isActive) {
         cursor.color = this.getColor(x, y);
       }
@@ -123,8 +122,4 @@ class Canvas {
   getCursorsContext() {
     return this.cursors.getContext('2d', { willReadFrequently: true });
   }
-}
-
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
 }
